@@ -1,0 +1,124 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Athena Labelling Demo</title>
+    <style>
+        /* BODY & BACKGROUND */
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #fff6e0, #fdfaf5); /* gold & white gradient */
+            margin: 0;
+            padding: 40px 20px;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 50px;
+            color: #b8860b; /* golden title */
+            font-size: 3em;
+            font-weight: bold;
+        }
+
+        /* GRID / CARD LIST */
+        .grid {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* CARD STYLE */
+        .card {
+            background: #ffffff;
+            border-left: 8px solid #b8860b;
+            border-radius: 8px;
+            padding: 25px 20px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .card-title {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #b8860b;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        /* CARD CONTENT HIDDEN BY DEFAULT */
+        .card-content {
+            display: none;
+            margin-top: 15px;
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        .card-content ol {
+            margin-left: 20px;
+        }
+
+        .card a {
+            display: inline-block;
+            padding: 10px 16px;
+            margin-top: 10px;
+            background-color: #b8860b;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .card a:hover {
+            background-color: #996700;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Athena Labelling Demo</h1>
+
+<div class="grid">
+
+    <!-- Athena Labelling Card -->
+    <div class="card" onclick="toggleCard(this)">
+        <div class="card-title">Athena Labelling</div>
+        <div class="card-content">
+            <p><strong>What is Athena Labelling?</strong></p>
+            <p>When a document (such as a registration form or lab result) is uploaded to Athena, it’s initially “Unprocessed,” meaning it’s not attached to the patient and not labelled.</p>
+            <p>You will “process” the documents by following these instructions:</p>
+            <ol>
+                <li>On the top bar of Athena, click <strong>Patients</strong> → <strong>Search Document</strong>.</li>
+                <li>Set the date range to the past two weeks.</li>
+                <li>Select <strong>Unprocessed</strong> from the dropdown menu.</li>
+                <li>Follow the remaining internal instructions for attaching and labelling documents properly.</li>
+            </ol>
+            <p>This demo is for review by your supervisor.</p>
+        </div>
+    </div>
+
+</div>
+
+<script>
+function toggleCard(card) {
+    const content = card.querySelector(".card-content");
+    const allContents = document.querySelectorAll('.card-content');
+    // Close all other cards
+    allContents.forEach(c => {
+        if (c !== content) c.style.display = 'none';
+    });
+    // Toggle clicked card
+    content.style.display = (content.style.display === "block") ? "none" : "block";
+}
+</script>
+
+</body>
+</html>
