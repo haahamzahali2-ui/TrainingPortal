@@ -3,12 +3,12 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Athena Labelling Demo</title>
+    <title>Task Portal</title>
     <style>
         /* BODY & BACKGROUND */
         body {
             font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #fff6e0, #fdfaf5); /* gold & white gradient */
+            background: linear-gradient(135deg, #fff6e0, #fdfaf5);
             margin: 0;
             padding: 40px 20px;
             color: #333;
@@ -80,11 +80,12 @@
         .card a:hover {
             background-color: #996700;
         }
+
     </style>
 </head>
 <body>
 
-<h1>Athena Labelling Demo</h1>
+<h1>Task Portal</h1>
 
 <div class="grid">
 
@@ -92,16 +93,23 @@
     <div class="card" onclick="toggleCard(this)">
         <div class="card-title">Athena Labelling</div>
         <div class="card-content">
-            <p><strong>What is Athena Labelling?</strong></p>
-            <p>When a document (such as a registration form or lab result) is uploaded to Athena, it’s initially “Unprocessed,” meaning it’s not attached to the patient and not labelled.</p>
-            <p>You will “process” the documents by following these instructions:</p>
+            <p>When a document (such as a registration form or lab result) is uploaded to Athena, it’s “Unprocessed,” meaning it is not attached to the patient and not labelled.</p>
+            <p>You will “process” the documents by following the instructions below:</p>
             <ol>
                 <li>On the top bar of Athena, click <strong>Patients</strong> → <strong>Search Document</strong>.</li>
-                <li>Set the date range to the past two weeks.</li>
+                <li>Set the date range to past two weeks.</li>
                 <li>Select <strong>Unprocessed</strong> from the dropdown menu.</li>
-                <li>Follow the remaining internal instructions for attaching and labelling documents properly.</li>
+                <li>Follow the remaining instructions to attach and label documents properly.</li>
             </ol>
-            <p>This demo is for review by your supervisor.</p>
+            <p>This is a demo and will include pictures.</p>
+        </div>
+    </div>
+
+    <!-- Folder Making Card -->
+    <div class="card" onclick="toggleCard(this)">
+        <div class="card-title">Folder Making</div>
+        <div class="card-content">
+            <p>This section explains how to make folders in Athena or your internal system. Visual guides (pictures) will be included here to demonstrate each step clearly.</p>
         </div>
     </div>
 
