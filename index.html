@@ -1,102 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>CareTrack — Dashboard</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Helping Hands CareTrack</title>
 
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
-:root {
-  --navy:#0f1f38;
-  --navy-mid:#1a3255;
-  --teal:#1a9c8a;
-  --teal-light:#2fd6c2;
-  --cream:#f6f4ef;
-  --white:#ffffff;
-  --muted:#8a97aa;
-  --text:#1c2b3a;
-  --border:#e3e8f0;
-  --green:#2db87a;
-  --shadow:0 6px 24px rgba(15,31,56,0.08);
-}
-
 body{
-  font-family:'DM Sans',sans-serif;
-  background:var(--cream);
-  margin:0;
+margin:0;
+font-family:'Inter',sans-serif;
+background:linear-gradient(135deg,#f4f7fb,#eef3f9);
+color:#1c2b3a;
 }
 
 header{
-  background:var(--navy);
-  color:white;
-  padding:16px 32px;
-  font-family:'DM Serif Display',serif;
-  font-size:1.4rem;
-  box-shadow:var(--shadow);
+background:linear-gradient(90deg,#0f1f38,#1a3255);
+color:white;
+padding:20px 30px;
+font-size:1.5rem;
+font-family:'DM Serif Display';
+letter-spacing:0.5px;
 }
 
 nav{
-  display:flex;
-  background:var(--navy-mid);
+display:flex;
+background:#1a3255;
 }
 
 .tab-btn{
-  flex:1;
-  padding:14px;
-  border:none;
-  background:none;
-  color:#8aa4c7;
-  cursor:pointer;
-  font-weight:600;
+flex:1;
+padding:14px;
+border:none;
+background:none;
+color:#9bb2d1;
+cursor:pointer;
+font-weight:600;
+transition:0.2s;
 }
 
 .tab-btn.active{
-  color:var(--teal-light);
-  border-bottom:3px solid var(--teal-light);
+color:#2fd6c2;
+border-bottom:3px solid #2fd6c2;
 }
 
 main{
-  padding:30px;
-  max-width:1100px;
-  margin:auto;
+padding:30px;
+max-width:1200px;
+margin:auto;
+}
+
+.grid{
+display:grid;
+grid-template-columns:1fr 2fr;
+gap:20px;
 }
 
 .card{
-  background:var(--white);
-  border-radius:14px;
-  padding:20px;
-  box-shadow:var(--shadow);
-  margin-bottom:20px;
+background:white;
+border-radius:16px;
+padding:20px;
+box-shadow:0 10px 30px rgba(0,0,0,0.08);
 }
 
-.card-title{
-  font-weight:600;
-  margin-bottom:15px;
+.kpi-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:15px;
+margin-bottom:20px;
+}
+
+.kpi{
+background:linear-gradient(135deg,#ffffff,#f3f7fb);
+padding:15px;
+border-radius:12px;
+text-align:center;
+}
+
+.kpi h2{
+margin:0;
+color:#1a9c8a;
 }
 
 table{
-  width:100%;
-  border-collapse:collapse;
+width:100%;
+border-collapse:collapse;
 }
 
-td,th{
-  padding:10px;
-  border-bottom:1px solid var(--border);
-}
-
-tr{
-  transition:0.2s;
-  cursor:pointer;
+td{
+padding:12px;
+border-bottom:1px solid #eee;
+cursor:pointer;
+transition:0.2s;
 }
 
 tr:hover{
-  background:#eef7f6;
+background:#f0f8f7;
+transform:scale(1.01);
+}
+
+.summary{
+background:linear-gradient(135deg,#1a9c8a,#2fd6c2);
+color:white;
+padding:15px;
+border-radius:12px;
+margin-top:15px;
 }
 
 canvas{
-  margin-top:10px;
+margin-top:15px;
 }
 
 </style>
@@ -104,141 +119,146 @@ canvas{
 
 <body>
 
-<header>CareTrack Dashboard</header>
+<header>Helping Hands CareTrack — Clinical Outcomes Platform</header>
 
 <nav>
-<button class="tab-btn active" onclick="switchTab('individual',this)">Individual</button>
-<button class="tab-btn" onclick="switchTab('population',this)">Population</button>
+<button class="tab-btn active" onclick="switchTab('bp',this)">BP Individual</button>
+<button class="tab-btn" onclick="switchTab('a1c',this)">A1C Individual</button>
+<button class="tab-btn" onclick="switchTab('bpPop',this)">BP Population</button>
+<button class="tab-btn" onclick="switchTab('a1cPop',this)">A1C Population</button>
 </nav>
 
 <main>
 
-<!-- INDIVIDUAL -->
-<div id="panel-individual">
+<!-- KPI -->
+<div class="kpi-grid">
+<div class="kpi"><h2>71%</h2><p>BP Improved</p></div>
+<div class="kpi"><h2>64%</h2><p>A1C Improved</p></div>
+<div class="kpi"><h2>−18</h2><p>Avg BP Reduction</p></div>
+</div>
+
+<!-- BP PANEL -->
+<div id="bp" class="panel">
+
+<div class="grid">
 
 <div class="card">
-<div class="card-title">Patient History</div>
-
+<h3>Patients</h3>
 <table>
-<thead>
-<tr>
-<th>Patient</th>
-<th>Visits</th>
-<th>BP Trend</th>
-<th>A1C</th>
-</tr>
-</thead>
-
-<tbody>
-<tr onclick="loadPatient('PT-1042')">
-<td>PT-1042</td>
-<td>4</td>
-<td>158 → 132</td>
-<td>7.8 → 6.8</td>
-</tr>
-
-<tr onclick="loadPatient('PT-0887')">
-<td>PT-0887</td>
-<td>3</td>
-<td>144 → 138</td>
-<td>6.9 → 6.6</td>
-</tr>
-
-<tr onclick="loadPatient('PT-1103')">
-<td>PT-1103</td>
-<td>2</td>
-<td>162 → 168</td>
-<td>8.1 → 7.9</td>
-</tr>
-</tbody>
-
+<tr onclick="selectPatient('PT-1042')"><td>PT-1042</td></tr>
+<tr onclick="selectPatient('PT-0887')"><td>PT-0887</td></tr>
+<tr onclick="selectPatient('PT-1103')"><td>PT-1103</td></tr>
 </table>
+
+<div class="summary" id="summaryBox">
+Select a patient to view clinical insights.
+</div>
+
 </div>
 
 <div class="card">
-<div class="card-title">Patient Trends</div>
-<canvas id="chart"></canvas>
+<h3>Blood Pressure Trend</h3>
+<canvas id="bpChart"></canvas>
 </div>
 
+</div>
+</div>
+
+<!-- A1C PANEL -->
+<div id="a1c" class="panel" style="display:none;">
+<div class="card">
+<h3>A1C Trend</h3>
+<canvas id="a1cChart"></canvas>
+</div>
 </div>
 
 <!-- POPULATION -->
-<div id="panel-population" style="display:none;">
+<div id="bpPop" class="panel" style="display:none;">
 <div class="card">
-<div class="card-title">Population Stats</div>
-<p>71% BP improvement • 64% A1C improvement</p>
+<h3>Population BP Improvement</h3>
+<canvas id="bpPopChart"></canvas>
+</div>
+</div>
+
+<div id="a1cPop" class="panel" style="display:none;">
+<div class="card">
+<h3>Population A1C Improvement</h3>
+<canvas id="a1cPopChart"></canvas>
 </div>
 </div>
 
 </main>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 <script>
 
-function switchTab(name,btn){
-document.getElementById('panel-individual').style.display = name==='individual'?'block':'none';
-document.getElementById('panel-population').style.display = name==='population'?'block':'none';
-
+function switchTab(id,btn){
+document.querySelectorAll('.panel').forEach(p=>p.style.display='none');
+document.getElementById(id).style.display='block';
 document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
 btn.classList.add('active');
 }
 
-let chart;
+let bpChart,a1cChart;
 
-const data = {
-"PT-1042": {
-dates:["Jan","Feb","Mar","Apr"],
-bp:[158,148,140,132],
-a1c:[7.8,7.4,7.1,6.8]
-},
-"PT-0887": {
-dates:["Jan","Feb","Mar"],
-bp:[144,140,138],
-a1c:[6.9,6.7,6.6]
-},
-"PT-1103": {
-dates:["Jan","Feb"],
-bp:[162,168],
-a1c:[8.1,7.9]
-}
+const patients={
+"PT-1042":{dates:["Jan","Feb","Mar","Apr"],sys:[158,148,140,132],dia:[96,90,86,82],a1c:[7.8,7.4,7.1,6.8]},
+"PT-0887":{dates:["Jan","Feb","Mar"],sys:[144,140,138],dia:[90,88,85],a1c:[6.9,6.7,6.6]},
+"PT-1103":{dates:["Jan","Feb"],sys:[162,168],dia:[95,98],a1c:[8.1,7.9]}
 };
 
-function loadPatient(id){
+function selectPatient(id){
 
-const ctx = document.getElementById('chart');
+const p=patients[id];
 
-if(chart) chart.destroy();
+let change=p.sys[0]-p.sys[p.sys.length-1];
+let trend=change>0?"Improving":"Needs Monitoring";
 
-chart = new Chart(ctx,{
-type:'line',
+document.getElementById("summaryBox").innerHTML=
+`Patient ${id}: Systolic reduced by ${change} mmHg. Status: <b>${trend}</b>.`;
+
+if(bpChart) bpChart.destroy();
+
+bpChart=new Chart(document.getElementById("bpChart"),{
+type:"line",
 data:{
-labels:data[id].dates,
+labels:p.dates,
 datasets:[
-{
-label:'Systolic BP',
-data:data[id].bp,
-borderWidth:3,
-tension:0.4
-},
-{
-label:'A1C',
-data:data[id].a1c,
-borderWidth:3,
-tension:0.4
-}
+{label:"Systolic",data:p.sys,borderWidth:3},
+{label:"Diastolic",data:p.dia,borderWidth:3}
 ]
-},
-options:{
-plugins:{
-legend:{
-labels:{font:{size:12}}
-}
-}
 }
 });
 
+if(a1cChart) a1cChart.destroy();
+
+a1cChart=new Chart(document.getElementById("a1cChart"),{
+type:"line",
+data:{
+labels:p.dates,
+datasets:[
+{label:"A1C",data:p.a1c,borderWidth:3}
+]
 }
+});
+}
+
+/* population */
+
+new Chart(document.getElementById("bpPopChart"),{
+type:"bar",
+data:{
+labels:["2 visits","3 visits","4 visits","5+"],
+datasets:[{label:"Improvement %",data:[42,71,83,91]}]
+}
+});
+
+new Chart(document.getElementById("a1cPopChart"),{
+type:"bar",
+data:{
+labels:["2 visits","3 visits","4 visits","5+"],
+datasets:[{label:"Improvement %",data:[35,64,78,88]}]
+}
+});
 
 </script>
 
