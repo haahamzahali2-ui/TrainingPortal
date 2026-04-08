@@ -1,1221 +1,716 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Helping Hands Health &amp; Wellness Center — Clinical Dashboard</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-:root {
-  --green: #1a9e6e;
-  --green-light: #e6f7f1;
-  --green-mid: #0d7a54;
-  --blue: #2563eb;
-  --blue-light: #eff6ff;
-  --amber: #d97706;
-  --amber-light: #fffbeb;
-  --red: #dc2626;
-  --red-light: #fef2f2;
-  --purple: #7c3aed;
-  --purple-light: #f5f3ff;
-  --gray-50: #f9fafb;
-  --gray-100: #f3f4f6;
-  --gray-200: #e5e7eb;
-  --gray-300: #d1d5db;
-  --gray-400: #9ca3af;
-  --gray-500: #6b7280;
-  --gray-600: #4b5563;
-  --gray-700: #374151;
-  --gray-800: #1f2937;
-  --gray-900: #111827;
-  --font: 'DM Sans', sans-serif;
-  --mono: 'DM Mono', monospace;
-  --radius: 10px;
-  --shadow: 0 1px 3px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.05);
-  --shadow-md: 0 4px 6px rgba(0,0,0,0.07), 0 2px 4px rgba(0,0,0,0.05);
-}
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: var(--font); background: var(--gray-100); color: var(--gray-800); font-size: 14px; min-height: 100vh; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clinic Patient Tracker</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* NAV */
-.topnav { background: white; border-bottom: 1px solid var(–gray-200); padding: 0 24px; display: flex; align-items: center; gap: 4px; height: 52px; position: sticky; top: 0; z-index: 100; box-shadow: var(–shadow); }
-.nav-logo { font-weight: 600; font-size: 15px; color: var(–green-mid); margin-right: 24px; letter-spacing: -0.3px; }
-.nav-tab { padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; color: var(–gray-500); cursor: pointer; border: none; background: none; transition: all 0.15s; display: flex; align-items: center; gap: 6px; }
-.nav-tab:hover { background: var(–gray-100); color: var(–gray-700); }
-.nav-tab.active { background: var(–green-light); color: var(–green-mid); }
-.nav-dot { width: 7px; height: 7px; border-radius: 50%; }
-.nav-badge { font-size: 10px; font-weight: 600; background: var(–red); color: white; padding: 1px 5px; border-radius: 99px; }
-.nav-right { margin-left: auto; display: flex; align-items: center; gap: 10px; }
-.nav-user { font-size: 12px; color: var(–gray-500); }
-.nav-avatar { width: 28px; height: 28px; border-radius: 50%; background: var(–green-light); color: var(–green-mid); font-size: 11px; font-weight: 600; display: flex; align-items: center; justify-content: center; }
+    :root {
+      --bg:        #f5f5f3;
+      --surface:   #ffffff;
+      --surface2:  #f0efea;
+      --border:    #e0dfd8;
+      --border2:   #c8c7c0;
+      --text:      #1a1a18;
+      --text2:     #6b6b66;
+      --text3:     #9e9e99;
+      --teal:      #1D9E75;
+      --teal-lt:   #E1F5EE;
+      --teal-dk:   #085041;
+      --blue:      #378ADD;
+      --blue-lt:   #E6F1FB;
+      --blue-dk:   #0C447C;
+      --amber:     #EF9F27;
+      --amber-lt:  #FAEEDA;
+      --amber-dk:  #633806;
+      --red:       #E24B4A;
+      --red-lt:    #FCEBEB;
+      --red-dk:    #791F1F;
+      --radius:    8px;
+      --radius-lg: 12px;
+    }
 
-/* SCREENS */
-.screen { display: none; padding: 24px; max-width: 1100px; margin: 0 auto; }
-.screen.active { display: block; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.5;
+    }
 
-/* CARDS */
-.card { background: white; border-radius: var(–radius); border: 1px solid var(–gray-200); box-shadow: var(–shadow); }
-.card-header { padding: 14px 18px; border-bottom: 1px solid var(–gray-100); display: flex; align-items: center; justify-content: space-between; }
-.card-title { font-size: 14px; font-weight: 600; color: var(–gray-800); }
-.card-sub { font-size: 12px; color: var(–gray-400); margin-top: 1px; }
-.card-body { padding: 18px; }
+    /* ── Layout ── */
+    .header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      height: 56px;
+    }
+    .header-logo {
+      width: 32px; height: 32px;
+      background: var(--teal);
+      border-radius: var(--radius);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .header-logo svg { width: 18px; height: 18px; }
+    .header h1 { font-size: 15px; font-weight: 600; color: var(--text); }
+    .header-sub { font-size: 12px; color: var(--text2); margin-left: 4px; }
 
-/* FORM */
-.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-.form-full { grid-column: 1/-1; }
-.field { display: flex; flex-direction: column; gap: 5px; }
-.field label { font-size: 12px; font-weight: 500; color: var(–gray-600); }
-.field input, .field select, .field textarea {
-padding: 9px 12px; border: 1px solid var(–gray-200); border-radius: 8px;
-font-family: var(–font); font-size: 13px; color: var(–gray-800);
-background: var(–gray-50); transition: border-color 0.15s;
-outline: none;
-}
-.field input:focus, .field select:focus, .field textarea:focus { border-color: var(–green); background: white; }
-.field textarea { resize: vertical; min-height: 70px; }
+    .shell { display: flex; height: calc(100vh - 56px); }
 
-/* BUTTONS */
-.btn { padding: 9px 18px; border-radius: 8px; font-family: var(–font); font-size: 13px; font-weight: 500; cursor: pointer; border: none; transition: all 0.15s; display: inline-flex; align-items: center; gap: 6px; }
-.btn-primary { background: var(–green); color: white; }
-.btn-primary:hover { background: var(–green-mid); }
-.btn-secondary { background: white; color: var(–gray-600); border: 1px solid var(–gray-200); }
-.btn-secondary:hover { background: var(–gray-50); }
-.btn-blue { background: var(–blue); color: white; }
-.btn-blue:hover { background: #1d4ed8; }
-.btn-sm { padding: 5px 12px; font-size: 12px; }
-.btn-danger { background: var(–red-light); color: var(–red); border: 1px solid #fecaca; }
+    .sidebar {
+      width: 52px;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 12px 0;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+    .sib {
+      width: 36px; height: 36px;
+      border-radius: var(--radius);
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text2);
+      position: relative;
+    }
+    .sib:hover { background: var(--surface2); }
+    .sib.on { background: var(--teal-lt); color: var(--teal-dk); }
+    .sib svg { width: 18px; height: 18px; }
+    .sib-tip {
+      display: none;
+      position: absolute;
+      left: 46px;
+      background: var(--text);
+      color: #fff;
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      white-space: nowrap;
+      z-index: 100;
+      pointer-events: none;
+    }
+    .sib:hover .sib-tip { display: block; }
 
-/* BADGES / PILLS */
-.pill { display: inline-flex; align-items: center; padding: 3px 9px; border-radius: 99px; font-size: 11px; font-weight: 500; }
-.pill-waiting { background: var(–amber-light); color: var(–amber); }
-.pill-vitals { background: var(–purple-light); color: var(–purple); }
-.pill-provider { background: var(–blue-light); color: var(–blue); }
-.pill-ready { background: var(–green-light); color: var(–green-mid); }
-.pill-done { background: var(–gray-100); color: var(–gray-400); }
-.pill-new { background: #fef3c7; color: #92400e; }
-.pill-filling { background: var(–blue-light); color: var(–blue); }
-.pill-filled { background: var(–green-light); color: var(–green-mid); }
+    .main { flex: 1; overflow-y: auto; padding: 24px; }
 
-/* STAT CARDS */
-.stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
-.stat-card { background: white; border: 1px solid var(–gray-200); border-radius: var(–radius); padding: 14px 16px; box-shadow: var(–shadow); }
-.stat-label { font-size: 11px; color: var(–gray-400); font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
-.stat-val { font-size: 26px; font-weight: 600; color: var(–gray-900); letter-spacing: -0.5px; }
-.stat-sub { font-size: 11px; color: var(–gray-400); margin-top: 3px; }
-.stat-up { color: var(–red); }
-.stat-down { color: var(–green); }
+    .sec { display: none; }
+    .sec.on { display: block; }
 
-/* PATIENT LIST */
-.pt-list { display: flex; flex-direction: column; gap: 6px; }
-.pt-row { display: flex; align-items: center; gap: 12px; padding: 12px 14px; background: white; border: 1px solid var(–gray-200); border-radius: var(–radius); cursor: pointer; transition: all 0.15s; box-shadow: var(–shadow); }
-.pt-row:hover { border-color: var(–green); background: var(–green-light); }
-.pt-row.selected { border-color: var(–green); background: var(–green-light); }
-.pt-avatar { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; flex-shrink: 0; }
-.pt-info { flex: 1; }
-.pt-name { font-size: 13px; font-weight: 600; color: var(–gray-800); }
-.pt-meta { font-size: 11px; color: var(–gray-400); margin-top: 1px; }
-.pt-reason { font-size: 11px; color: var(–gray-500); margin-top: 2px; }
-.pt-time { font-size: 11px; color: var(–gray-400); font-family: var(–mono); }
+    /* ── Cards ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 16px 20px;
+      margin-bottom: 14px;
+    }
+    .card-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 12px; }
 
-/* PROVIDER DETAIL PANEL */
-.detail-panel { background: white; border: 1px solid var(–gray-200); border-radius: var(–radius); box-shadow: var(–shadow); height: fit-content; }
-.detail-header { padding: 16px 18px; border-bottom: 1px solid var(–gray-100); }
-.detail-name { font-size: 17px; font-weight: 600; color: var(–gray-900); letter-spacing: -0.3px; }
-.detail-sub { font-size: 12px; color: var(–gray-400); margin-top: 3px; }
-.section-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(–gray-400); margin: 14px 0 8px; }
-.vitals-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.vital-box { background: var(–gray-50); border: 1px solid var(–gray-100); border-radius: 8px; padding: 10px 12px; }
-.vital-label { font-size: 10px; color: var(–gray-400); font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; }
-.vital-val { font-size: 18px; font-weight: 600; color: var(–gray-900); margin: 2px 0; }
-.vital-change { font-size: 11px; }
-.med-list { display: flex; flex-direction: column; gap: 0; border: 1px solid var(–gray-100); border-radius: 8px; overflow: hidden; }
-.med-row { display: flex; justify-content: space-between; align-items: center; padding: 9px 12px; font-size: 12px; border-bottom: 1px solid var(–gray-100); }
-.med-row:last-child { border-bottom: none; }
-.med-name { font-weight: 500; color: var(–gray-700); }
-.med-detail { color: var(–gray-400); font-family: var(–mono); font-size: 11px; }
-.visit-list { display: flex; flex-direction: column; gap: 0; border: 1px solid var(–gray-100); border-radius: 8px; overflow: hidden; }
-.visit-row { padding: 10px 12px; border-bottom: 1px solid var(–gray-100); }
-.visit-row:last-child { border-bottom: none; }
-.visit-date { font-size: 10px; color: var(–gray-400); font-family: var(–mono); margin-bottom: 3px; }
-.visit-note { font-size: 12px; color: var(–gray-600); line-height: 1.5; }
+    /* ── Metrics ── */
+    .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-bottom: 14px; }
+    .met { background: var(--surface2); border-radius: var(--radius); padding: 12px 14px; }
+    .ml { font-size: 11px; color: var(--text2); margin-bottom: 4px; }
+    .mv { font-size: 22px; font-weight: 600; color: var(--text); }
+    .ms { font-size: 11px; color: var(--text3); margin-top: 2px; }
+    .mv.g { color: var(--teal-dk); }
+    .mv.w { color: var(--amber-dk); }
+    .mv.b { color: var(--red-dk); }
 
-/* LAYOUT */
-.two-col { display: grid; grid-template-columns: 340px 1fr; gap: 16px; align-items: start; }
-.three-col { display: grid; grid-template-columns: 200px 1fr 320px; gap: 16px; align-items: start; }
+    /* ── Patient list ── */
+    .pt-grid { display: grid; grid-template-columns: 230px 1fr; gap: 16px; }
+    .ptlist { display: flex; flex-direction: column; gap: 6px; }
+    .ptr {
+      display: flex; align-items: center; gap: 10px;
+      padding: 9px 12px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      cursor: pointer;
+      background: var(--surface);
+    }
+    .ptr:hover { background: var(--surface2); }
+    .ptr.sel { border-color: var(--teal); background: var(--teal-lt); }
+    .av {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--blue-lt);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 600; color: var(--blue-dk);
+      flex-shrink: 0;
+    }
+    .pn { font-size: 13px; font-weight: 500; color: var(--text); }
+    .pm { font-size: 11px; color: var(--text2); }
 
-/* PHARMACY / VOLUNTEER QUEUE */
-.rx-card { background: white; border: 1px solid var(–gray-200); border-radius: var(–radius); padding: 14px 16px; box-shadow: var(–shadow); display: flex; gap: 12px; align-items: flex-start; }
-.rx-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
-.rx-body { flex: 1; }
-.rx-med { font-size: 13px; font-weight: 600; color: var(–gray-800); margin-bottom: 2px; }
-.rx-detail { font-size: 11px; color: var(–gray-500); margin-bottom: 4px; }
-.rx-meta { font-size: 10px; color: var(–gray-400); font-family: var(–mono); }
-.rx-actions { display: flex; gap: 6px; margin-top: 8px; }
+    /* ── Badges ── */
+    .bdg { display: inline-block; padding: 2px 7px; border-radius: 10px; font-size: 11px; font-weight: 500; }
+    .bok { background: var(--teal-lt); color: var(--teal-dk); }
+    .bwn { background: var(--amber-lt); color: var(--amber-dk); }
+    .bbd { background: var(--red-lt); color: var(--red-dk); }
 
-/* PROGRESS STEPS (patient form) */
-.progress-steps { display: flex; align-items: center; gap: 0; margin-bottom: 24px; }
-.prog-step { display: flex; align-items: center; gap: 8px; }
-.prog-circle { width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; flex-shrink: 0; border: 2px solid var(–gray-200); color: var(–gray-400); background: white; transition: all 0.2s; }
-.prog-circle.done { background: var(–green); border-color: var(–green); color: white; }
-.prog-circle.active { border-color: var(–green); color: var(–green); }
-.prog-label { font-size: 11px; color: var(–gray-400); font-weight: 500; }
-.prog-label.active { color: var(–green-mid); font-weight: 600; }
-.prog-line { flex: 1; height: 2px; background: var(–gray-200); min-width: 20px; }
-.prog-line.done { background: var(–green); }
+    /* ── Charts ── */
+    .cw { position: relative; width: 100%; height: 200px; margin-top: 8px; }
+    .two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .leg { display: flex; gap: 12px; flex-wrap: wrap; font-size: 11px; color: var(--text2); margin-bottom: 4px; }
+    .leg span { display: flex; align-items: center; gap: 4px; }
+    .ld { width: 10px; height: 10px; border-radius: 2px; }
 
-/* API TOAST */
-.toast { position: fixed; bottom: 24px; right: 24px; background: var(–gray-900); color: white; padding: 10px 16px; border-radius: 10px; font-size: 12px; font-weight: 500; display: flex; align-items: center; gap: 8px; opacity: 0; transform: translateY(10px); transition: all 0.3s; z-index: 999; box-shadow: var(–shadow-md); }
-.toast.show { opacity: 1; transform: translateY(0); }
-.toast-dot { width: 7px; height: 7px; border-radius: 50%; background: var(–green); animation: pulse 1s ease-in-out infinite; }
-@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+    /* ── Tables ── */
+    .tbl { width: 100%; font-size: 12px; border-collapse: collapse; }
+    .tbl th { text-align: left; padding: 6px 10px; color: var(--text2); border-bottom: 1px solid var(--border); font-weight: 500; font-size: 11px; background: var(--surface2); }
+    .tbl td { padding: 7px 10px; border-bottom: 1px solid var(--border); color: var(--text); }
+    .tbl tr:last-child td { border-bottom: none; }
+    .tbl tr:hover td { background: var(--surface2); }
+    .abn { color: var(--red-dk); font-weight: 600; }
+    .norm { color: var(--teal-dk); }
 
-/* SUCCESS SCREEN */
-.success-icon { width: 56px; height: 56px; border-radius: 50%; background: var(–green-light); display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; }
-.success-icon svg { width: 26px; height: 26px; }
+    /* ── Filters ── */
+    .frow { display: flex; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; align-items: center; }
+    .frow label { font-size: 12px; color: var(--text2); }
+    select {
+      font-size: 12px; padding: 6px 10px;
+      border: 1px solid var(--border2);
+      border-radius: var(--radius);
+      background: var(--surface);
+      color: var(--text);
+    }
 
-/* SIDEBAR NAV */
-.sidebar { background: white; border: 1px solid var(–gray-200); border-radius: var(–radius); padding: 8px; box-shadow: var(–shadow); }
-.side-item { display: flex; align-items: center; gap: 9px; padding: 9px 10px; border-radius: 8px; font-size: 12px; font-weight: 500; color: var(–gray-500); cursor: pointer; transition: all 0.12s; }
-.side-item:hover { background: var(–gray-50); color: var(–gray-700); }
-.side-item.active { background: var(–green-light); color: var(–green-mid); }
-.side-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
-.side-section { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(–gray-300); padding: 10px 10px 4px; }
+    /* ── Insight cards ── */
+    .ins {
+      border-left: 3px solid var(--blue);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 10px 14px;
+      background: var(--blue-lt);
+      margin-bottom: 8px;
+    }
+    .ins p { font-size: 12px; color: var(--text2); line-height: 1.6; }
+    .ins p strong { color: var(--text); }
 
-/* MISC */
-.divider { height: 1px; background: var(–gray-100); margin: 14px 0; }
-.tag { display: inline-block; font-size: 10px; font-weight: 500; padding: 2px 7px; border-radius: 4px; background: var(–gray-100); color: var(–gray-500); }
-.empty-state { text-align: center; padding: 40px 20px; color: var(–gray-400); }
-.empty-state p { font-size: 13px; }
-.online-row { display: flex; align-items: center; gap: 7px; padding: 5px 8px; }
-.online-name { font-size: 11px; font-weight: 500; color: var(–gray-700); }
-.online-role { font-size: 10px; color: var(–gray-400); }
-.order-form { background: var(–gray-50); border: 1px solid var(–gray-200); border-radius: 8px; padding: 14px; }
-.order-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
-.ref-card { background: white; border: 1px solid var(–gray-200); border-radius: var(–radius); padding: 13px 15px; box-shadow: var(–shadow); }
-.ref-title { font-size: 13px; font-weight: 600; color: var(–gray-800); margin-bottom: 3px; }
-.ref-detail { font-size: 11px; color: var(–gray-500); }
-.ref-actions { display: flex; gap: 6px; margin-top: 8px; }
+    /* ── Buttons ── */
+    .btn-primary {
+      padding: 9px 20px;
+      background: var(--teal);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+    .btn-primary:hover { background: var(--teal-dk); }
 
-/* chart simple */
-.bp-chart { display: flex; align-items: flex-end; gap: 6px; height: 60px; padding: 4px 0; }
-.bp-bar-group { display: flex; gap: 2px; align-items: flex-end; flex: 1; }
-.bp-bar { border-radius: 3px 3px 0 0; min-width: 8px; }
-.bp-label { font-size: 9px; color: var(–gray-400); text-align: center; margin-top: 4px; }
+    /* ── Loading / Error ── */
+    .loading { display: flex; align-items: center; gap: 10px; padding: 3rem; color: var(--text2); font-size: 13px; justify-content: center; }
+    .spin { width: 18px; height: 18px; border: 2px solid var(--border2); border-top-color: var(--teal); border-radius: 50%; animation: spin .8s linear infinite; flex-shrink: 0; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .err { padding: 14px 16px; background: var(--red-lt); border-radius: var(--radius); color: var(--red-dk); font-size: 13px; margin-bottom: 14px; border: 1px solid #f7c1c1; }
 
-/* Page title */
-.page-title { font-size: 20px; font-weight: 600; color: var(–gray-900); letter-spacing: -0.3px; margin-bottom: 4px; }
-.page-sub { font-size: 13px; color: var(–gray-400); margin-bottom: 20px; }
-</style>
+    /* ── Config ── */
+    .cfg-input-wrap { margin-bottom: 12px; }
+    .cfg-input-wrap label { display: block; font-size: 12px; color: var(--text2); margin-bottom: 5px; font-weight: 500; }
+    .cfg-input-wrap input {
+      width: 100%; font-size: 12px;
+      font-family: 'SFMono-Regular', Consolas, monospace;
+      padding: 8px 10px;
+      border: 1px solid var(--border2);
+      border-radius: var(--radius);
+      background: var(--surface);
+      color: var(--text);
+    }
+    .cfg-input-wrap input:focus { outline: 2px solid var(--teal); outline-offset: 1px; }
 
+    .page-title { font-size: 18px; font-weight: 600; color: var(--text); margin-bottom: 18px; }
+
+    /* ── Responsive ── */
+    @media (max-width: 700px) {
+      .pt-grid { grid-template-columns: 1fr; }
+      .two { grid-template-columns: 1fr; }
+      .main { padding: 14px; }
+    }
+  </style>
 </head>
 <body>
 
-<!-- TOP NAV -->
-
-<nav class="topnav">
-  <span class="nav-logo">⚕ H3WC Dashboard</span>
-  <button class="nav-tab active" onclick="showScreen('checkin')" id="tab-checkin">
-    <div class="nav-dot" style="background:#10b981"></div> Patient Check-in
-  </button>
-  <button class="nav-tab" onclick="showScreen('vitals')" id="tab-vitals">
-    <div class="nav-dot" style="background:#7c3aed"></div> Vitals
-  </button>
-  <button class="nav-tab" onclick="showScreen('provider')" id="tab-provider">
-    <div class="nav-dot" style="background:#2563eb"></div> Provider
-  </button>
-  <button class="nav-tab" onclick="showScreen('pharmacy')" id="tab-pharmacy">
-    <div class="nav-dot" style="background:#d97706"></div> Pharmacy
-    <span class="nav-badge" id="pharm-badge">3</span>
-  </button>
-  <button class="nav-tab" onclick="showScreen('volunteer')" id="tab-volunteer">
-    <div class="nav-dot" style="background:#dc2626"></div> Volunteer
-  </button>
-  <div class="nav-right">
-    <span class="nav-user">Helping Hands Health &amp; Wellness Center</span>
-    <div class="nav-avatar">DR</div>
+<header class="header">
+  <div class="header-logo">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+    </svg>
   </div>
-</nav>
+  <h1>Clinic Patient Tracker</h1>
+  <span class="header-sub">HIPAA-safe · Google Sheets backend</span>
+</header>
 
-<!-- TOAST -->
+<div class="shell">
 
-<div class="toast" id="toast">
-  <div class="toast-dot"></div>
-  <span id="toast-msg">Syncing with Athena...</span>
-</div>
+  <nav class="sidebar">
+    <button class="sib on" onclick="showTab('patients',this)" title="Patient tracker">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      <span class="sib-tip">Patient tracker</span>
+    </button>
+    <button class="sib" onclick="showTab('outcomes',this)" title="Outcomes analytics">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      <span class="sib-tip">Outcomes analytics</span>
+    </button>
+    <button class="sib" onclick="showTab('config',this)" title="Configuration">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M4.93 4.93l1.41 1.41M4.93 19.07l1.41-1.41M19.07 19.07l-1.41-1.41M12 2v2M12 20v2M2 12h2M20 12h2"/></svg>
+      <span class="sib-tip">Configuration</span>
+    </button>
+  </nav>
 
-<!-- ============================================================ -->
+  <main class="main">
 
-<!-- SCREEN 1: PATIENT CHECK-IN -->
-
-<!-- ============================================================ -->
-
-<div class="screen active" id="screen-checkin">
-  <div style="max-width: 560px; margin: 0 auto;">
-    <p class="page-title">Patient Check-in</p>
-    <p class="page-sub">Fill out this form before your visit. Takes about 3 minutes.</p>
-
-```
-<!-- Progress -->
-<div class="progress-steps" id="progress">
-  <div class="prog-step">
-    <div class="prog-circle active" id="pc1">1</div>
-    <span class="prog-label active" id="pl1">About you</span>
-  </div>
-  <div class="prog-line" id="pline1"></div>
-  <div class="prog-step">
-    <div class="prog-circle" id="pc2">2</div>
-    <span class="prog-label" id="pl2">Visit reason</span>
-  </div>
-  <div class="prog-line" id="pline2"></div>
-  <div class="prog-step">
-    <div class="prog-circle" id="pc3">3</div>
-    <span class="prog-label" id="pl3">Medications</span>
-  </div>
-  <div class="prog-line" id="pline3"></div>
-  <div class="prog-step">
-    <div class="prog-circle" id="pc4">4</div>
-    <span class="prog-label" id="pl4">Confirm</span>
-  </div>
-</div>
-
-<!-- Step 1 -->
-<div id="step1">
-  <div class="card">
-    <div class="card-header">
-      <div><p class="card-title">About you</p><p class="card-sub">Step 1 of 4</p></div>
-    </div>
-    <div class="card-body">
-      <div class="form-grid">
-        <div class="field"><label>First name</label><input type="text" id="fname" value="Maria" placeholder="First name"></div>
-        <div class="field"><label>Last name</label><input type="text" id="lname" value="Gonzalez" placeholder="Last name"></div>
-        <div class="field"><label>Date of birth</label><input type="date" id="dob" value="1978-04-12"></div>
-        <div class="field"><label>Phone number</label><input type="tel" id="phone" value="(614) 555-0192" placeholder="Phone"></div>
-        <div class="field form-full"><label>Address</label><input type="text" id="address" value="1204 Broad St, Columbus OH 43215" placeholder="Street address"></div>
-        <div class="field"><label>Annual household income</label>
-          <select id="income">
-            <option>Under $15,000</option>
-            <option selected>$15,000 – $25,000</option>
-            <option>$25,000 – $40,000</option>
-            <option>Over $40,000</option>
-          </select>
-        </div>
-        <div class="field"><label>Insurance status</label>
-          <select id="insurance">
-            <option selected>Uninsured</option>
-            <option>Medicaid</option>
-            <option>Medicare</option>
-            <option>Other</option>
-          </select>
-        </div>
-      </div>
-      <div style="display:flex;justify-content:flex-end;margin-top:16px;">
-        <button class="btn btn-primary" onclick="nextStep(2)">Continue →</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Step 2 -->
-<div id="step2" style="display:none;">
-  <div class="card">
-    <div class="card-header">
-      <div><p class="card-title">Why are you here today?</p><p class="card-sub">Step 2 of 4</p></div>
-    </div>
-    <div class="card-body">
-      <div style="display:flex;flex-direction:column;gap:8px;" id="reason-opts">
-        <div class="reason-opt" data-val="Follow-up on existing condition" onclick="selectReason(this)" style="padding:11px 14px;border:1.5px solid #1a9e6e;border-radius:9px;cursor:pointer;background:#e6f7f1;font-size:13px;font-weight:500;color:#0d7a54;">
-          Follow-up on existing condition
-        </div>
-        <div class="reason-opt" data-val="New problem or illness" onclick="selectReason(this)" style="padding:11px 14px;border:1px solid var(--gray-200);border-radius:9px;cursor:pointer;font-size:13px;color:var(--gray-600);">
-          New problem or illness
-        </div>
-        <div class="reason-opt" data-val="Medication refill" onclick="selectReason(this)" style="padding:11px 14px;border:1px solid var(--gray-200);border-radius:9px;cursor:pointer;font-size:13px;color:var(--gray-600);">
-          Medication refill
-        </div>
-        <div class="reason-opt" data-val="Lab results review" onclick="selectReason(this)" style="padding:11px 14px;border:1px solid var(--gray-200);border-radius:9px;cursor:pointer;font-size:13px;color:var(--gray-600);">
-          Lab results review
-        </div>
-        <div class="reason-opt" data-val="Other" onclick="selectReason(this)" style="padding:11px 14px;border:1px solid var(--gray-200);border-radius:9px;cursor:pointer;font-size:13px;color:var(--gray-600);">
-          Other
-        </div>
-      </div>
-      <div class="field" style="margin-top:12px;">
-        <label>Any specific symptoms or concerns? (optional)</label>
-        <textarea id="symptoms" placeholder="e.g. headaches for the past week, high blood pressure readings at home...">Blood pressure has been higher than usual at home.</textarea>
-      </div>
-      <div style="display:flex;justify-content:space-between;margin-top:16px;">
-        <button class="btn btn-secondary" onclick="nextStep(1)">← Back</button>
-        <button class="btn btn-primary" onclick="nextStep(3)">Continue →</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Step 3 -->
-<div id="step3" style="display:none;">
-  <div class="card">
-    <div class="card-header">
-      <div><p class="card-title">Current medications & allergies</p><p class="card-sub">Step 3 of 4</p></div>
-    </div>
-    <div class="card-body">
-      <div id="med-entries">
-        <div class="med-entry" style="display:grid;grid-template-columns:1fr 1fr auto;gap:8px;align-items:end;margin-bottom:8px;">
-          <div class="field"><label>Medication name</label><input type="text" value="Lisinopril" placeholder="e.g. Lisinopril"></div>
-          <div class="field"><label>Dose / frequency</label><input type="text" value="10mg, once daily" placeholder="e.g. 10mg daily"></div>
-          <button class="btn btn-secondary btn-sm" style="margin-bottom:1px;" onclick="removeMed(this)">✕</button>
-        </div>
-        <div class="med-entry" style="display:grid;grid-template-columns:1fr 1fr auto;gap:8px;align-items:end;margin-bottom:8px;">
-          <div class="field"><label>Medication name</label><input type="text" value="Metformin" placeholder="e.g. Metformin"></div>
-          <div class="field"><label>Dose / frequency</label><input type="text" value="500mg, twice daily" placeholder="e.g. 500mg twice daily"></div>
-          <button class="btn btn-secondary btn-sm" style="margin-bottom:1px;" onclick="removeMed(this)">✕</button>
-        </div>
-      </div>
-      <button class="btn btn-secondary btn-sm" onclick="addMed()" style="margin-bottom:14px;">+ Add medication</button>
-      <div class="field">
-        <label>Allergies (medications, foods, other)</label>
-        <input type="text" id="allergies" value="Penicillin" placeholder="e.g. Penicillin, shellfish — or 'None'">
-      </div>
-      <div style="display:flex;justify-content:space-between;margin-top:16px;">
-        <button class="btn btn-secondary" onclick="nextStep(2)">← Back</button>
-        <button class="btn btn-primary" onclick="nextStep(4)">Continue →</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Step 4: Confirm -->
-<div id="step4" style="display:none;">
-  <div class="card">
-    <div class="card-header">
-      <div><p class="card-title">Confirm your information</p><p class="card-sub">Step 4 of 4</p></div>
-    </div>
-    <div class="card-body">
-      <div style="background:var(--gray-50);border:1px solid var(--gray-100);border-radius:8px;padding:14px;font-size:12px;">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px 20px;">
-          <div><span style="color:var(--gray-400)">Name</span><br><strong>Maria Gonzalez</strong></div>
-          <div><span style="color:var(--gray-400)">DOB</span><br><strong>April 12, 1978</strong></div>
-          <div><span style="color:var(--gray-400)">Phone</span><br><strong>(614) 555-0192</strong></div>
-          <div><span style="color:var(--gray-400)">Income</span><br><strong>$15,000–$25,000</strong></div>
-          <div><span style="color:var(--gray-400)">Visit reason</span><br><strong>Follow-up — hypertension</strong></div>
-          <div><span style="color:var(--gray-400)">Allergies</span><br><strong>Penicillin</strong></div>
-          <div style="grid-column:1/-1"><span style="color:var(--gray-400)">Medications</span><br><strong>Lisinopril 10mg · Metformin 500mg</strong></div>
-        </div>
-      </div>
-      <div style="display:flex;justify-content:space-between;margin-top:16px;align-items:center;">
-        <button class="btn btn-secondary" onclick="nextStep(3)">← Edit</button>
-        <button class="btn btn-primary" onclick="submitCheckin()">Submit check-in →</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Step 5: Success -->
-<div id="step5" style="display:none;">
-  <div class="card">
-    <div class="card-body" style="text-align:center;padding:32px 24px;">
-      <div class="success-icon">
-        <svg fill="none" stroke="#1a9e6e" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-      </div>
-      <p style="font-size:18px;font-weight:600;color:var(--gray-900);margin-bottom:6px;">You're checked in!</p>
-      <p style="font-size:13px;color:var(--gray-400);margin-bottom:20px;">Your information has been sent to our team. A volunteer will call your name shortly.</p>
-      <div style="background:var(--green-light);border-radius:8px;padding:12px 16px;display:inline-flex;align-items:center;gap:10px;font-size:12px;color:var(--green-mid);">
-        <div class="toast-dot" style="animation:pulse 1s infinite;"></div>
-        Synced to Athena EMR automatically
-      </div>
-      <div style="margin-top:20px;">
-        <button class="btn btn-secondary" onclick="resetCheckin()">New patient check-in</button>
-      </div>
-    </div>
-  </div>
-</div>
-```
-
-  </div>
-</div>
-
-<!-- ============================================================ -->
-
-<!-- SCREEN 2: VITALS (Nurse/Volunteer) -->
-
-<!-- ============================================================ -->
-
-<div class="screen" id="screen-vitals">
-  <p class="page-title">Vitals Entry</p>
-  <p class="page-sub">Select a patient and enter their vitals. Data syncs to Athena automatically.</p>
-
-  <div class="two-col">
-    <div>
-      <p style="font-size:12px;font-weight:600;color:var(--gray-500);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.05em;">Waiting for vitals</p>
-      <div class="pt-list">
-        <div class="pt-row selected" onclick="selectVitalsPt(this, 'Maria Gonzalez', 'F, 46', 'Follow-up — hypertension')">
-          <div class="pt-avatar" style="background:#e6f7f1;color:#0d7a54;">MG</div>
-          <div class="pt-info">
-            <p class="pt-name">Maria Gonzalez</p>
-            <p class="pt-meta">F, 46 · Room 4 · Checked in 9:47am</p>
-            <p class="pt-reason">Follow-up — hypertension</p>
-          </div>
-          <span class="pill pill-waiting">Waiting</span>
-        </div>
-        <div class="pt-row" onclick="selectVitalsPt(this, 'Aisha Okafor', 'F, 34', 'New problem — chest pain')">
-          <div class="pt-avatar" style="background:#f5f3ff;color:#7c3aed;">AO</div>
-          <div class="pt-info">
-            <p class="pt-name">Aisha Okafor</p>
-            <p class="pt-meta">F, 34 · Room 1 · Checked in 10:02am</p>
-            <p class="pt-reason">New problem — chest pain</p>
-          </div>
-          <span class="pill pill-waiting">Waiting</span>
-        </div>
-        <div class="pt-row" onclick="selectVitalsPt(this, 'DeShawn Willis', 'M, 29', 'URI symptoms')">
-          <div class="pt-avatar" style="background:#eff6ff;color:#2563eb;">DW</div>
-          <div class="pt-info">
-            <p class="pt-name">DeShawn Willis</p>
-            <p class="pt-meta">M, 29 · Room 6 · Checked in 10:44am</p>
-            <p class="pt-reason">New patient — URI symptoms</p>
-          </div>
-          <span class="pill pill-waiting">Waiting</span>
-        </div>
-      </div>
-    </div>
-
-```
-<div class="card">
-  <div class="card-header">
-    <div>
-      <p class="card-title" id="vitals-pt-name">Maria Gonzalez</p>
-      <p class="card-sub" id="vitals-pt-meta">F, 46 · Follow-up — hypertension</p>
-    </div>
-    <span class="pill pill-vitals">Taking vitals</span>
-  </div>
-  <div class="card-body">
-    <div class="form-grid">
-      <div class="field">
-        <label>Systolic BP (mmHg)</label>
-        <input type="number" id="bp-sys" value="148" placeholder="e.g. 120">
-      </div>
-      <div class="field">
-        <label>Diastolic BP (mmHg)</label>
-        <input type="number" id="bp-dia" value="92" placeholder="e.g. 80">
-      </div>
-      <div class="field">
-        <label>Heart rate (bpm)</label>
-        <input type="number" id="hr" value="78" placeholder="e.g. 72">
-      </div>
-      <div class="field">
-        <label>Temperature (°F)</label>
-        <input type="number" id="temp" value="98.4" step="0.1" placeholder="e.g. 98.6">
-      </div>
-      <div class="field">
-        <label>Weight (lbs)</label>
-        <input type="number" id="weight" value="174" placeholder="e.g. 150">
-      </div>
-      <div class="field">
-        <label>O2 saturation (%)</label>
-        <input type="number" id="o2" value="97" placeholder="e.g. 99">
-      </div>
-      <div class="field">
-        <label>Respiratory rate</label>
-        <input type="number" id="rr" value="16" placeholder="e.g. 16">
-      </div>
-      <div class="field">
-        <label>Pain level (0–10)</label>
-        <input type="number" id="pain" value="2" min="0" max="10" placeholder="0–10">
-      </div>
-      <div class="field form-full">
-        <label>Nurse notes (optional)</label>
-        <textarea id="nurse-notes" placeholder="Any observations...">Patient appears anxious, mentions recent stress at home.</textarea>
-      </div>
-    </div>
-    <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:16px;">
-      <button class="btn btn-secondary">Clear</button>
-      <button class="btn btn-primary" onclick="submitVitals()">Save vitals → Athena</button>
-    </div>
-  </div>
-</div>
-```
-
-  </div>
-</div>
-
-<!-- ============================================================ -->
-
-<!-- SCREEN 3: PROVIDER DASHBOARD -->
-
-<!-- ============================================================ -->
-
-<div class="screen" id="screen-provider">
-  <div class="stats-row">
-    <div class="stat-card">
-      <p class="stat-label">Patients today</p>
-      <p class="stat-val">6</p>
-      <p class="stat-sub">2 seen · 4 waiting</p>
-    </div>
-    <div class="stat-card">
-      <p class="stat-label">Avg wait time</p>
-      <p class="stat-val">18<span style="font-size:14px;font-weight:400;color:var(--gray-400)">min</span></p>
-      <p class="stat-sub stat-down">↓ from 47 min</p>
-    </div>
-    <div class="stat-card">
-      <p class="stat-label">Rx orders sent</p>
-      <p class="stat-val">4</p>
-      <p class="stat-sub">3 filled · 1 pending</p>
-    </div>
-    <div class="stat-card">
-      <p class="stat-label">Referrals today</p>
-      <p class="stat-val">2</p>
-      <p class="stat-sub">Both submitted</p>
-    </div>
-  </div>
-
-  <div class="three-col">
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <p class="side-section">Queue</p>
-      <div class="side-item active" onclick="selectProviderPt('maria')">
-        <div class="side-dot" style="background:#10b981"></div>
-        <div style="flex:1;min-width:0;">
-          <p style="font-size:12px;font-weight:600;color:inherit;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Maria Gonzalez</p>
-          <p style="font-size:10px;color:var(--gray-400)">Room 4 · HTN follow-up</p>
-        </div>
-      </div>
-      <div class="side-item" onclick="selectProviderPt('james')">
-        <div class="side-dot" style="background:#2563eb"></div>
-        <div style="flex:1;min-width:0;">
-          <p style="font-size:12px;font-weight:600;color:inherit;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">James Thibodeau</p>
-          <p style="font-size:10px;color:var(--gray-400)">Room 2 · Diabetes refill</p>
-        </div>
-      </div>
-      <div class="side-item" onclick="selectProviderPt('aisha')">
-        <div class="side-dot" style="background:#d97706"></div>
-        <div style="flex:1;min-width:0;">
-          <p style="font-size:12px;font-weight:600;color:inherit;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Aisha Okafor</p>
-          <p style="font-size:10px;color:var(--gray-400)">Room 1 · Chest pain</p>
-        </div>
-      </div>
-      <div class="side-item" onclick="selectProviderPt('robert')">
-        <div class="side-dot" style="background:#7c3aed"></div>
-        <div style="flex:1;min-width:0;">
-          <p style="font-size:12px;font-weight:600;color:inherit;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Robert Chen</p>
-          <p style="font-size:10px;color:var(--gray-400)">Room 3 · A1C review</p>
-        </div>
-      </div>
-      <p class="side-section">Online</p>
-      <div class="online-row"><div class="nav-avatar" style="width:24px;height:24px;font-size:10px;background:#e6f7f1;color:#0d7a54;">NR</div><div><p class="online-name">Nurse Rosa</p><p class="online-role">RN</p></div></div>
-      <div class="online-row"><div class="nav-avatar" style="width:24px;height:24px;font-size:10px;background:#eff6ff;color:#2563eb;">VJ</div><div><p class="online-name">Volunteer Jake</p><p class="online-role">Volunteer</p></div></div>
-    </div>
-
-```
-<!-- Main patient detail -->
-<div id="provider-main">
-  <div class="detail-panel" id="pt-detail">
-    <div class="detail-header" style="padding:16px 18px;border-bottom:1px solid var(--gray-100);">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-        <div>
-          <p class="detail-name" id="prov-pt-name">Maria Gonzalez</p>
-          <p class="detail-sub" id="prov-pt-sub">F, 46 · DOB 04/12/1978 · Room 4 · Uninsured</p>
-        </div>
-        <div style="display:flex;gap:6px;">
-          <button class="btn btn-secondary btn-sm">Chart note</button>
-          <button class="btn btn-primary btn-sm" onclick="showOrderPanel()">+ Order</button>
-        </div>
-      </div>
-    </div>
-    <div style="padding:0 18px 18px;">
-      <p class="section-label">Vitals today</p>
-      <div class="vitals-grid">
-        <div class="vital-box">
-          <p class="vital-label">Blood pressure</p>
-          <p class="vital-val" id="v-bp">148/92</p>
-          <p class="vital-change stat-up">▲ up from 138/88</p>
-        </div>
-        <div class="vital-box">
-          <p class="vital-label">Heart rate</p>
-          <p class="vital-val">78 bpm</p>
-          <p class="vital-change" style="color:var(--gray-400)">— normal</p>
-        </div>
-        <div class="vital-box">
-          <p class="vital-label">Weight</p>
-          <p class="vital-val">174 lbs</p>
-          <p class="vital-change" style="color:var(--gray-400)">— unchanged</p>
-        </div>
-        <div class="vital-box">
-          <p class="vital-label">Last A1C</p>
-          <p class="vital-val">7.2%</p>
-          <p class="vital-change stat-down">▼ down from 7.8%</p>
-        </div>
-      </div>
-
-      <p class="section-label">BP trend (last 6 visits)</p>
-      <div style="background:var(--gray-50);border:1px solid var(--gray-100);border-radius:8px;padding:10px 14px;">
-        <div class="bp-chart">
-          <div style="display:flex;flex-direction:column;align-items:center;">
-            <div class="bp-bar-group"><div class="bp-bar" style="height:38px;background:#fca5a5;"></div><div class="bp-bar" style="height:22px;background:#fecdd3;"></div></div>
-            <p class="bp-label">Aug</p>
-          </div>
-          <div style="display:flex;flex-direction:column;align-items:center;">
-            <div class="bp-bar-group"><div class="bp-bar" style="height:44px;background:#fca5a5;"></div><div class="bp-bar" style="height:28px;background:#fecdd3;"></div></div>
-            <p class="bp-label">Sep</p>
-          </div>
-          <div style="display:flex;flex-direction:column;align-items:center;">
-            <div class="bp-bar-group"><div class="bp-bar" style="height:40px;background:#fca5a5;"></div><div class="bp-bar" style="height:24px;background:#fecdd3;"></div></div>
-            <p class="bp-label">Oct</p>
-          </div>
-          <div style="display:flex;flex-direction:column;align-items:center;">
-            <div class="bp-bar-group"><div class="bp-bar" style="height:36px;background:#fca5a5;"></div><div class="bp-bar" style="height:20px;background:#fecdd3;"></div></div>
-            <p class="bp-label">Nov</p>
-          </div>
-          <div style="display:flex;flex-direction:column;align-items:center;">
-            <div class="bp-bar-group"><div class="bp-bar" style="height:33px;background:#fca5a5;"></div><div class="bp-bar" style="height:18px;background:#fecdd3;"></div></div>
-            <p class="bp-label">Feb</p>
-          </div>
-          <div style="display:flex;flex-direction:column;align-items:center;">
-            <div class="bp-bar-group"><div class="bp-bar" style="height:40px;background:#ef4444;"></div><div class="bp-bar" style="height:25px;background:#fca5a5;"></div></div>
-            <p class="bp-label">Today</p>
-          </div>
-        </div>
-        <div style="display:flex;gap:10px;margin-top:4px;">
-          <div style="display:flex;align-items:center;gap:4px;font-size:10px;color:var(--gray-400);"><div style="width:8px;height:8px;background:#ef4444;border-radius:2px;"></div>Systolic</div>
-          <div style="display:flex;align-items:center;gap:4px;font-size:10px;color:var(--gray-400);"><div style="width:8px;height:8px;background:#fca5a5;border-radius:2px;"></div>Diastolic</div>
-        </div>
-      </div>
-
-      <p class="section-label">Current medications</p>
-      <div class="med-list">
-        <div class="med-row"><span class="med-name">Lisinopril 10mg</span><span class="med-detail">1x daily · 3 refills left</span></div>
-        <div class="med-row"><span class="med-name">Metformin 500mg</span><span class="med-detail">2x daily · 1 refill left</span></div>
-        <div class="med-row"><span class="med-name">Atorvastatin 20mg</span><span class="med-detail">1x nightly · 0 refills — needs renewal</span></div>
-      </div>
-
-      <p class="section-label">Previous visits</p>
-      <div class="visit-list">
-        <div class="visit-row"><p class="visit-date">Feb 12, 2025</p><p class="visit-note">BP 138/88 · A1C 7.8% · Increased Lisinopril dose. Counseled on dietary sodium reduction.</p></div>
-        <div class="visit-row"><p class="visit-date">Nov 4, 2024</p><p class="visit-note">BP 152/96 · Started Metformin 500mg. Referred to nutrition counseling.</p></div>
-        <div class="visit-row"><p class="visit-date">Aug 19, 2024</p><p class="visit-note">New patient intake · HTN and pre-diabetes diagnosed. Started Lisinopril 5mg.</p></div>
-      </div>
-
-      <p class="section-label">Nurse notes from today</p>
-      <div style="background:var(--amber-light);border:1px solid #fde68a;border-radius:8px;padding:10px 12px;font-size:12px;color:#92400e;">
-        Patient appears anxious, mentions recent stress at home. BP cuff confirmed x2.
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Order panel -->
-<div id="order-panel">
-  <div class="card" style="margin-bottom:12px;">
-    <div class="card-header">
-      <p class="card-title">Place order</p>
-    </div>
-    <div class="card-body">
-      <div class="field" style="margin-bottom:10px;">
-        <label>Order type</label>
-        <select id="order-type" onchange="toggleOrderType()">
-          <option value="rx">Prescription (Rx)</option>
-          <option value="lab">Lab order</option>
-          <option value="referral">Referral</option>
-        </select>
-      </div>
-      <div id="rx-fields">
-        <div class="field" style="margin-bottom:8px;">
-          <label>Medication</label>
-          <input type="text" id="rx-med" value="Lisinopril 10mg" placeholder="Medication name + dose">
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">
-          <div class="field"><label>Supply (days)</label><input type="number" id="rx-days" value="30"></div>
-          <div class="field"><label>Refills</label><input type="number" id="rx-refills" value="3"></div>
-        </div>
-        <div class="field" style="margin-bottom:8px;">
-          <label>Instructions (sig)</label>
-          <input type="text" id="rx-sig" value="Take 1 tablet daily">
-        </div>
-        <div class="field" style="margin-bottom:12px;">
-          <label>Notes to pharmacy</label>
-          <input type="text" id="rx-notes" placeholder="Optional">
-        </div>
-        <button class="btn btn-primary" style="width:100%;" onclick="sendRx()">Send to pharmacy →</button>
-      </div>
-      <div id="lab-fields" style="display:none;">
-        <div class="field" style="margin-bottom:8px;">
-          <label>Lab test</label>
-          <select id="lab-type">
-            <option>Basic Metabolic Panel (BMP)</option>
-            <option>Complete Blood Count (CBC)</option>
-            <option>Hemoglobin A1C</option>
-            <option>Lipid Panel</option>
-            <option>Thyroid (TSH)</option>
-            <option>Urinalysis</option>
-          </select>
-        </div>
-        <div class="field" style="margin-bottom:12px;">
-          <label>Priority</label>
-          <select><option>Routine</option><option>STAT</option></select>
-        </div>
-        <button class="btn btn-blue" style="width:100%;" onclick="sendLab()">Send lab order →</button>
-      </div>
-      <div id="ref-fields" style="display:none;">
-        <div class="field" style="margin-bottom:8px;">
-          <label>Refer to</label>
-          <select id="ref-to">
-            <option>Helping Hands Health &amp; Wellness Center — Cardiology</option>
-            <option>Helping Hands Health &amp; Wellness Center — Endocrinology</option>
-            <option>Helping Hands Health &amp; Wellness Center — Ophthalmology</option>
-            <option>Helping Hands Health &amp; Wellness Center — Mental Health</option>
-          </select>
-        </div>
-        <div class="field" style="margin-bottom:12px;">
-          <label>Reason for referral</label>
-          <textarea id="ref-reason" style="min-height:50px;">Uncontrolled hypertension, evaluate for secondary causes.</textarea>
-        </div>
-        <button class="btn btn-secondary" style="width:100%;border-color:#d97706;color:#d97706;" onclick="sendReferral()">Send referral →</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-header"><p class="card-title">Today's orders</p></div>
-    <div style="padding:10px 14px;display:flex;flex-direction:column;gap:6px;" id="orders-list">
-      <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:6px 0;border-bottom:1px solid var(--gray-100);">
-        <span style="color:var(--gray-700);font-weight:500;">Metformin 500mg</span><span class="pill pill-filled">Filled</span>
-      </div>
-      <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:6px 0;border-bottom:1px solid var(--gray-100);">
-        <span style="color:var(--gray-700);font-weight:500;">A1C Lab</span><span class="pill pill-filling">Processing</span>
-      </div>
-      <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:6px 0;">
-        <span style="color:var(--gray-700);font-weight:500;">Cardiology referral</span><span class="pill pill-new">Submitted</span>
-      </div>
-    </div>
-  </div>
-</div>
-```
-
-  </div>
-</div>
-
-<!-- ============================================================ -->
-
-<!-- SCREEN 4: PHARMACY -->
-
-<!-- ============================================================ -->
-
-<div class="screen" id="screen-pharmacy">
-  <p class="page-title">Pharmacy Queue</p>
-  <p class="page-sub">Orders appear here automatically when providers send them. No paper needed.</p>
-
-  <div class="stats-row" style="grid-template-columns:repeat(3,1fr);max-width:500px;">
-    <div class="stat-card"><p class="stat-label">New orders</p><p class="stat-val" style="color:var(--amber)" id="pharm-new-count">3</p></div>
-    <div class="stat-card"><p class="stat-label">Filling</p><p class="stat-val" style="color:var(--blue)">1</p></div>
-    <div class="stat-card"><p class="stat-label">Ready</p><p class="stat-val" style="color:var(--green)">2</p></div>
-  </div>
-
-  <div style="display:flex;flex-direction:column;gap:10px;max-width:700px;" id="rx-queue">
-    <div class="rx-card" style="border-left:3px solid var(--amber);">
-      <div class="rx-dot" style="background:var(--amber)"></div>
-      <div class="rx-body">
-        <p class="rx-med">Lisinopril 10mg</p>
-        <p class="rx-detail">Room 4 — Maria Gonzalez · 30 day supply · 3 refills</p>
-        <p class="rx-detail">Take 1 tablet daily</p>
-        <p class="rx-meta">Ordered by Dr. Patel · just now · auto-synced from Athena</p>
-        <div class="rx-actions">
-          <button class="btn btn-primary btn-sm" onclick="updateRxStatus(this,'Filling')">Start filling</button>
-          <button class="btn btn-secondary btn-sm">View full order</button>
-        </div>
-      </div>
-      <span class="pill pill-new">New</span>
-    </div>
-
-```
-<div class="rx-card" style="border-left:3px solid var(--amber);">
-  <div class="rx-dot" style="background:var(--amber)"></div>
-  <div class="rx-body">
-    <p class="rx-med">Atorvastatin 20mg</p>
-    <p class="rx-detail">Room 4 — Maria Gonzalez · 30 day supply · 0 refills</p>
-    <p class="rx-detail">Take 1 tablet at bedtime</p>
-    <p class="rx-meta">Ordered by Dr. Patel · 3 min ago · auto-synced from Athena</p>
-    <div class="rx-actions">
-      <button class="btn btn-primary btn-sm" onclick="updateRxStatus(this,'Filling')">Start filling</button>
-      <button class="btn btn-secondary btn-sm">View full order</button>
-    </div>
-  </div>
-  <span class="pill pill-new">New</span>
-</div>
-
-<div class="rx-card" style="border-left:3px solid var(--blue);">
-  <div class="rx-dot" style="background:var(--blue)"></div>
-  <div class="rx-body">
-    <p class="rx-med">Metformin 500mg</p>
-    <p class="rx-detail">Room 2 — James Thibodeau · 90 day supply · 2 refills</p>
-    <p class="rx-detail">Take 1 tablet twice daily with food</p>
-    <p class="rx-meta">Ordered by Dr. Patel · 9 min ago · auto-synced from Athena</p>
-    <div class="rx-actions">
-      <button class="btn btn-primary btn-sm" onclick="updateRxStatus(this,'Ready')">Mark ready</button>
-    </div>
-  </div>
-  <span class="pill pill-filling">Filling</span>
-</div>
-
-<div class="rx-card" style="border-left:3px solid var(--green);opacity:0.8;">
-  <div class="rx-dot" style="background:var(--green)"></div>
-  <div class="rx-body">
-    <p class="rx-med">Amlodipine 5mg</p>
-    <p class="rx-detail">Room 5 — Linda Marsh · 30 day supply · 2 refills</p>
-    <p class="rx-detail">Take 1 tablet daily</p>
-    <p class="rx-meta">Ordered by Dr. Kim · 22 min ago · auto-synced from Athena</p>
-    <div class="rx-actions">
-      <button class="btn btn-secondary btn-sm" onclick="updateRxStatus(this,'Picked up')">Mark picked up</button>
-    </div>
-  </div>
-  <span class="pill pill-filled">Ready</span>
-</div>
-```
-
-  </div>
-</div>
-
-<!-- ============================================================ -->
-
-<!-- SCREEN 5: VOLUNTEER DASHBOARD -->
-
-<!-- ============================================================ -->
-
-<div class="screen" id="screen-volunteer">
-  <p class="page-title">Volunteer Dashboard</p>
-  <p class="page-sub">Live view of all rooms and task assignments. Always know what to do next.</p>
-
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;">
-    <!-- Room status board -->
-    <div class="card">
-      <div class="card-header"><p class="card-title">Room status</p><span class="pill pill-waiting" style="font-size:10px;">Live</span></div>
-      <div class="card-body" style="display:flex;flex-direction:column;gap:6px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 11px;background:var(--green-light);border:1px solid #6ee7b7;border-radius:8px;">
-          <div><p style="font-size:12px;font-weight:600;color:var(--green-mid);">Room 1 — Aisha Okafor</p><p style="font-size:11px;color:#059669">Vitals in progress</p></div>
-          <span class="pill pill-vitals">Vitals</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 11px;background:var(--blue-light);border:1px solid #93c5fd;border-radius:8px;">
-          <div><p style="font-size:12px;font-weight:600;color:var(--blue);">Room 2 — James Thibodeau</p><p style="font-size:11px;color:#3b82f6">With Dr. Patel</p></div>
-          <span class="pill pill-provider">Provider</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 11px;background:var(--blue-light);border:1px solid #93c5fd;border-radius:8px;">
-          <div><p style="font-size:12px;font-weight:600;color:var(--blue);">Room 3 — Robert Chen</p><p style="font-size:11px;color:#3b82f6">With Dr. Kim</p></div>
-          <span class="pill pill-provider">Provider</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 11px;background:var(--amber-light);border:1px solid #fcd34d;border-radius:8px;">
-          <div><p style="font-size:12px;font-weight:600;color:var(--amber);">Room 4 — Maria Gonzalez</p><p style="font-size:11px;color:#d97706">Waiting for provider</p></div>
-          <span class="pill pill-waiting">Waiting</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 11px;background:var(--green-light);border:1px solid #6ee7b7;border-radius:8px;">
-          <div><p style="font-size:12px;font-weight:600;color:var(--green-mid);">Room 5 — Linda Marsh</p><p style="font-size:11px;color:#059669">Ready — Rx filled, awaiting pickup</p></div>
-          <span class="pill pill-ready">Ready</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 11px;background:var(--gray-100);border:1px solid var(--gray-200);border-radius:8px;">
-          <div><p style="font-size:12px;font-weight:600;color:var(--gray-500);">Room 6 — Empty</p><p style="font-size:11px;color:var(--gray-400)">Available</p></div>
-          <span class="pill pill-done">Open</span>
-        </div>
-      </div>
-    </div>
-
-```
-<!-- Task queue -->
-<div class="card">
-  <div class="card-header"><p class="card-title">Your task queue</p><span class="pill pill-waiting">4 tasks</span></div>
-  <div class="card-body" style="display:flex;flex-direction:column;gap:8px;">
-    <div style="background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:11px 13px;">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-        <div>
-          <p style="font-size:12px;font-weight:600;color:var(--red);margin-bottom:2px;">🔴 Urgent — Room 5</p>
-          <p style="font-size:12px;color:var(--gray-600);">Escort Linda Marsh to pharmacy — Rx is filled and ready</p>
-        </div>
-        <button class="btn btn-sm" style="background:#fef2f2;color:var(--red);border:1px solid #fecaca;" onclick="completeTask(this)">Done</button>
-      </div>
-    </div>
-    <div style="background:var(--amber-light);border:1px solid #fde68a;border-radius:8px;padding:11px 13px;">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-        <div>
-          <p style="font-size:12px;font-weight:600;color:var(--amber);margin-bottom:2px;">🟡 Room 4 — Referral needed</p>
-          <p style="font-size:12px;color:var(--gray-600);">File cardiology referral for Maria Gonzalez — Helping Hands Health &amp; Wellness Center</p>
-        </div>
-        <button class="btn btn-sm" style="background:var(--amber-light);color:var(--amber);border:1px solid #fde68a;" onclick="completeTask(this)">Done</button>
-      </div>
-    </div>
-    <div style="background:var(--blue-light);border:1px solid #bfdbfe;border-radius:8px;padding:11px 13px;">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-        <div>
-          <p style="font-size:12px;font-weight:600;color:var(--blue);margin-bottom:2px;">🔵 Room 1 — Prepare room</p>
-          <p style="font-size:12px;color:var(--gray-600);">DeShawn Willis checking in — get Room 6 ready</p>
-        </div>
-        <button class="btn btn-sm" style="background:var(--blue-light);color:var(--blue);border:1px solid #bfdbfe;" onclick="completeTask(this)">Done</button>
-      </div>
-    </div>
-    <div style="background:var(--gray-50);border:1px solid var(--gray-200);border-radius:8px;padding:11px 13px;">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-        <div>
-          <p style="font-size:12px;font-weight:600;color:var(--gray-600);margin-bottom:2px;">⚪ General — Restock</p>
-          <p style="font-size:12px;color:var(--gray-500);">BP cuff batteries low in Room 3</p>
-        </div>
-        <button class="btn btn-secondary btn-sm" onclick="completeTask(this)">Done</button>
-      </div>
-    </div>
-  </div>
-</div>
-```
-
-  </div>
-
-  <!-- Referral tracker -->
-
-  <div class="card">
-    <div class="card-header"><p class="card-title">Referral tracker</p><span class="pill pill-new">2 open</span></div>
-    <div class="card-body" style="display:flex;flex-direction:column;gap:8px;">
-      <div class="ref-card">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+    <!-- ── PATIENTS ── -->
+    <div id="sec-patients" class="sec on">
+      <div class="page-title">Patient tracker</div>
+      <div id="pt-loading" class="loading"><div class="spin"></div>&nbsp; Loading patients from Google Sheets…</div>
+      <div id="pt-error" style="display:none"></div>
+      <div id="pt-main" style="display:none">
+        <div class="pt-grid">
           <div>
-            <p class="ref-title">Maria Gonzalez — Cardiology</p>
-            <p class="ref-detail">Helping Hands Health &amp; Wellness Center Cardiology · Ordered by Dr. Patel · Reason: Uncontrolled HTN</p>
-            <p style="font-size:10px;color:var(--gray-400);font-family:var(--mono);margin-top:4px;">Ordered 10:32am today · auto-logged to Athena</p>
+            <div style="font-size:12px;font-weight:600;color:var(--text2);margin-bottom:8px;text-transform:uppercase;letter-spacing:.05em">Patients</div>
+            <div class="ptlist" id="pt-list"></div>
           </div>
-          <span class="pill pill-new">Pending</span>
-        </div>
-        <div class="ref-actions">
-          <button class="btn btn-primary btn-sm" onclick="submitRef(this)">Mark submitted</button>
-          <button class="btn btn-secondary btn-sm">View referral form</button>
-        </div>
-      </div>
-      <div class="ref-card">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-          <div>
-            <p class="ref-title">Robert Chen — Ophthalmology</p>
-            <p class="ref-detail">Helping Hands Health &amp; Wellness Center Eye Clinic · Ordered by Dr. Kim · Reason: Diabetic eye screening</p>
-            <p style="font-size:10px;color:var(--gray-400);font-family:var(--mono);margin-top:4px;">Ordered 10:18am today · auto-logged to Athena</p>
-          </div>
-          <span class="pill pill-filling">In progress</span>
-        </div>
-        <div class="ref-actions">
-          <button class="btn btn-primary btn-sm" onclick="submitRef(this)">Mark submitted</button>
-          <button class="btn btn-secondary btn-sm">View referral form</button>
+          <div id="pt-detail"></div>
         </div>
       </div>
     </div>
-  </div>
+
+    <!-- ── OUTCOMES ── -->
+    <div id="sec-outcomes" class="sec">
+      <div class="page-title">Outcomes analytics</div>
+      <div id="out-loading" class="loading" style="display:none"><div class="spin"></div>&nbsp; Loading outcomes data…</div>
+      <div id="out-error" style="display:none"></div>
+      <div id="out-main">
+        <div class="frow">
+          <label>Condition:</label>
+          <select id="cond-sel" onchange="renderOutcomes()">
+            <option value="bp">Blood pressure (systolic)</option>
+            <option value="a1c">A1C / HbA1c</option>
+          </select>
+          <label>Visit window:</label>
+          <select id="win-sel" onchange="renderOutcomes()">
+            <option value="3">Within 3 visits</option>
+            <option value="5">Within 5 visits</option>
+            <option value="99">All visits</option>
+          </select>
+        </div>
+        <div id="out-content"><div class="loading"><div class="spin"></div>&nbsp; Loading…</div></div>
+      </div>
+    </div>
+
+    <!-- ── CONFIG ── -->
+    <div id="sec-config" class="sec">
+      <div class="page-title">Configuration</div>
+      <div class="card">
+        <div class="card-title">Google Sheets connection</div>
+        <p style="font-size:12px;color:var(--text2);margin-bottom:14px;line-height:1.7">Update these values if you change spreadsheets or regenerate your API key. Click Reconnect to reload all data.</p>
+        <div class="cfg-input-wrap">
+          <label>Spreadsheet ID</label>
+          <input id="cfg-sid" type="text" value="1O_mlwBYFhPn-BW0H9QtimVbZ5DhihqghMnr6yE7Kw3Q" />
+        </div>
+        <div class="cfg-input-wrap">
+          <label>API Key</label>
+          <input id="cfg-key" type="text" value="AIzaSyCv9F_LlqtyLP8m-Xtv7GBRxSi6jSa_20k" />
+        </div>
+        <button class="btn-primary" onclick="reloadAll()">Reconnect and reload data</button>
+      </div>
+
+      <div class="card">
+        <div class="card-title">How to add patients &amp; data</div>
+        <div class="ins"><p><strong>1. Add a patient</strong> — open <strong>1_Patients</strong> in your Google Sheet. Add a new row: PT-0006, enrollment date, year of birth, sex, diagnosis, etc.</p></div>
+        <div class="ins"><p><strong>2. Log a visit</strong> — open <strong>2_Visits</strong>. Add a row with a new Visit_ID (VIS-0006…) linked to the Patient_ID.</p></div>
+        <div class="ins"><p><strong>3. Record vitals</strong> — open <strong>3_Vitals</strong>. Add BP, weight, O2 sat, etc. for that Visit_ID.</p></div>
+        <div class="ins"><p><strong>4. Enter lab results</strong> — open <strong>4_Labs_Tests</strong>. One row per test (A1C, lipid panel, eGFR, etc.) linked to the Visit_ID.</p></div>
+        <div class="ins"><p><strong>5. Log medications</strong> — open <strong>5_Medications</strong>. Add active meds with dose, frequency, and start date.</p></div>
+        <div class="ins"><p><strong>6. Track outcomes</strong> — open <strong>6_Outcomes</strong>. Record baseline and latest values — the dashboard calculates improvement automatically.</p></div>
+        <div style="margin-top:12px;padding:10px 14px;background:var(--red-lt);border-radius:var(--radius);border:1px solid #f7c1c1;">
+          <p style="font-size:12px;color:var(--red-dk);line-height:1.6"><strong>HIPAA reminder:</strong> Never enter patient names anywhere in the spreadsheet. Use Patient_ID only. Keep your ID ↔ name mapping in your EHR or a separate access-controlled system.</p>
+        </div>
+      </div>
+    </div>
+
+  </main>
 </div>
 
 <script>
-// State
-let currentStep = 1;
-let selectedReason = 'Follow-up on existing condition';
-let pharmNewCount = 3;
+  // ── CONFIG ──────────────────────────────────────────────
+  // These are also editable in the Configuration tab at runtime.
+  const DEFAULT_SHEET_ID = '1O_mlwBYFhPn-BW0H9QtimVbZ5DhihqghMnr6yE7Kw3Q';
+  const DEFAULT_API_KEY  = 'AIzaSyCv9F_LlqtyLP8m-Xtv7GBRxSi6jSa_20k';
 
-// NAVIGATION
-function showScreen(name) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('screen-' + name).classList.add('active');
-  document.getElementById('tab-' + name).classList.add('active');
-}
+  // ── STATE ────────────────────────────────────────────────
+  let DB = { patients:[], visits:[], vitals:[], labs:[], meds:[], outcomes:[] };
+  let selPt = null;
+  let charts = {};
 
-// TOAST
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  document.getElementById('toast-msg').textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 3000);
-}
+  // ── HELPERS ──────────────────────────────────────────────
+  function cfg() {
+    return {
+      sid: document.getElementById('cfg-sid').value.trim(),
+      key: document.getElementById('cfg-key').value.trim()
+    };
+  }
 
-// STEP NAVIGATION (check-in form)
-function nextStep(n) {
-  document.getElementById('step' + currentStep).style.display = 'none';
-  document.getElementById('step' + n).style.display = 'block';
+  async function fetchSheet(tab, range) {
+    const { sid, key } = cfg();
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${sid}/values/${encodeURIComponent(tab + '!' + range)}?key=${key}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    if (data.error) throw new Error(data.error.message);
+    const rows = data.values || [];
+    if (rows.length < 2) return [];
+    const headers = rows[1];
+    return rows.slice(2).map(row => {
+      const obj = {};
+      headers.forEach((h, i) => obj[h] = row[i] || '');
+      return obj;
+    });
+  }
 
-  // Update circles
-  for (let i = 1; i <= 4; i++) {
-    const circle = document.getElementById('pc' + i);
-    const label = document.getElementById('pl' + i);
-    if (i < n) {
-      circle.className = 'prog-circle done';
-      circle.textContent = '✓';
-      label.className = 'prog-label';
-    } else if (i === n) {
-      circle.className = 'prog-circle active';
-      circle.textContent = i;
-      label.className = 'prog-label active';
+  async function loadAll() {
+    try {
+      const [patients, visits, vitals, labs, meds, outcomes] = await Promise.all([
+        fetchSheet('1_Patients',   'A1:L500'),
+        fetchSheet('2_Visits',     'A1:K500'),
+        fetchSheet('3_Vitals',     'A1:N500'),
+        fetchSheet('4_Labs_Tests', 'A1:O500'),
+        fetchSheet('5_Medications','A1:O500'),
+        fetchSheet('6_Outcomes',   'A1:N500'),
+      ]);
+      DB = { patients, visits, vitals, labs, meds, outcomes };
+      return true;
+    } catch (e) {
+      return e.message;
+    }
+  }
+
+  async function reloadAll() {
+    document.getElementById('pt-loading').style.display = 'flex';
+    document.getElementById('pt-main').style.display = 'none';
+    document.getElementById('pt-error').style.display = 'none';
+    const result = await loadAll();
+    document.getElementById('pt-loading').style.display = 'none';
+    if (result !== true) {
+      document.getElementById('pt-error').innerHTML = `<div class="err">Could not load data: ${result}.<br>Check your Spreadsheet ID and API Key in the Configuration tab, and make sure sharing is set to "Anyone with the link – Viewer".</div>`;
+      document.getElementById('pt-error').style.display = 'block';
     } else {
-      circle.className = 'prog-circle';
-      circle.textContent = i;
-      label.className = 'prog-label';
-    }
-    if (i < 4) {
-      document.getElementById('pline' + i).className = i < n ? 'prog-line done' : 'prog-line';
+      document.getElementById('pt-main').style.display = 'block';
+      renderPatientList();
+      if (DB.patients.length > 0) { selPt = DB.patients[0]; renderDetail(); }
+      renderOutcomes();
     }
   }
-  currentStep = n;
-}
 
-function selectReason(el) {
-  document.querySelectorAll('.reason-opt').forEach(o => {
-    o.style.border = '1px solid var(--gray-200)';
-    o.style.background = 'white';
-    o.style.color = 'var(--gray-600)';
-    o.style.fontWeight = '400';
-  });
-  el.style.border = '1.5px solid #1a9e6e';
-  el.style.background = '#e6f7f1';
-  el.style.color = '#0d7a54';
-  el.style.fontWeight = '500';
-  selectedReason = el.dataset.val;
-}
-
-function addMed() {
-  const container = document.getElementById('med-entries');
-  const div = document.createElement('div');
-  div.className = 'med-entry';
-  div.style = 'display:grid;grid-template-columns:1fr 1fr auto;gap:8px;align-items:end;margin-bottom:8px;';
-  div.innerHTML = `
-    <div class="field"><label>Medication name</label><input type="text" placeholder="e.g. Aspirin"></div>
-    <div class="field"><label>Dose / frequency</label><input type="text" placeholder="e.g. 81mg daily"></div>
-    <button class="btn btn-secondary btn-sm" style="margin-bottom:1px;" onclick="removeMed(this)">✕</button>`;
-  container.appendChild(div);
-}
-
-function removeMed(btn) {
-  btn.closest('.med-entry').remove();
-}
-
-function submitCheckin() {
-  showToast('Syncing with Athena EMR... patient chart created');
-  nextStep(5);
-  document.getElementById('progress').style.display = 'none';
-}
-
-function resetCheckin() {
-  document.getElementById('progress').style.display = 'flex';
-  nextStep(1);
-}
-
-// VITALS
-function selectVitalsPt(el, name, meta, reason) {
-  document.querySelectorAll('.pt-row').forEach(r => r.classList.remove('selected'));
-  el.classList.add('selected');
-  document.getElementById('vitals-pt-name').textContent = name;
-  document.getElementById('vitals-pt-meta').textContent = meta + ' · ' + reason;
-}
-
-function submitVitals() {
-  const sys = document.getElementById('bp-sys').value;
-  const dia = document.getElementById('bp-dia').value;
-  showToast('Vitals saved → Athena updated · BP ' + sys + '/' + dia);
-  document.getElementById('v-bp').textContent = sys + '/' + dia;
-}
-
-// PROVIDER
-function selectProviderPt(id) {
-  document.querySelectorAll('.side-item').forEach(i => i.classList.remove('active'));
-  event.currentTarget.classList.add('active');
-  const patients = {
-    maria: { name: 'Maria Gonzalez', sub: 'F, 46 · DOB 04/12/1978 · Room 4 · Uninsured' },
-    james: { name: 'James Thibodeau', sub: 'M, 58 · DOB 07/22/1966 · Room 2 · Uninsured' },
-    aisha: { name: 'Aisha Okafor', sub: 'F, 34 · DOB 11/03/1990 · Room 1 · Uninsured' },
-    robert: { name: 'Robert Chen', sub: 'M, 62 · DOB 03/15/1962 · Room 3 · Medicaid' }
-  };
-  const pt = patients[id];
-  document.getElementById('prov-pt-name').textContent = pt.name;
-  document.getElementById('prov-pt-sub').textContent = pt.sub;
-  showToast('Loading ' + pt.name + ' from Athena...');
-}
-
-function showOrderPanel() {
-  document.getElementById('order-panel').scrollIntoView({ behavior: 'smooth' });
-}
-
-function toggleOrderType() {
-  const type = document.getElementById('order-type').value;
-  document.getElementById('rx-fields').style.display = type === 'rx' ? 'block' : 'none';
-  document.getElementById('lab-fields').style.display = type === 'lab' ? 'block' : 'none';
-  document.getElementById('ref-fields').style.display = type === 'referral' ? 'block' : 'none';
-}
-
-function sendRx() {
-  const med = document.getElementById('rx-med').value;
-  showToast('Rx sent to pharmacy · ' + med + ' → Athena logged');
-  const list = document.getElementById('orders-list');
-  const row = document.createElement('div');
-  row.style = 'display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:6px 0;border-bottom:1px solid var(--gray-100);';
-  row.innerHTML = `<span style="color:var(--gray-700);font-weight:500;">${med}</span><span class="pill pill-new">Sent</span>`;
-  list.appendChild(row);
-  pharmNewCount++;
-  document.getElementById('pharm-badge').textContent = pharmNewCount;
-  document.getElementById('pharm-new-count').textContent = pharmNewCount;
-}
-
-function sendLab() {
-  const lab = document.getElementById('lab-type').value;
-  showToast('Lab order sent · ' + lab + ' → Athena logged');
-  const list = document.getElementById('orders-list');
-  const row = document.createElement('div');
-  row.style = 'display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:6px 0;border-bottom:1px solid var(--gray-100);';
-  row.innerHTML = `<span style="color:var(--gray-700);font-weight:500;">${lab}</span><span class="pill pill-filling">Lab sent</span>`;
-  list.appendChild(row);
-}
-
-function sendReferral() {
-  const to = document.getElementById('ref-to').value;
-  showToast('Referral sent to volunteer queue · ' + to + ' → Athena logged');
-  const list = document.getElementById('orders-list');
-  const row = document.createElement('div');
-  row.style = 'display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:6px 0;';
-  row.innerHTML = `<span style="color:var(--gray-700);font-weight:500;">${to.split('—')[1]?.trim() || 'Referral'}</span><span class="pill pill-new">Referred</span>`;
-  list.appendChild(row);
-}
-
-// PHARMACY
-function updateRxStatus(btn, status) {
-  const card = btn.closest('.rx-card');
-  const pill = card.querySelector('.pill');
-  if (status === 'Filling') {
-    card.style.borderLeft = '3px solid var(--blue)';
-    pill.className = 'pill pill-filling';
-    pill.textContent = 'Filling';
-    btn.textContent = 'Mark ready';
-    btn.onclick = () => updateRxStatus(btn, 'Ready');
-    showToast('Filling started → status synced to Athena');
-    pharmNewCount = Math.max(0, pharmNewCount - 1);
-    document.getElementById('pharm-badge').textContent = pharmNewCount || '';
-    document.getElementById('pharm-new-count').textContent = pharmNewCount;
-  } else if (status === 'Ready') {
-    card.style.borderLeft = '3px solid var(--green)';
-    card.style.opacity = '0.85';
-    pill.className = 'pill pill-filled';
-    pill.textContent = 'Ready';
-    btn.textContent = 'Mark picked up';
-    btn.onclick = () => updateRxStatus(btn, 'Picked up');
-    showToast('Rx ready → volunteer dashboard notified');
-  } else {
-    card.style.opacity = '0.5';
-    pill.textContent = 'Done';
-    btn.remove();
-    showToast('Picked up → Athena updated');
+  // ── NAVIGATION ───────────────────────────────────────────
+  function showTab(id, btn) {
+    document.querySelectorAll('.sec').forEach(s => s.classList.remove('on'));
+    document.querySelectorAll('.sib').forEach(b => b.classList.remove('on'));
+    document.getElementById('sec-' + id).classList.add('on');
+    btn.classList.add('on');
   }
-}
 
-// VOLUNTEER
-function completeTask(btn) {
-  const task = btn.closest('div[style*="background"]');
-  task.style.opacity = '0.4';
-  task.style.textDecoration = 'line-through';
-  btn.textContent = '✓';
-  btn.disabled = true;
-  showToast('Task completed → logged');
-}
+  // ── PATIENT LIST ─────────────────────────────────────────
+  function ptInitials(id) { return id.replace('PT-', 'P'); }
 
-function submitRef(btn) {
-  const card = btn.closest('.ref-card');
-  const pill = card.querySelector('.pill');
-  pill.className = 'pill pill-filled';
-  pill.textContent = 'Submitted';
-  btn.textContent = '✓ Submitted';
-  btn.disabled = true;
-  btn.style.opacity = '0.5';
-  showToast('Referral submitted → Athena updated');
-}
+  function bpStatus(sys) {
+    const s = parseFloat(sys);
+    if (!s) return ['', '—'];
+    if (s < 130) return ['g', 'Controlled'];
+    if (s < 140) return ['w', 'Elevated'];
+    return ['b', 'High'];
+  }
+
+  function renderPatientList() {
+    const list = document.getElementById('pt-list');
+    if (DB.patients.length === 0) {
+      list.innerHTML = '<p style="font-size:12px;color:var(--text2);padding:10px">No patients found. Add rows to the 1_Patients sheet.</p>';
+      return;
+    }
+    list.innerHTML = DB.patients.map(p => {
+      const ptVitals = DB.vitals.filter(v => v.Patient_ID === p.Patient_ID);
+      const lastV = ptVitals[ptVitals.length - 1];
+      const [cls, lbl] = lastV ? bpStatus(lastV.Systolic_BP) : ['', '—'];
+      const bdg = cls === 'g' ? 'bok' : cls === 'w' ? 'bwn' : 'bbd';
+      const isSel = selPt && selPt.Patient_ID === p.Patient_ID;
+      return `<div class="ptr${isSel ? ' sel' : ''}" onclick="selectPt('${p.Patient_ID}')">
+        <div class="av">${ptInitials(p.Patient_ID)}</div>
+        <div style="flex:1;min-width:0">
+          <div class="pn">${p.Patient_ID}</div>
+          <div class="pm">${p.Primary_Dx || '—'}</div>
+        </div>
+        ${lbl !== '—' ? `<span class="bdg ${bdg}" style="font-size:10px">${lbl}</span>` : ''}
+      </div>`;
+    }).join('');
+  }
+
+  function selectPt(id) {
+    selPt = DB.patients.find(p => p.Patient_ID === id);
+    Object.values(charts).forEach(c => { try { c.destroy(); } catch(e) {} });
+    charts = {};
+    renderPatientList();
+    renderDetail();
+  }
+
+  // ── PATIENT DETAIL ───────────────────────────────────────
+  function renderDetail() {
+    const p = selPt;
+    if (!p) return;
+
+    const ptVitals  = DB.vitals.filter(v => v.Patient_ID === p.Patient_ID).sort((a, b) => a.Recorded_Date.localeCompare(b.Recorded_Date));
+    const ptLabs    = DB.labs.filter(l => l.Patient_ID === p.Patient_ID).sort((a, b) => a.Test_Date.localeCompare(b.Test_Date));
+    const ptMeds    = DB.meds.filter(m => m.Patient_ID === p.Patient_ID && m.Active === 'Yes');
+    const ptVisits  = DB.visits.filter(v => v.Patient_ID === p.Patient_ID);
+
+    const lastVit  = ptVitals[ptVitals.length - 1];
+    const firstVit = ptVitals[0];
+    const [bpCls]  = lastVit ? bpStatus(lastVit.Systolic_BP) : [''];
+    const bpDelta  = (lastVit && firstVit && lastVit !== firstVit && parseFloat(firstVit.Systolic_BP) && parseFloat(lastVit.Systolic_BP))
+      ? Math.round(parseFloat(firstVit.Systolic_BP) - parseFloat(lastVit.Systolic_BP)) : null;
+
+    const a1cRows  = ptLabs.filter(l => (l.Test_Name || '').toLowerCase().includes('a1c') || (l.Test_Name || '').toLowerCase().includes('hba1c'));
+    const lastA1C  = a1cRows[a1cRows.length - 1];
+    const firstA1C = a1cRows[0];
+    const a1cDelta = (lastA1C && firstA1C && firstA1C !== lastA1C)
+      ? (parseFloat(firstA1C.Result_Value) - parseFloat(lastA1C.Result_Value)).toFixed(1) : null;
+
+    const a1cCls = lastA1C
+      ? (parseFloat(lastA1C.Result_Value) < 7 ? 'g' : parseFloat(lastA1C.Result_Value) < 8 ? 'w' : 'b')
+      : '';
+
+    document.getElementById('pt-detail').innerHTML = `
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+        <div class="av" style="width:42px;height:42px;font-size:14px">${ptInitials(p.Patient_ID)}</div>
+        <div>
+          <div style="font-size:17px;font-weight:600;color:var(--text)">${p.Patient_ID}</div>
+          <div style="font-size:12px;color:var(--text2)">
+            ${p.Primary_Dx || ''}${p.Secondary_Dx_1 ? ' · ' + p.Secondary_Dx_1 : ''}
+            ${p.Secondary_Dx_2 ? ' · ' + p.Secondary_Dx_2 : ''}
+            · Enrolled ${p.Date_Enrolled || '—'}
+          </div>
+        </div>
+      </div>
+
+      <div class="metrics">
+        <div class="met">
+          <div class="ml">Latest BP</div>
+          <div class="mv ${bpCls}">${lastVit && lastVit.Systolic_BP ? lastVit.Systolic_BP + '/' + lastVit.Diastolic_BP : '—'}</div>
+          <div class="ms">${bpDelta !== null ? (bpDelta > 0 ? '▼ ' + bpDelta + ' mmHg from baseline' : '▲ ' + Math.abs(bpDelta) + ' mmHg from baseline') : 'Baseline visit'}</div>
+        </div>
+        <div class="met">
+          <div class="ml">Latest A1C</div>
+          <div class="mv ${a1cCls}">${lastA1C ? parseFloat(lastA1C.Result_Value).toFixed(1) + '%' : '—'}</div>
+          <div class="ms">${a1cDelta ? '▼ ' + Math.abs(a1cDelta) + '% from baseline' : 'No A1C data'}</div>
+        </div>
+        <div class="met">
+          <div class="ml">Total visits</div>
+          <div class="mv">${ptVisits.length}</div>
+          <div class="ms">Last: ${lastVit ? lastVit.Recorded_Date : '—'}</div>
+        </div>
+        <div class="met">
+          <div class="ml">Active meds</div>
+          <div class="mv">${ptMeds.length}</div>
+          <div class="ms">on file</div>
+        </div>
+      </div>
+
+      <div class="two">
+        <div class="card">
+          <div class="card-title">Blood pressure trend</div>
+          <div class="leg">
+            <span><span class="ld" style="background:#378ADD"></span>Systolic</span>
+            <span><span class="ld" style="background:#1D9E75;opacity:.6"></span>Diastolic</span>
+          </div>
+          <div class="cw"><canvas id="bp-c" role="img" aria-label="Blood pressure trend for ${p.Patient_ID}">BP trend data</canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-title">A1C trend</div>
+          <div class="leg"><span><span class="ld" style="background:#EF9F27"></span>HbA1c %</span></div>
+          <div class="cw"><canvas id="a1c-c" role="img" aria-label="A1C trend for ${p.Patient_ID}">A1C trend data</canvas></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Lab &amp; test results</div>
+        ${ptLabs.length === 0
+          ? '<p style="font-size:12px;color:var(--text2)">No lab results on file yet.</p>'
+          : `<div style="overflow-x:auto"><table class="tbl">
+              <thead><tr><th>Date</th><th>Category</th><th>Test</th><th>Result</th><th>Unit</th><th>Ref range</th><th>Flag</th></tr></thead>
+              <tbody>${ptLabs.map(l => `<tr>
+                <td>${l.Test_Date}</td>
+                <td>${l.Test_Category}</td>
+                <td style="font-weight:500">${l.Test_Name}</td>
+                <td style="font-weight:600">${l.Result_Value}</td>
+                <td style="color:var(--text2)">${l.Result_Unit}</td>
+                <td style="color:var(--text2)">${l.Reference_Low && l.Reference_High ? l.Reference_Low + ' – ' + l.Reference_High : '—'}</td>
+                <td class="${l.Abnormal_Flag === 'ABNORMAL' ? 'abn' : 'norm'}">${l.Abnormal_Flag || '—'}</td>
+              </tr>`).join('')}</tbody>
+            </table></div>`}
+      </div>
+
+      <div class="card">
+        <div class="card-title">Active medications</div>
+        ${ptMeds.length === 0
+          ? '<p style="font-size:12px;color:var(--text2)">No active medications on file.</p>'
+          : `<table class="tbl">
+              <thead><tr><th>Medication</th><th>Class</th><th>Dose</th><th>Frequency</th><th>Route</th><th>Started</th></tr></thead>
+              <tbody>${ptMeds.map(m => `<tr>
+                <td style="font-weight:500">${m.Medication_Name}</td>
+                <td>${m.Drug_Class}</td>
+                <td>${m.Dose} ${m.Dose_Unit}</td>
+                <td>${m.Frequency}</td>
+                <td>${m.Route}</td>
+                <td>${m.Start_Date}</td>
+              </tr>`).join('')}</tbody>
+            </table>`}
+      </div>
+    `;
+
+    // BP chart
+    if (ptVitals.length > 0) {
+      charts['bp'] = new Chart(document.getElementById('bp-c'), {
+        type: 'line',
+        data: {
+          labels: ptVitals.map(v => v.Recorded_Date.slice(5)),
+          datasets: [
+            { label: 'Systolic',  data: ptVitals.map(v => parseFloat(v.Systolic_BP) || null),  borderColor: '#378ADD', backgroundColor: '#378ADD15', tension: .35, pointRadius: 4, fill: false },
+            { label: 'Diastolic', data: ptVitals.map(v => parseFloat(v.Diastolic_BP) || null), borderColor: '#1D9E75', backgroundColor: '#1D9E7515', tension: .35, pointRadius: 4, fill: false, borderDash: [4, 3] }
+          ]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            y: { min: 50, max: 200, ticks: { font: { size: 10 } }, grid: { color: 'rgba(0,0,0,0.05)' } },
+            x: { ticks: { font: { size: 10 }, autoSkip: false, maxRotation: 45 }, grid: { display: false } }
+          }
+        }
+      });
+    }
+
+    // A1C chart
+    if (a1cRows.length > 0) {
+      charts['a1c'] = new Chart(document.getElementById('a1c-c'), {
+        type: 'line',
+        data: {
+          labels: a1cRows.map(l => l.Test_Date.slice(5)),
+          datasets: [{ label: 'A1C', data: a1cRows.map(l => parseFloat(l.Result_Value) || null), borderColor: '#EF9F27', backgroundColor: '#EF9F2720', tension: .35, pointRadius: 4, fill: true }]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            y: { min: 4, max: 12, ticks: { font: { size: 10 } }, grid: { color: 'rgba(0,0,0,0.05)' } },
+            x: { ticks: { font: { size: 10 }, autoSkip: false, maxRotation: 45 }, grid: { display: false } }
+          }
+        }
+      });
+    }
+  }
+
+  // ── OUTCOMES ─────────────────────────────────────────────
+  let outChart = null;
+
+  function renderOutcomes() {
+    const cond   = document.getElementById('cond-sel').value;
+    const win    = parseInt(document.getElementById('win-sel').value);
+    const unit   = cond === 'bp' ? 'mmHg' : '%';
+    const thresh = cond === 'bp' ? 10 : 0.5;
+
+    let improved = 0, nochange = 0, worsened = 0, total = 0;
+    const deltas = [], ptBreakdown = [];
+
+    DB.patients.forEach(p => {
+      let series = [];
+      if (cond === 'bp') {
+        series = DB.vitals
+          .filter(v => v.Patient_ID === p.Patient_ID && v.Systolic_BP)
+          .sort((a, b) => a.Recorded_Date.localeCompare(b.Recorded_Date))
+          .map(v => parseFloat(v.Systolic_BP));
+      } else {
+        series = DB.labs
+          .filter(l => l.Patient_ID === p.Patient_ID && ((l.Test_Name || '').toLowerCase().includes('a1c') || (l.Test_Name || '').toLowerCase().includes('hba1c')) && l.Result_Value)
+          .sort((a, b) => a.Test_Date.localeCompare(b.Test_Date))
+          .map(l => parseFloat(l.Result_Value));
+      }
+      if (series.length < 2) return;
+      const first = series[0];
+      const slice = win === 99 ? series.slice(1) : series.slice(1, 1 + win);
+      if (slice.length === 0) return;
+      const best  = Math.min(...slice);
+      const delta = parseFloat((first - best).toFixed(1));
+      total++; deltas.push(delta);
+      if (delta >= thresh) improved++;
+      else if (delta >= 0) nochange++;
+      else worsened++;
+      ptBreakdown.push({ id: p.Patient_ID, delta, met: delta >= thresh });
+    });
+
+    const pct  = total > 0 ? Math.round(improved / total * 100) : 0;
+    const avgD = deltas.length > 0 ? (deltas.reduce((a, b) => a + b, 0) / deltas.length).toFixed(1) : 0;
+    const winLabel = win === 99 ? 'all recorded' : win;
+
+    if (outChart) { try { outChart.destroy(); } catch(e) {} }
+
+    document.getElementById('out-content').innerHTML = `
+      <div class="metrics">
+        <div class="met"><div class="ml">Patients improved</div><div class="mv g">${pct}%</div><div class="ms">${improved} of ${total} patients</div></div>
+        <div class="met"><div class="ml">Avg ${cond === 'bp' ? 'systolic' : 'A1C'} change</div><div class="mv ${parseFloat(avgD) > 0 ? 'g' : 'b'}">▼ ${Math.abs(avgD)} ${unit}</div><div class="ms">across tracked patients</div></div>
+        <div class="met"><div class="ml">Patients tracked</div><div class="mv">${total}</div><div class="ms">with sufficient data</div></div>
+      </div>
+
+      <div class="two">
+        <div class="card">
+          <div class="card-title">Outcome distribution</div>
+          <div style="position:relative;height:180px">
+            <canvas id="out-pie" role="img" aria-label="Outcome distribution: ${improved} improved, ${nochange} no change, ${worsened} worsened">Outcome distribution data</canvas>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">Patient breakdown</div>
+          ${ptBreakdown.length === 0
+            ? '<p style="font-size:12px;color:var(--text2)">No patients have enough visits yet.</p>'
+            : ptBreakdown.map(pt => `
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:7px;font-size:12px">
+              <div class="av" style="width:24px;height:24px;font-size:10px;flex-shrink:0">${ptInitials(pt.id)}</div>
+              <div style="flex:1">${pt.id}</div>
+              <span class="bdg ${pt.met ? 'bok' : pt.delta >= 0 ? 'bwn' : 'bbd'}">${pt.delta > 0 ? '▼' : '▲'} ${Math.abs(pt.delta)} ${unit}</span>
+            </div>`).join('')}
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Donor-ready summary</div>
+        <div class="ins"><p><strong>${pct}%</strong> of patients showed measurable improvement in ${cond === 'bp' ? 'blood pressure' : 'A1C'} — defined as a ≥${thresh} ${unit} reduction — within ${winLabel} visits.</p></div>
+        <div class="ins"><p>Average ${cond === 'bp' ? 'systolic BP' : 'A1C'} reduction across all tracked patients: <strong>${Math.abs(avgD)} ${unit}</strong>.</p></div>
+        <div class="ins"><p>${total} patients had sufficient visit data for ${cond === 'bp' ? 'blood pressure' : 'A1C'} outcome analysis.</p></div>
+      </div>
+    `;
+
+    outChart = new Chart(document.getElementById('out-pie'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Improved', 'No change', 'Worsened'],
+        datasets: [{ data: [improved, nochange, worsened], backgroundColor: ['#1D9E75', '#888780', '#E24B4A'], borderWidth: 0 }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { position: 'bottom', labels: { font: { size: 11 }, padding: 10 } } }
+      }
+    });
+  }
+
+  // ── BOOT ─────────────────────────────────────────────────
+  reloadAll();
 </script>
-
 </body>
 </html>
