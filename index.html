@@ -4,23 +4,23 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Clinic Tracker</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <style>
 :root{
-  --bg:#F5F4F0;--surface:#FFFFFF;--surface2:#EEECE6;--surface3:#E4E1D8;
+  --bg:#F5F4F0;--surface:#FFF;--surface2:#EEECE6;--surface3:#E4E1D8;
   --border:#DEDAD0;--border2:#C4C0B4;
   --ink:#1A1916;--ink2:#6A6760;--ink3:#A4A19A;
   --teal:#0A6B4E;--teal-lt:#E2F2EC;--teal-dk:#064733;
   --red:#B83228;--red-lt:#FCECEA;
   --amber:#A85208;--amber-lt:#FEF0C4;
   --blue:#1A46C8;--blue-lt:#EDF2FF;
-  --r:8px;--r2:12px;--r3:16px;
+  --purple:#6D28D9;--purple-lt:#EDE9FE;
+  --r:8px;--r2:12px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.5;overflow:hidden}
 
-/* ── Topbar ── */
 .topbar{height:56px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 24px;gap:14px;flex-shrink:0}
 .logo{width:32px;height:32px;background:var(--teal);border-radius:var(--r);display:flex;align-items:center;justify-content:center}
 .logo svg{width:17px;height:17px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
@@ -33,10 +33,7 @@ html,body{height:100%;font-family:'DM Sans',sans-serif;background:var(--bg);colo
 .auth-btn:hover{background:var(--surface2)}
 .auth-btn.connected{color:var(--teal);border-color:var(--teal);background:var(--teal-lt)}
 
-/* ── Shell ── */
 .shell{display:flex;height:calc(100vh - 56px);overflow:hidden}
-
-/* ── Sidebar ── */
 .nav{width:210px;background:var(--surface);border-right:1px solid var(--border);padding:12px 10px;display:flex;flex-direction:column;gap:2px;flex-shrink:0;overflow-y:auto}
 .nav-lbl{font-size:10px;font-weight:500;color:var(--ink3);letter-spacing:.08em;text-transform:uppercase;padding:12px 10px 5px}
 .nav-lbl:first-child{padding-top:4px}
@@ -46,89 +43,107 @@ html,body{height:100%;font-family:'DM Sans',sans-serif;background:var(--bg);colo
 .ni.on{background:var(--teal-lt);color:var(--teal-dk);font-weight:500}
 .ni svg{width:16px;height:16px;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 
-/* ── Main ── */
-.main{flex:1;overflow-y:auto;display:flex;flex-direction:column}
-.sec{display:none;flex:1;flex-direction:column;min-height:0}
+.main{flex:1;overflow:hidden;display:flex;flex-direction:column}
+.sec{display:none;flex:1;flex-direction:column;min-height:0;overflow:hidden}
 .sec.on{display:flex}
-
-/* ── Page head ── */
-.ph{padding:24px 28px 0;flex-shrink:0}
-.pt-title{font-size:22px;font-weight:500;letter-spacing:-.03em;color:var(--ink)}
-.pt-sub{font-size:13px;color:var(--ink3);margin-top:3px}
+.ph{padding:22px 28px 16px;flex-shrink:0;border-bottom:1px solid var(--border);background:var(--surface)}
 .ph-row{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.pt-title{font-size:21px;font-weight:500;letter-spacing:-.03em}
+.pt-sub{font-size:13px;color:var(--ink3);margin-top:2px}
+.body-scroll{flex:1;overflow-y:auto;padding:22px 28px 32px}
 
-/* ── Scrollable body ── */
-.body-scroll{flex:1;overflow-y:auto;padding:20px 28px 32px}
-
-/* ── Cards ── */
 .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);padding:20px 22px;margin-bottom:14px}
 .card-title{font-size:11px;font-weight:500;color:var(--ink3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:14px}
 
-/* ── Metrics ── */
-.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px}
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:18px}
 .met{background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);padding:16px 18px}
-.ml{font-size:11px;color:var(--ink3);margin-bottom:5px;font-weight:500;letter-spacing:.03em;text-transform:uppercase}
-.mv{font-size:28px;font-weight:300;letter-spacing:-.03em;color:var(--ink)}
+.ml{font-size:11px;color:var(--ink3);margin-bottom:5px;font-weight:500;letter-spacing:.04em;text-transform:uppercase}
+.mv{font-size:28px;font-weight:300;letter-spacing:-.03em}
 .ms{font-size:12px;color:var(--ink3);margin-top:4px}
-.mv.g{color:var(--teal)}.mv.w{color:var(--amber)}.mv.b{color:var(--red)}
+.mv.g{color:var(--teal)}.mv.w{color:var(--amber)}.mv.b{color:var(--red)}.mv.p{color:var(--purple)}
 
-/* ── Clinic day schedule ── */
-.schedule{display:flex;flex-direction:column;gap:10px}
-.clinic-day{background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden}
-.day-header{display:flex;align-items:center;gap:12px;padding:14px 18px;cursor:pointer;user-select:none}
+/* Two column layout */
+.split{display:grid;grid-template-columns:320px 1fr;gap:16px;height:100%;min-height:0;overflow:hidden}
+.split-left{overflow-y:auto;padding:22px 0 22px 28px}
+.split-right{overflow-y:auto;padding:22px 28px 22px 0}
+
+/* Patient list panel */
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden}
+.panel-head{padding:12px 16px;border-bottom:1px solid var(--border);background:var(--surface2);display:flex;align-items:center;justify-content:space-between}
+.panel-title{font-size:11px;font-weight:500;color:var(--ink2);text-transform:uppercase;letter-spacing:.06em}
+.search-wrap{padding:10px 12px;border-bottom:1px solid var(--border)}
+.search-wrap input{width:100%;padding:7px 10px;border:1px solid var(--border2);border-radius:var(--r);font-family:inherit;font-size:13px;background:var(--surface);color:var(--ink)}
+.search-wrap input:focus{outline:none;border-color:var(--teal)}
+
+/* Schedule / clinic days */
+.clinic-day{background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;margin-bottom:10px}
+.day-header{display:flex;align-items:center;gap:12px;padding:13px 16px;cursor:pointer;user-select:none}
 .day-header:hover{background:var(--surface2)}
-.day-dot{width:10px;height:10px;border-radius:50%;background:var(--border2);flex-shrink:0}
+.day-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
 .day-dot.today{background:var(--teal)}
 .day-dot.past{background:var(--border2)}
 .day-dot.future{background:var(--border)}
-.day-name{font-size:15px;font-weight:500;color:var(--ink)}
+.day-name{font-size:14px;font-weight:500}
 .day-date{font-size:13px;color:var(--ink3);margin-left:4px}
-.day-badge{margin-left:auto;display:inline-flex;align-items:center;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:500}
-.day-today-tag{background:var(--teal-lt);color:var(--teal-dk);font-size:11px;padding:2px 8px;border-radius:10px;margin-left:8px}
-.day-chevron{margin-left:8px;color:var(--ink3);transition:transform .2s;font-size:12px}
-.day-body{border-top:1px solid var(--border);padding:0}
+.day-today-tag{background:var(--teal-lt);color:var(--teal-dk);font-size:11px;padding:2px 8px;border-radius:10px;margin-left:6px;font-weight:500}
+.day-body{border-top:1px solid var(--border)}
 .day-body.collapsed{display:none}
-.pt-row-sched{display:flex;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .12s}
-.pt-row-sched:last-child{border-bottom:none}
-.pt-row-sched:hover{background:var(--surface2)}
-.pt-row-sched.sel{background:var(--teal-lt)}
-.av{width:34px;height:34px;border-radius:50%;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:var(--ink2);flex-shrink:0;font-family:'DM Mono',monospace}
-.pt-row-sched.sel .av{background:var(--teal);color:#fff}
-.pid{font-size:13px;font-weight:500;font-family:'DM Mono',monospace;color:var(--ink)}
-.pdx{font-size:12px;color:var(--ink3)}
-.day-empty{padding:16px 18px;font-size:13px;color:var(--ink3);font-style:italic}
 
-/* ── Patient detail panel ── */
-.detail-wrap{display:grid;grid-template-columns:360px 1fr;gap:16px;height:100%;min-height:0}
-.detail-left{overflow-y:auto}
-.detail-right{overflow-y:auto}
-.dh{display:flex;align-items:center;gap:14px;margin-bottom:18px}
-.dav{width:46px;height:46px;border-radius:50%;background:var(--teal-lt);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:500;color:var(--teal-dk);font-family:'DM Mono',monospace;flex-shrink:0}
-.did{font-size:20px;font-weight:500;letter-spacing:-.02em}
-.dsub{font-size:13px;color:var(--ink3);margin-top:2px}
+/* Patient rows */
+.pt-row{display:flex;align-items:center;gap:11px;padding:11px 16px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .12s}
+.pt-row:last-child{border-bottom:none}
+.pt-row:hover{background:var(--surface2)}
+.pt-row.sel{background:var(--teal-lt)}
+.av{width:32px;height:32px;border-radius:50%;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:500;color:var(--ink2);flex-shrink:0;font-family:'DM Mono',monospace}
+.pt-row.sel .av{background:var(--teal);color:#fff}
+.pid{font-size:12px;font-weight:500;font-family:'DM Mono',monospace;color:var(--ink)}
+.pdx{font-size:11px;color:var(--ink3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:130px}
+.day-empty{padding:14px 16px;font-size:13px;color:var(--ink3);font-style:italic}
 
-/* ── Badges ── */
-.bdg{display:inline-flex;align-items:center;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:500}
-.bok{background:var(--teal-lt);color:var(--teal-dk)}.bwn{background:var(--amber-lt);color:var(--amber)}.bbd{background:var(--red-lt);color:var(--red)}.bnu{background:var(--surface2);color:var(--ink2)}
+/* Badges */
+.bdg{display:inline-flex;align-items:center;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:500;white-space:nowrap}
+.bok{background:var(--teal-lt);color:var(--teal-dk)}
+.bwn{background:var(--amber-lt);color:var(--amber)}
+.bbd{background:var(--red-lt);color:var(--red)}
+.bpu{background:var(--purple-lt);color:var(--purple)}
+.bnu{background:var(--surface2);color:var(--ink2)}
+.bcr{background:#FFF0F0;color:#8B0000;border:1px solid #fca5a5;font-weight:600}
 
-/* ── Charts ── */
+/* Charts */
 .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.cw{position:relative;width:100%;height:170px;margin-top:10px}
+.cw{position:relative;width:100%;height:180px;margin-top:10px}
 .leg{display:flex;gap:12px;font-size:11px;color:var(--ink3)}
 .leg span{display:flex;align-items:center;gap:5px}
 .ld{width:9px;height:9px;border-radius:2px}
 
-/* ── Tables ── */
+/* Tables */
 .tbl{width:100%;font-size:13px;border-collapse:collapse}
-.tbl th{text-align:left;padding:8px 10px;color:var(--ink3);font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid var(--border);background:var(--surface2)}
-.tbl td{padding:9px 10px;border-bottom:1px solid var(--border);color:var(--ink)}
+.tbl th{text-align:left;padding:8px 10px;color:var(--ink3);font-size:10px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid var(--border);background:var(--surface2)}
+.tbl td{padding:9px 10px;border-bottom:1px solid var(--border);color:var(--ink);vertical-align:middle}
 .tbl tr:last-child td{border-bottom:none}
 .tbl tbody tr:hover td{background:var(--surface2)}
-.abn{color:var(--red);font-weight:500}.nrm{color:var(--teal)}
 
-/* ── Log visit tabs ── */
-.log-tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px}
-.log-tab{display:flex;align-items:center;gap:10px;padding:16px 22px;border-radius:var(--r2);border:1px solid var(--border);background:var(--surface);cursor:pointer;text-align:left;font-family:inherit;transition:all .15s;flex:1;min-width:180px}
+/* Detail header */
+.dh{display:flex;align-items:center;gap:14px;margin-bottom:18px}
+.dav{width:46px;height:46px;border-radius:50%;background:var(--teal-lt);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;color:var(--teal-dk);font-family:'DM Mono',monospace;flex-shrink:0}
+.did{font-size:20px;font-weight:500;letter-spacing:-.02em}
+.dsub{font-size:13px;color:var(--ink3);margin-top:2px}
+
+/* Forms */
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fg3{grid-template-columns:1fr 1fr 1fr}
+.fg1{grid-template-columns:1fr}
+.f{display:flex;flex-direction:column;gap:6px}
+.f label{font-size:12px;font-weight:500;color:var(--ink2);letter-spacing:.02em}
+.f input,.f select,.f textarea{padding:10px 12px;border:1px solid var(--border2);border-radius:var(--r);font-family:'DM Sans',sans-serif;font-size:14px;color:var(--ink);background:var(--surface);transition:border-color .15s;width:100%}
+.f input:focus,.f select:focus,.f textarea:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(10,107,78,.1)}
+.f textarea{resize:vertical;min-height:80px}
+.fsec{margin-bottom:22px}
+.fsec-title{font-size:12px;font-weight:500;color:var(--ink2);text-transform:uppercase;letter-spacing:.07em;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+
+/* Log tabs */
+.log-tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}
+.log-tab{display:flex;align-items:center;gap:12px;padding:16px 20px;border-radius:var(--r2);border:1px solid var(--border);background:var(--surface);cursor:pointer;text-align:left;font-family:inherit;transition:all .15s;flex:1;min-width:160px}
 .log-tab:hover{border-color:var(--border2);background:var(--surface2)}
 .log-tab.on{border-color:var(--teal);background:var(--teal-lt)}
 .log-tab-icon{width:40px;height:40px;border-radius:var(--r);display:flex;align-items:center;justify-content:center;flex-shrink:0}
@@ -139,31 +154,15 @@ html,body{height:100%;font-family:'DM Sans',sans-serif;background:var(--bg);colo
 .log-tab-sub{font-size:12px;color:var(--ink3);margin-top:1px}
 .log-panel{display:none}.log-panel.on{display:block}
 
-/* ── Forms ── */
-.fg{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.fg3{grid-template-columns:1fr 1fr 1fr}
-.fg1{grid-template-columns:1fr}
-.f{display:flex;flex-direction:column;gap:6px}
-.f label{font-size:12px;font-weight:500;color:var(--ink2);letter-spacing:.02em}
-.f input,.f select,.f textarea{
-  padding:10px 12px;border:1px solid var(--border2);border-radius:var(--r);
-  font-family:'DM Sans',sans-serif;font-size:14px;color:var(--ink);
-  background:var(--surface);transition:border-color .15s;width:100%
-}
-.f input:focus,.f select:focus,.f textarea:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(10,107,78,.1)}
-.f textarea{resize:vertical;min-height:80px}
-.fsec{margin-bottom:24px}
-.fsec-title{font-size:12px;font-weight:500;color:var(--ink2);text-transform:uppercase;letter-spacing:.07em;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border)}
-
-/* ── Buttons ── */
+/* Buttons */
 .btn{padding:9px 18px;border-radius:var(--r);border:1px solid var(--border2);background:var(--surface);font-family:inherit;font-size:14px;font-weight:500;cursor:pointer;color:var(--ink);transition:all .15s}
 .btn:hover{background:var(--surface2)}
 .btn-primary{background:var(--teal);color:#fff;border-color:var(--teal)}
-.btn-primary:hover{background:var(--teal-dk);border-color:var(--teal-dk)}
+.btn-primary:hover{background:var(--teal-dk)}
 .btn-sm{padding:6px 13px;font-size:13px}
-.btn-row{display:flex;gap:10px;margin-top:20px;align-items:center}
+.btn-row{display:flex;gap:10px;margin-top:20px}
 
-/* ── Misc ── */
+/* Misc */
 .alert{padding:12px 16px;border-radius:var(--r);font-size:13px;line-height:1.6;margin-bottom:16px}
 .alert.info{background:var(--blue-lt);color:var(--blue);border:1px solid #c7d7fe}
 .alert.warn{background:var(--amber-lt);color:var(--amber);border:1px solid #fde68a}
@@ -177,24 +176,19 @@ html,body{height:100%;font-family:'DM Sans',sans-serif;background:var(--bg);colo
 .frow{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;align-items:center}
 .frow label{font-size:13px;color:var(--ink2)}
 .frow select{font-size:13px;padding:6px 10px;border:1px solid var(--border2);border-radius:var(--r);background:var(--surface);color:var(--ink);font-family:inherit}
-.toast{position:fixed;bottom:28px;right:28px;padding:12px 18px;border-radius:var(--r);font-size:14px;font-weight:500;z-index:300;opacity:0;transform:translateY(6px);transition:all .22s;pointer-events:none;max-width:340px}
+.toast{position:fixed;bottom:28px;right:28px;padding:12px 18px;border-radius:var(--r);font-size:14px;font-weight:500;z-index:300;opacity:0;transform:translateY(6px);transition:all .22s;pointer-events:none}
 .toast.show{opacity:1;transform:translateY(0)}
 .toast.ok{background:var(--teal);color:#fff}
 .toast.err{background:var(--red);color:#fff}
 
-/* ── Lab rows ── */
 .lab-row-item{display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr 1fr 1fr;gap:10px;margin-bottom:10px;align-items:end}
 .med-row-item{display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr 1fr 1.5fr;gap:10px;margin-bottom:10px;align-items:end}
 
-@media(max-width:1000px){
-  .detail-wrap{grid-template-columns:1fr}
+@media(max-width:900px){
+  .split{grid-template-columns:1fr;height:auto}
+  .split-left,.split-right{padding:16px}
   .two{grid-template-columns:1fr}
-  .fg3{grid-template-columns:1fr 1fr}
-  .lab-row-item,.med-row-item{grid-template-columns:1fr 1fr 1fr}
-}
-@media(max-width:700px){
-  .nav{display:none}.fg{grid-template-columns:1fr}.fg3{grid-template-columns:1fr}
-  .log-tab{min-width:140px}
+  .nav{display:none}
 }
 </style>
 </head>
@@ -216,20 +210,20 @@ html,body{height:100%;font-family:'DM Sans',sans-serif;background:var(--bg);colo
     <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
     Clinic schedule
   </button>
-  <button class="ni" onclick="showTab('patients',this)">
-    <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-    All patients
+  <button class="ni" onclick="showTab('diabetes',this)">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12h8M12 8v8"/></svg>
+    Diabetes
+  </button>
+  <button class="ni" onclick="showTab('htn',this)">
+    <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+    Hypertension
   </button>
   <button class="ni" onclick="showTab('outcomes',this)">
-    <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+    <svg viewBox="0 0 24 24"><polyline points="22 20 14 12 9 17 2 10"/><polyline points="16 20 22 20 22 14"/></svg>
     Outcomes
   </button>
   <div class="nav-div"></div>
   <div class="nav-lbl">Data entry</div>
-  <button class="ni" onclick="showTab('add-patient',this)">
-    <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
-    Add patient
-  </button>
   <button class="ni" onclick="showTab('log-visit',this)">
     <svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
     Log visit
@@ -244,131 +238,114 @@ html,body{height:100%;font-family:'DM Sans',sans-serif;background:var(--bg);colo
 
 <main class="main">
 
-<!-- ── CLINIC SCHEDULE ── -->
+<!-- ── SCHEDULE ── -->
 <div id="sec-schedule" class="sec on">
-  <div class="ph" style="padding-bottom:20px">
+  <div class="ph">
     <div class="ph-row">
-      <div><div class="pt-title">Clinic schedule</div><div class="pt-sub">Patients grouped by clinic day — Tuesdays &amp; Thursdays</div></div>
-      <button class="btn btn-sm" onclick="showTab('add-patient',document.querySelectorAll('.ni')[3])">+ Add patient</button>
+      <div><div class="pt-title">Clinic schedule</div><div class="pt-sub">Tuesdays &amp; Thursdays — patients grouped by visit date</div></div>
     </div>
   </div>
-  <div class="body-scroll">
-    <div id="sched-loading" class="loading"><div class="spin"></div>&nbsp;Loading…</div>
-    <div id="sched-error"></div>
-    <div id="sched-main" style="display:none">
-      <div class="detail-wrap">
-        <div class="detail-left">
-          <div class="schedule" id="schedule-days"></div>
-        </div>
-        <div class="detail-right" id="sched-detail"><div class="empty" style="padding-top:4rem">Select a patient to view their record</div></div>
+  <div id="sched-loading" class="loading"><div class="spin"></div>&nbsp;Loading from Google Sheets…</div>
+  <div id="sched-error" style="padding:16px 28px"></div>
+  <div id="sched-main" style="display:none;flex:1;overflow:hidden">
+    <div class="split" style="padding:0">
+      <div class="split-left">
+        <div id="schedule-days"></div>
       </div>
+      <div class="split-right" id="sched-detail"><div class="empty" style="padding-top:5rem">Select a patient to view their record</div></div>
     </div>
   </div>
 </div>
 
-<!-- ── ALL PATIENTS ── -->
-<div id="sec-patients" class="sec">
-  <div class="ph" style="padding-bottom:20px">
+<!-- ── DIABETES ── -->
+<div id="sec-diabetes" class="sec">
+  <div class="ph">
     <div class="ph-row">
-      <div><div class="pt-title">All patients</div><div class="pt-sub" id="pt-count-sub">Loading…</div></div>
+      <div><div class="pt-title">Diabetes monitoring</div><div class="pt-sub" id="dm-sub">Loading…</div></div>
+      <div class="frow" style="margin:0">
+        <label style="font-size:12px;color:var(--ink2)">Goal status:</label>
+        <select id="dm-filter" onchange="renderDiabetesList()" style="font-size:12px;padding:5px 8px;border:1px solid var(--border2);border-radius:var(--r);background:var(--surface);font-family:inherit">
+          <option value="all">All patients</option>
+          <option value="above">Above goal</option>
+          <option value="at">At goal</option>
+        </select>
+      </div>
     </div>
   </div>
-  <div class="body-scroll">
-    <div id="pt-error"></div>
-    <div id="pt-main">
-      <div class="detail-wrap">
-        <div class="detail-left">
-          <div class="card" style="padding:0;overflow:hidden">
-            <div style="padding:12px 16px;border-bottom:1px solid var(--border);background:var(--surface2)">
-              <input id="pt-search" oninput="renderAllPatients()" placeholder="Search by ID or diagnosis…" style="width:100%;padding:8px 12px;border:1px solid var(--border2);border-radius:var(--r);font-family:inherit;font-size:13px;background:var(--surface);color:var(--ink)"/>
-            </div>
-            <div id="pt-all-list"></div>
+  <div style="flex:1;overflow:hidden;display:flex">
+    <div class="split" style="padding:0;flex:1">
+      <div class="split-left">
+        <div class="panel">
+          <div class="panel-head">
+            <span class="panel-title">Patients</span>
+            <span id="dm-count" style="font-size:11px;color:var(--ink3)"></span>
           </div>
+          <div class="search-wrap"><input id="dm-search" oninput="renderDiabetesList()" placeholder="Search patient ID or diagnosis…"/></div>
+          <div id="dm-list"></div>
         </div>
-        <div class="detail-right" id="pt-detail"><div class="empty">Select a patient</div></div>
       </div>
+      <div class="split-right" id="dm-detail"><div class="empty" style="padding-top:5rem">Select a patient</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── HTN ── -->
+<div id="sec-htn" class="sec">
+  <div class="ph">
+    <div class="ph-row">
+      <div><div class="pt-title">Hypertension monitoring</div><div class="pt-sub" id="htn-sub">Loading…</div></div>
+      <div class="frow" style="margin:0">
+        <label style="font-size:12px;color:var(--ink2)">Status:</label>
+        <select id="htn-filter" onchange="renderHTNList()" style="font-size:12px;padding:5px 8px;border:1px solid var(--border2);border-radius:var(--r);background:var(--surface);font-family:inherit">
+          <option value="all">All patients</option>
+          <option value="uncontrolled">Uncontrolled</option>
+          <option value="controlled">Controlled</option>
+          <option value="crisis">BP Crisis</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div style="flex:1;overflow:hidden;display:flex">
+    <div class="split" style="padding:0;flex:1">
+      <div class="split-left">
+        <div class="panel">
+          <div class="panel-head">
+            <span class="panel-title">Patients</span>
+            <span id="htn-count" style="font-size:11px;color:var(--ink3)"></span>
+          </div>
+          <div class="search-wrap"><input id="htn-search" oninput="renderHTNList()" placeholder="Search patient ID or classification…"/></div>
+          <div id="htn-list"></div>
+        </div>
+      </div>
+      <div class="split-right" id="htn-detail"><div class="empty" style="padding-top:5rem">Select a patient</div></div>
     </div>
   </div>
 </div>
 
 <!-- ── OUTCOMES ── -->
 <div id="sec-outcomes" class="sec">
-  <div class="ph" style="padding-bottom:20px">
-    <div class="pt-title">Outcomes analytics</div><div class="pt-sub">Donor-ready impact metrics</div>
-  </div>
-  <div class="body-scroll">
-    <div class="frow">
-      <label>Condition:</label>
-      <select id="cond-sel" onchange="renderOutcomes()"><option value="bp">Blood pressure</option><option value="a1c">A1C / HbA1c</option></select>
-      <label>Visit window:</label>
-      <select id="win-sel" onchange="renderOutcomes()"><option value="3">Within 3 visits</option><option value="5">Within 5 visits</option><option value="99">All visits</option></select>
-    </div>
-    <div id="out-content"><div class="loading"><div class="spin"></div>&nbsp;Loading…</div></div>
-  </div>
-</div>
-
-<!-- ── ADD PATIENT (clinical only) ── -->
-<div id="sec-add-patient" class="sec">
-  <div class="ph" style="padding-bottom:20px">
-    <div class="pt-title">Add patient</div><div class="pt-sub">Clinical information only — no names for HIPAA compliance</div>
-  </div>
-  <div class="body-scroll">
-    <div class="alert info">Use Patient ID only. Keep the ID ↔ name mapping in your EHR.</div>
-    <div class="card">
-      <div class="fsec">
-        <div class="fsec-title">Patient ID</div>
-        <div class="fg">
-          <div class="f"><label>Patient ID *</label><input id="np-id" placeholder="PT-0006" style="font-family:'DM Mono',monospace;font-size:16px;font-weight:500"/></div>
-          <div class="f"><label>Year of birth</label><input id="np-yob" type="number" placeholder="1965" min="1900" max="2025"/></div>
-          <div class="f"><label>Sex</label><select id="np-sex"><option value="">—</option><option>M</option><option>F</option><option>Other</option></select></div>
-          <div class="f"><label>Preferred language</label><input id="np-lang" placeholder="English"/></div>
-        </div>
-      </div>
-      <div class="fsec">
-        <div class="fsec-title">Diagnoses</div>
-        <div class="fg3">
-          <div class="f"><label>Primary diagnosis *</label><input id="np-dx1" placeholder="Hypertension"/></div>
-          <div class="f"><label>Secondary diagnosis</label><input id="np-dx2" placeholder="Type 2 Diabetes"/></div>
-          <div class="f"><label>Tertiary diagnosis</label><input id="np-dx3" placeholder="CKD Stage 3"/></div>
-        </div>
-      </div>
-      <div class="fsec">
-        <div class="fsec-title">Clinical notes</div>
-        <div class="fg1">
-          <div class="f"><textarea id="np-notes" placeholder="Relevant clinical history, referral source, allergies…" style="min-height:100px"></textarea></div>
-        </div>
-      </div>
-      <div class="btn-row">
-        <button class="btn btn-primary" onclick="submitPatient()">Save patient</button>
-        <button class="btn" onclick="clearPatientForm()">Clear</button>
-      </div>
-    </div>
-  </div>
+  <div class="ph"><div class="pt-title">Outcomes analytics</div><div class="pt-sub">Donor-ready impact metrics</div></div>
+  <div class="body-scroll" id="out-content"><div class="loading"><div class="spin"></div>&nbsp;Loading…</div></div>
 </div>
 
 <!-- ── LOG VISIT ── -->
 <div id="sec-log-visit" class="sec">
-  <div class="ph" style="padding-bottom:20px">
-    <div class="pt-title">Log visit</div><div class="pt-sub">Choose what you're recording today</div>
-  </div>
+  <div class="ph"><div class="pt-title">Log visit</div><div class="pt-sub">Choose what you're recording today</div></div>
   <div class="body-scroll">
-
-    <!-- Visit header — always visible -->
     <div class="card" style="margin-bottom:18px">
       <div class="card-title">Visit info</div>
       <div class="fg">
-        <div class="f"><label>Patient ID *</label><input id="v-ptid" placeholder="PT-0001" style="font-family:'DM Mono',monospace;font-size:16px;font-weight:500"/></div>
+        <div class="f"><label>Patient ID *</label><input id="v-ptid" placeholder="e.g. 12087" style="font-family:'DM Mono',monospace;font-size:16px;font-weight:500"/></div>
         <div class="f"><label>Visit date *</label><input id="v-date" type="date"/></div>
-        <div class="f"><label>Visit type</label><select id="v-type"><option>Follow-up</option><option>New Patient</option><option>Urgent</option><option>Telehealth</option><option>Group Visit</option></select></div>
-        <div class="f"><label>Provider code</label><input id="v-provider" placeholder="DR-A"/></div>
+        <div class="f"><label>Provider</label><input id="v-provider" placeholder="DR-A"/></div>
+        <div class="f"><label>Visit type</label><select id="v-type"><option>Follow-up</option><option>New Patient</option><option>Urgent</option><option>Telehealth</option></select></div>
       </div>
     </div>
 
-    <!-- Log type tabs -->
     <div class="log-tabs">
       <button class="log-tab on" onclick="switchLogTab('bp',this)">
         <div class="log-tab-icon"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
-        <div><div class="log-tab-title">Log BP</div><div class="log-tab-sub">Blood pressure &amp; vitals</div></div>
+        <div><div class="log-tab-title">Log BP</div><div class="log-tab-sub">Blood pressure reading</div></div>
       </button>
       <button class="log-tab" onclick="switchLogTab('a1c',this)">
         <div class="log-tab-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12h8M12 8v8"/></svg></div>
@@ -384,223 +361,566 @@ html,body{height:100%;font-family:'DM Sans',sans-serif;background:var(--bg);colo
       </button>
     </div>
 
-    <!-- BP panel -->
     <div class="log-panel on" id="panel-bp">
       <div class="card">
-        <div class="card-title">Blood pressure &amp; vitals</div>
+        <div class="card-title">Blood pressure</div>
         <div class="fg3" style="margin-bottom:14px">
-          <div class="f"><label>Systolic BP (mmHg) *</label><input id="v-sys" type="number" placeholder="120" style="font-size:22px;font-weight:300;padding:12px 14px"/></div>
-          <div class="f"><label>Diastolic BP (mmHg) *</label><input id="v-dia" type="number" placeholder="80" style="font-size:22px;font-weight:300;padding:12px 14px"/></div>
-          <div class="f"><label>Heart rate (bpm)</label><input id="v-hr" type="number" placeholder="72"/></div>
+          <div class="f"><label>Systolic *</label><input id="v-sys" type="number" placeholder="120" style="font-size:26px;font-weight:300;padding:14px"/></div>
+          <div class="f"><label>Diastolic *</label><input id="v-dia" type="number" placeholder="80" style="font-size:26px;font-weight:300;padding:14px"/></div>
+          <div class="f"><label>Heart rate</label><input id="v-hr" type="number" placeholder="72"/></div>
         </div>
         <div class="fg3">
           <div class="f"><label>Weight (lbs)</label><input id="v-wt" type="number" placeholder="165"/></div>
-          <div class="f"><label>Height (in)</label><input id="v-ht" type="number" placeholder="66"/></div>
-          <div class="f"><label>O2 saturation (%)</label><input id="v-o2" type="number" placeholder="98"/></div>
-          <div class="f"><label>Temp (°F)</label><input id="v-temp" placeholder="98.6"/></div>
-          <div class="f"><label>Pain score (0–10)</label><input id="v-pain" type="number" min="0" max="10" placeholder="0"/></div>
-          <div class="f"><label>Assessment / notes</label><input id="v-assess-bp" placeholder="BP improved on current regimen…"/></div>
+          <div class="f"><label>O2 sat (%)</label><input id="v-o2" type="number" placeholder="98"/></div>
+          <div class="f"><label>Pain (0–10)</label><input id="v-pain" type="number" min="0" max="10" placeholder="0"/></div>
         </div>
-        <div class="btn-row">
-          <button class="btn btn-primary" onclick="submitBP()">Save BP &amp; vitals</button>
-          <button class="btn" onclick="clearBP()">Clear</button>
-        </div>
+        <div class="btn-row"><button class="btn btn-primary" onclick="submitBP()">Save BP</button><button class="btn" onclick="clearBP()">Clear</button></div>
       </div>
     </div>
 
-    <!-- A1C panel -->
     <div class="log-panel" id="panel-a1c">
       <div class="card">
-        <div class="card-title">A1C / HbA1c &amp; glucose</div>
+        <div class="card-title">A1C / HbA1c</div>
         <div class="fg" style="margin-bottom:14px">
-          <div class="f"><label>HbA1c (%) *</label><input id="v-a1c" type="number" step="0.1" placeholder="7.2" style="font-size:28px;font-weight:300;padding:14px 16px"/></div>
-          <div class="f"><label>Fasting glucose (mg/dL)</label><input id="v-glucose" type="number" placeholder="104" style="font-size:28px;font-weight:300;padding:14px 16px"/></div>
+          <div class="f"><label>HbA1c (%) *</label><input id="v-a1c" type="number" step="0.1" placeholder="7.2" style="font-size:32px;font-weight:300;padding:16px"/></div>
+          <div class="f"><label>Fasting glucose (mg/dL)</label><input id="v-glucose" type="number" placeholder="104" style="font-size:32px;font-weight:300;padding:16px"/></div>
         </div>
         <div class="fg">
-          <div class="f"><label>Fasting?</label><select id="v-a1c-fasting"><option>Yes</option><option>No</option></select></div>
+          <div class="f"><label>Goal status</label><select id="v-a1c-goal"><option value="At Goal">At Goal</option><option value="Above Goal">Above Goal</option></select></div>
           <div class="f"><label>Notes</label><input id="v-a1c-notes" placeholder="Baseline, trending down…"/></div>
         </div>
-        <div class="btn-row">
-          <button class="btn btn-primary" onclick="submitA1C()">Save A1C</button>
-          <button class="btn" onclick="clearA1C()">Clear</button>
-        </div>
+        <div class="btn-row"><button class="btn btn-primary" onclick="submitA1C()">Save A1C</button><button class="btn" onclick="clearA1C()">Clear</button></div>
       </div>
     </div>
 
-    <!-- Other labs panel -->
     <div class="log-panel" id="panel-labs">
       <div class="card">
         <div class="card-title">Other test results</div>
-        <div style="margin-bottom:8px;display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr 1fr 1fr;gap:10px;padding:0 2px">
-          <span style="font-size:11px;color:var(--ink3);font-weight:500;text-transform:uppercase;letter-spacing:.06em">Test name</span>
-          <span style="font-size:11px;color:var(--ink3);font-weight:500;text-transform:uppercase;letter-spacing:.06em">Result</span>
-          <span style="font-size:11px;color:var(--ink3);font-weight:500;text-transform:uppercase;letter-spacing:.06em">Unit</span>
-          <span style="font-size:11px;color:var(--ink3);font-weight:500;text-transform:uppercase;letter-spacing:.06em">Category</span>
-          <span style="font-size:11px;color:var(--ink3);font-weight:500;text-transform:uppercase;letter-spacing:.06em">Ref low</span>
-          <span style="font-size:11px;color:var(--ink3);font-weight:500;text-transform:uppercase;letter-spacing:.06em">Ref high</span>
+        <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr 1fr 1fr;gap:10px;padding:0 2px;margin-bottom:8px">
+          <span style="font-size:10px;color:var(--ink3);font-weight:500;text-transform:uppercase;letter-spacing:.06em">Test name</span>
+          <span style="font-size:10px;color:var(--ink3);font-weight:500;text-transform:uppercase;letter-spacing:.06em">Result</span>
+          <span style="font-size:10px;color:var(--ink3);font-weight:500;text-transform:uppercase;letter-spacing:.06em">Unit</span>
+          <span style="font-size:10px;color:var(--ink3);font-weight:500;text-transform:uppercase;letter-spacing:.06em">Category</span>
+          <span style="font-size:10px;color:var(--ink3);font-weight:500;text-transform:uppercase;letter-spacing:.06em">Ref low</span>
+          <span style="font-size:10px;color:var(--ink3);font-weight:500;text-transform:uppercase;letter-spacing:.06em">Ref high</span>
         </div>
         <div id="lab-rows"></div>
-        <button class="btn btn-sm" onclick="addLabRow()" style="margin-top:4px">+ Add test</button>
-        <div class="btn-row">
-          <button class="btn btn-primary" onclick="submitLabs()">Save test results</button>
-          <button class="btn" onclick="document.getElementById('lab-rows').innerHTML='';addLabRow()">Clear</button>
-        </div>
+        <button class="btn btn-sm" onclick="addLabRow()" style="margin-top:6px">+ Add test</button>
+        <div class="btn-row"><button class="btn btn-primary" onclick="submitLabs()">Save tests</button></div>
       </div>
     </div>
 
-    <!-- Meds panel -->
     <div class="log-panel" id="panel-meds">
       <div class="card">
         <div class="card-title">Medications — new or changed</div>
-        <div style="margin-bottom:8px;display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr 1fr 1.5fr;gap:10px;padding:0 2px">
-          <span style="font-size:11px;color:var(--ink3);font-weight:500;text-transform:uppercase;letter-spacing:.06em">Medication</span>
-          <span style="font-size:11px;color:var(--ink3);font-weight:500;text-transform:uppercase;letter-spacing:.06em">Dose</span>
-          <span style="font-size:11px;color:var(--ink3);font-weight:500;text-transform:uppercase;letter-spacing:.06em">Unit</span>
-          <span style="font-size:11px;color:var(--ink3);font-weight:500;text-transform:uppercase;letter-spacing:.06em">Frequency</span>
-          <span style="font-size:11px;color:var(--ink3);font-weight:500;text-transform:uppercase;letter-spacing:.06em">Route</span>
-          <span style="font-size:11px;color:var(--ink3);font-weight:500;text-transform:uppercase;letter-spacing:.06em">Drug class</span>
+        <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr 1fr 1.5fr;gap:10px;padding:0 2px;margin-bottom:8px">
+          <span style="font-size:10px;color:var(--ink3);font-weight:500;text-transform:uppercase;letter-spacing:.06em">Medication</span>
+          <span style="font-size:10px;color:var(--ink3);font-weight:500;text-transform:uppercase;letter-spacing:.06em">Dose</span>
+          <span style="font-size:10px;color:var(--ink3);font-weight:500;text-transform:uppercase;letter-spacing:.06em">Unit</span>
+          <span style="font-size:10px;color:var(--ink3);font-weight:500;text-transform:uppercase;letter-spacing:.06em">Frequency</span>
+          <span style="font-size:10px;color:var(--ink3);font-weight:500;text-transform:uppercase;letter-spacing:.06em">Route</span>
+          <span style="font-size:10px;color:var(--ink3);font-weight:500;text-transform:uppercase;letter-spacing:.06em">Drug class</span>
         </div>
         <div id="med-rows"></div>
-        <button class="btn btn-sm" onclick="addMedRow()" style="margin-top:4px">+ Add medication</button>
-        <div class="btn-row">
-          <button class="btn btn-primary" onclick="submitMeds()">Save medications</button>
-          <button class="btn" onclick="document.getElementById('med-rows').innerHTML='';addMedRow()">Clear</button>
-        </div>
+        <button class="btn btn-sm" onclick="addMedRow()" style="margin-top:6px">+ Add medication</button>
+        <div class="btn-row"><button class="btn btn-primary" onclick="submitMeds()">Save medications</button></div>
       </div>
     </div>
-
   </div>
 </div>
 
 <!-- ── SETTINGS ── -->
 <div id="sec-settings" class="sec">
-  <div class="ph" style="padding-bottom:20px"><div class="pt-title">Settings</div><div class="pt-sub">Google Sheets connection</div></div>
+  <div class="ph"><div class="pt-title">Settings</div><div class="pt-sub">Google Sheets connection</div></div>
   <div class="body-scroll">
     <div class="card">
       <div class="card-title">Connection</div>
       <div class="alert warn">To write data back to Google Sheets, add your OAuth2 Client ID. Reading works without it.</div>
       <div style="display:flex;flex-direction:column;gap:14px">
-        <div class="f"><label>Spreadsheet ID</label><input id="cfg-sid" value="1O_mlwBYFhPn-BW0H9QtimVbZ5DhihqghMnr6yE7Kw3Q" style="font-family:'DM Mono',monospace;font-size:13px"/></div>
-        <div class="f"><label>API Key (read)</label><input id="cfg-key" value="AIzaSyCv9F_LlqtyLP8m-Xtv7GBRxSi6jSa_20k" style="font-family:'DM Mono',monospace;font-size:13px"/></div>
+        <div class="f"><label>Spreadsheet ID</label><input id="cfg-sid" value="1DNEHBjPYQIcxwWCYdjty7M6Dp2-zdLmjkSpcVLG0wNw" style="font-family:'DM Mono',monospace;font-size:13px"/></div>
+        <div class="f"><label>API Key</label><input id="cfg-key" value="AIzaSyCv9F_LlqtyLP8m-Xtv7GBRxSi6jSa_20k" style="font-family:'DM Mono',monospace;font-size:13px"/></div>
         <div class="f"><label>OAuth2 Client ID (write)</label><input id="cfg-client" placeholder="xxxxx.apps.googleusercontent.com" style="font-family:'DM Mono',monospace;font-size:13px"/></div>
       </div>
       <div class="btn-row"><button class="btn btn-primary" onclick="saveSettings()">Save &amp; reconnect</button></div>
     </div>
     <div class="card">
-      <div class="card-title">OAuth2 setup — one time, ~3 min</div>
-      <div class="ins"><p><strong>1.</strong> Go to <a href="https://console.cloud.google.com" target="_blank" style="color:var(--teal)">console.cloud.google.com</a> → your "Clinic Tracker" project.</p></div>
-      <div class="ins"><p><strong>2.</strong> APIs &amp; Services → Credentials → <strong>+ Create Credentials → OAuth client ID</strong>.</p></div>
-      <div class="ins"><p><strong>3.</strong> Application type: <strong>Web application</strong>.</p></div>
-      <div class="ins"><p><strong>4.</strong> Under "Authorized JavaScript origins" add: <code style="font-family:'DM Mono',monospace;font-size:12px">https://haahamzahali2-ui.github.io</code></p></div>
-      <div class="ins"><p><strong>5.</strong> Click Create → copy the Client ID → paste above → Save &amp; reconnect.</p></div>
-      <div class="ins"><p><strong>6.</strong> OAuth consent screen → add yourself as a <strong>Test User</strong>.</p></div>
+      <div class="card-title">Sheet names (exact, case-sensitive)</div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div class="f"><label>Diabetes sheet name</label><input id="cfg-dm-sheet" value="Diabetes Monitoring" style="font-family:'DM Mono',monospace;font-size:13px"/></div>
+        <div class="f"><label>HTN sheet name</label><input id="cfg-htn-sheet" value="HTN Monitoring" style="font-family:'DM Mono',monospace;font-size:13px"/></div>
+      </div>
+      <div class="btn-row"><button class="btn btn-primary" onclick="saveSettings()">Save &amp; reconnect</button></div>
     </div>
   </div>
 </div>
 
 </main>
 </div>
-
 <div class="toast" id="toast"></div>
 
 <script>
-// ── CONFIG ──
-let SHEET_ID  = '1O_mlwBYFhPn-BW0H9QtimVbZ5DhihqghMnr6yE7Kw3Q';
-let API_KEY   = 'AIzaSyCv9F_LlqtyLP8m-Xtv7GBRxSi6jSa_20k';
-let CLIENT_ID = '';
-const SCOPES  = 'https://www.googleapis.com/auth/spreadsheets';
-const DISC    = 'https://sheets.googleapis.com/$discovery/rest?version=v4';
+// ── CONFIG ──────────────────────────────────────────────
+let SHEET_ID   = '1DNEHBjPYQIcxwWCYdjty7M6Dp2-zdLmjkSpcVLG0wNw';
+let API_KEY    = 'AIzaSyCv9F_LlqtyLP8m-Xtv7GBRxSi6jSa_20k';
+let CLIENT_ID  = '';
+let DM_SHEET   = 'Diabetes Monitoring';
+let HTN_SHEET  = 'HTN Monitoring';
+const SCOPES   = 'https://www.googleapis.com/auth/spreadsheets';
+const DISC     = 'https://sheets.googleapis.com/$discovery/rest?version=v4';
 
-let DB = {patients:[],visits:[],vitals:[],labs:[],meds:[]};
-let selPt = null, charts = {}, isSignedIn = false, tokenClient = null;
+// ── STATE ────────────────────────────────────────────────
+let DM  = [];   // diabetes rows
+let HTN = [];   // htn rows
+let selDM  = null;
+let selHTN = null;
+let selSched = null;
+let charts = {};
+let isSignedIn = false, tokenClient = null;
 
-// ── CLINIC DAYS (Tues/Thurs going back 8 weeks, forward 4 weeks) ──
-function getClinicDays(){
-  const days = [];
-  const now = new Date();
-  const start = new Date(now); start.setDate(now.getDate() - 56);
-  const end = new Date(now);   end.setDate(now.getDate() + 28);
-  for(let d = new Date(start); d <= end; d.setDate(d.getDate()+1)){
-    const dow = d.getDay();
-    if(dow === 2 || dow === 4){ // Tuesday=2, Thursday=4
-      days.push(new Date(d));
-    }
-  }
-  return days.reverse(); // most recent first
-}
-
-function fmtDate(d){
-  return d.toLocaleDateString('en-US',{weekday:'long',month:'numeric',day:'numeric',year:'numeric'});
-}
-function fmtDateShort(d){
-  return d.toLocaleDateString('en-US',{weekday:'short',month:'numeric',day:'numeric'});
-}
-function isoDate(d){ return d.toISOString().slice(0,10); }
-function todayISO(){ return new Date().toISOString().slice(0,10); }
-
-// ── GAPI ──
+// ── GAPI ────────────────────────────────────────────────
 function gapiLoaded(){
   gapi.load('client', async ()=>{
     await gapi.client.init({apiKey:API_KEY, discoveryDocs:[DISC]});
-    loadAllData();
+    loadAll();
   });
 }
-function gisLoaded(){ if(CLIENT_ID) initTokenClient(); }
-function initTokenClient(){
+function gisLoaded(){ if(CLIENT_ID) initTC(); }
+function initTC(){
   if(!CLIENT_ID||typeof google==='undefined') return;
   tokenClient = google.accounts.oauth2.initTokenClient({
     client_id:CLIENT_ID, scope:SCOPES,
-    callback:(r)=>{ if(!r.error){ isSignedIn=true; updateAuthUI(true); toast('Signed in — write access enabled'); }}
+    callback:(r)=>{ if(!r.error){ isSignedIn=true; updateAuthUI(true); toast('Signed in — write enabled'); }}
   });
 }
 function handleAuth(){
-  if(!CLIENT_ID){ toast('Add your OAuth2 Client ID in Settings first','err'); showTab('settings',document.querySelectorAll('.ni')[5]); return; }
-  if(isSignedIn){
-    google.accounts.oauth2.revoke(gapi.client.getToken().access_token,()=>{ gapi.client.setToken(''); isSignedIn=false; updateAuthUI(false); });
-  } else {
-    if(!tokenClient) initTokenClient();
-    tokenClient.requestAccessToken({prompt:'consent'});
-  }
+  if(!CLIENT_ID){ toast('Add OAuth2 Client ID in Settings','err'); showTab('settings',document.querySelectorAll('.ni')[6]); return; }
+  if(isSignedIn){ google.accounts.oauth2.revoke(gapi.client.getToken().access_token,()=>{ gapi.client.setToken(''); isSignedIn=false; updateAuthUI(false); }); }
+  else { if(!tokenClient) initTC(); tokenClient.requestAccessToken({prompt:'consent'}); }
 }
 function updateAuthUI(on){
-  const btn=document.getElementById('auth-btn'),dot=document.getElementById('sync-dot'),lbl=document.getElementById('sync-lbl');
-  if(on){btn.textContent='Sign out';btn.classList.add('connected');dot.classList.add('on');lbl.textContent='Write access';}
-  else{btn.textContent='Sign in to write data';btn.classList.remove('connected');dot.classList.remove('on');lbl.textContent='Read-only';}
+  const b=document.getElementById('auth-btn'),d=document.getElementById('sync-dot'),l=document.getElementById('sync-lbl');
+  if(on){b.textContent='Sign out';b.classList.add('connected');d.classList.add('on');l.textContent='Write access';}
+  else{b.textContent='Sign in to write data';b.classList.remove('connected');d.classList.remove('on');l.textContent='Read-only';}
 }
 
-// ── DATA ──
-async function fetchSheet(tab,range){
+// ── FETCH ────────────────────────────────────────────────
+async function fetchSheet(tab, range){
   const url=`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${encodeURIComponent(tab+'!'+range)}?key=${API_KEY}`;
   const res=await fetch(url); const d=await res.json();
-  if(d.error) throw new Error(d.error.message);
-  const rows=d.values||[]; if(rows.length<2) return [];
-  const h=rows[1];
-  return rows.slice(2).map(r=>{ const o={}; h.forEach((k,i)=>o[k]=r[i]||''); return o; });
+  if(d.error) throw new Error(d.error.message+' (sheet: '+tab+')');
+  const rows=d.values||[]; if(!rows.length) return [];
+  // Row 0 = headers (no merged title row in this sheet)
+  const h=rows[0];
+  return rows.slice(1).filter(r=>r.some(c=>c.trim())).map(r=>{
+    const o={}; h.forEach((k,i)=>o[k.trim()]=r[i]||''); return o;
+  });
 }
 
-async function loadAllData(){
+async function loadAll(){
   document.getElementById('sched-loading').style.display='flex';
   document.getElementById('sched-main').style.display='none';
   document.getElementById('sched-error').innerHTML='';
   try{
-    const [patients,visits,vitals,labs,meds] = await Promise.all([
-      fetchSheet('1_Patients','A1:L500'), fetchSheet('2_Visits','A1:K500'),
-      fetchSheet('3_Vitals','A1:N500'),   fetchSheet('4_Labs_Tests','A1:O500'),
-      fetchSheet('5_Medications','A1:O500'),
+    [DM, HTN] = await Promise.all([
+      fetchSheet(DM_SHEET,'A1:F500'),
+      fetchSheet(HTN_SHEET,'A1:J500'),
     ]);
-    DB={patients,visits,vitals,labs,meds};
     document.getElementById('sched-loading').style.display='none';
-    document.getElementById('sched-main').style.display='block';
-    document.getElementById('pt-count-sub').textContent=patients.length+' patients total';
+    document.getElementById('sched-main').style.display='flex';
+
+    // Summary subtitles
+    document.getElementById('dm-sub').textContent = DM.length+' patient records';
+    document.getElementById('htn-sub').textContent = HTN.length+' patient records';
+
     renderSchedule();
-    renderAllPatients();
+    renderDiabetesList();
+    renderHTNList();
     renderOutcomes();
   } catch(e){
     document.getElementById('sched-loading').style.display='none';
-    document.getElementById('sched-error').innerHTML=`<div class="alert" style="background:var(--red-lt);color:var(--red);border:1px solid #f7c1c1">${e.message}</div>`;
+    document.getElementById('sched-error').innerHTML=`<div class="alert" style="background:var(--red-lt);color:var(--red);border:1px solid #f7c1c1;margin-top:16px">${e.message}<br><small>Check Settings — make sure sheet names match exactly.</small></div>`;
   }
 }
 
+// ── COLUMN HELPERS ───────────────────────────────────────
+// DM columns: cln enc date | patientsno | med problem desc | lab value | At goal? | Patient ID
+function dmDate(r){ return r['cln enc date']||r['Cln Enc Date']||r['CLN ENC DATE']||''; }
+function dmPtId(r){ return r['Patient ID']||r['patient id']||r['patientid']||r['PatientID']||''; }
+function dmDx(r){ return r['med problem desc']||r['Med Problem Desc']||''; }
+function dmA1C(r){ return r['lab value']||r['Lab Value']||''; }
+function dmGoal(r){ return r['At goal?']||r['at goal?']||r['At Goal?']||''; }
+
+// HTN columns: cln enc date | patientsno | med problem desc | patientid | Enc BP | SYSTOLIC | DISATOLIC | CLASSIFICATION | CONTROLLED? | CRISIS?
+function htnDate(r){ return r['cln enc date']||r['Cln Enc Date']||''; }
+function htnPtId(r){ return r['patientid']||r['Patient ID']||r['PatientID']||''; }
+function htnDx(r){ return r['med problem desc']||r['Med Problem Desc']||''; }
+function htnBP(r){ return r['Enc BP']||r['enc bp']||''; }
+function htnSys(r){ return parseFloat(r['SYSTOLIC']||r['Systolic']||0)||0; }
+function htnDia(r){ return parseFloat(r['DISATOLIC']||r['Diastolic']||r['DIASTOLIC']||0)||0; }
+function htnClass(r){ return r['CLASSIFICATION']||r['Classification']||''; }
+function htnControlled(r){ return (r['CONTROLLED?']||r['Controlled?']||'').toLowerCase(); }
+function htnCrisis(r){ return (r['CRISIS?']||r['Crisis?']||'').toLowerCase(); }
+
+// ── SCHEDULE ─────────────────────────────────────────────
+function getClinicDays(){
+  const days=[]; const now=new Date();
+  const start=new Date(now); start.setDate(now.getDate()-56);
+  const end=new Date(now);   end.setDate(now.getDate()+28);
+  for(let d=new Date(start);d<=end;d.setDate(d.getDate()+1)){
+    const dow=d.getDay();
+    if(dow===2||dow===4) days.push(new Date(d));
+  }
+  return days.reverse();
+}
+function isoDate(d){ return d.toISOString().slice(0,10); }
+function todayISO(){ return new Date().toISOString().slice(0,10); }
+
+function parseSheetDate(str){
+  // handles M/D/YYYY and YYYY-MM-DD
+  if(!str) return '';
+  if(str.includes('-')) return str.slice(0,10);
+  const parts=str.split('/');
+  if(parts.length===3){
+    const [m,d,y]=parts;
+    return y+'-'+m.padStart(2,'0')+'-'+d.padStart(2,'0');
+  }
+  return str;
+}
+
+function renderSchedule(){
+  const days=getClinicDays().slice(0,10);
+  const todayStr=todayISO();
+
+  // Build date -> [{ptId, type, row}] from both sheets
+  const byDate={};
+  DM.forEach(r=>{
+    const iso=parseSheetDate(dmDate(r)); if(!iso) return;
+    if(!byDate[iso]) byDate[iso]=[];
+    const pid=dmPtId(r); if(!pid) return;
+    if(!byDate[iso].find(x=>x.ptId===pid&&x.type==='dm'))
+      byDate[iso].push({ptId:pid,type:'dm',row:r});
+  });
+  HTN.forEach(r=>{
+    const iso=parseSheetDate(htnDate(r)); if(!iso) return;
+    if(!byDate[iso]) byDate[iso]=[];
+    const pid=htnPtId(r); if(!pid) return;
+    if(!byDate[iso].find(x=>x.ptId===pid&&x.type==='htn'))
+      byDate[iso].push({ptId:pid,type:'htn',row:r});
+  });
+
+  document.getElementById('schedule-days').innerHTML = days.map((day,i)=>{
+    const iso=isoDate(day);
+    const isToday=iso===todayStr, isPast=iso<todayStr, isFuture=iso>todayStr;
+    const pts=byDate[iso]||[];
+    // dedupe by ptId
+    const seen=new Set(); const uniq=pts.filter(x=>{ if(seen.has(x.ptId)) return false; seen.add(x.ptId); return true; });
+    const dotCls=isToday?'today':isPast?'past':'future';
+    const countTxt=uniq.length>0?`<span class="bdg ${isPast?'bok':'bnu'}" style="font-size:11px">${uniq.length} pt${uniq.length!==1?'s':''}</span>`:`<span style="font-size:12px;color:var(--ink3)">${isFuture?'Upcoming':'No visits'}</span>`;
+
+    const ptsHTML=uniq.length>0?uniq.map(x=>{
+      const isSel=selSched&&selSched.ptId===x.ptId&&selSched.type===x.type;
+      const badge=x.type==='htn'
+        ?(htnCrisis(x.row).includes('y')||htnCrisis(x.row)==='true'?'<span class="bdg bcr" style="font-size:10px">CRISIS</span>':htnControlled(x.row).includes('uncontrolled')||htnControlled(x.row)==='false'?'<span class="bdg bwn" style="font-size:10px">Uncontrolled</span>':'<span class="bdg bok" style="font-size:10px">Controlled</span>')
+        :(dmGoal(x.row).toLowerCase().includes('above')?'<span class="bdg bwn" style="font-size:10px">Above goal</span>':'<span class="bdg bok" style="font-size:10px">At goal</span>');
+      const typeTag=`<span style="font-size:10px;padding:2px 6px;border-radius:4px;background:${x.type==='htn'?'var(--blue-lt)':'var(--purple-lt)'};color:${x.type==='htn'?'var(--blue)':'var(--purple)'};font-weight:500">${x.type==='htn'?'HTN':'DM'}</span>`;
+      return `<div class="pt-row${isSel?' sel':''}" onclick="selectSched('${x.ptId}','${x.type}',${i})">
+        <div class="av">${x.ptId.toString().slice(-4)}</div>
+        <div style="flex:1;min-width:0"><div class="pid">${x.ptId}</div><div class="pdx">${x.type==='htn'?htnClass(x.row)||htnDx(x.row):dmDx(x.row)}</div></div>
+        <div style="display:flex;gap:6px;align-items:center">${typeTag}${badge}</div>
+      </div>`;
+    }).join(''):`<div class="day-empty">${isFuture?'No patients scheduled yet':'No visits recorded'}</div>`;
+
+    return `<div class="clinic-day">
+      <div class="day-header" onclick="toggleDay('day-${i}','chev-${i}')">
+        <div class="day-dot ${dotCls}"></div>
+        <div><span class="day-name">${day.toLocaleDateString('en-US',{weekday:'long'})}</span><span class="day-date"> ${day.toLocaleDateString('en-US',{month:'numeric',day:'numeric',year:'2-digit'})}</span></div>
+        ${isToday?'<span class="day-today-tag">Today</span>':''}
+        <div style="margin-left:auto;display:flex;align-items:center;gap:10px">${countTxt}<span id="chev-${i}" style="color:var(--ink3);font-size:12px">${i===0?'▲':'▼'}</span></div>
+      </div>
+      <div class="day-body${i!==0?' collapsed':''}" id="day-${i}">${ptsHTML}</div>
+    </div>`;
+  }).join('');
+}
+
+function toggleDay(id,chevId){
+  const b=document.getElementById(id); b.classList.toggle('collapsed');
+  document.getElementById(chevId).textContent=b.classList.contains('collapsed')?'▼':'▲';
+}
+
+function selectSched(ptId,type,dayIdx){
+  selSched={ptId,type};
+  renderSchedule();
+  if(type==='dm'){ const rows=DM.filter(r=>dmPtId(r)===ptId); renderDMDetail(ptId,rows,'sched-detail'); }
+  else { const rows=HTN.filter(r=>htnPtId(r)===ptId); renderHTNDetail(ptId,rows,'sched-detail'); }
+}
+
+// ── DIABETES LIST ─────────────────────────────────────────
+function renderDiabetesList(){
+  const q=(document.getElementById('dm-search').value||'').toLowerCase();
+  const f=document.getElementById('dm-filter').value;
+  // group by patient, get latest row
+  const ptMap={};
+  DM.forEach(r=>{
+    const pid=dmPtId(r); if(!pid) return;
+    if(!ptMap[pid]||parseSheetDate(dmDate(r))>parseSheetDate(dmDate(ptMap[pid]))) ptMap[pid]=r;
+  });
+  let pts=Object.values(ptMap);
+  if(q) pts=pts.filter(r=>dmPtId(r).toString().toLowerCase().includes(q)||dmDx(r).toLowerCase().includes(q));
+  if(f==='above') pts=pts.filter(r=>dmGoal(r).toLowerCase().includes('above'));
+  if(f==='at') pts=pts.filter(r=>dmGoal(r).toLowerCase().includes('at goal'));
+  document.getElementById('dm-count').textContent=pts.length+' patients';
+  document.getElementById('dm-list').innerHTML=pts.length?pts.map(r=>{
+    const pid=dmPtId(r); const isAt=dmGoal(r).toLowerCase().includes('at goal');
+    const isSel=selDM===pid;
+    return `<div class="pt-row${isSel?' sel':''}" onclick="clickDM('${pid}')">
+      <div class="av">${pid.toString().slice(-4)}</div>
+      <div style="flex:1;min-width:0"><div class="pid">${pid}</div><div class="pdx">${dmDx(r)}</div></div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:3px">
+        <span class="bdg ${isAt?'bok':'bwn'}" style="font-size:10px">${isAt?'At goal':'Above goal'}</span>
+        <span style="font-size:10px;color:var(--ink3);font-family:'DM Mono',monospace">${dmA1C(r)?'A1C: '+dmA1C(r):''}</span>
+      </div>
+    </div>`;
+  }).join(''):'<div class="empty">No patients match</div>';
+}
+
+function clickDM(pid){
+  selDM=pid;
+  renderDiabetesList();
+  renderDMDetail(pid,DM.filter(r=>dmPtId(r)===pid),'dm-detail');
+}
+
+function renderDMDetail(pid,rows,containerId){
+  Object.values(charts).forEach(c=>{try{c.destroy()}catch(e){}});charts={};
+  const sorted=rows.sort((a,b)=>parseSheetDate(dmDate(a)).localeCompare(parseSheetDate(dmDate(b))));
+  const latest=sorted[sorted.length-1];
+  const first=sorted[0];
+  const a1cVals=sorted.filter(r=>dmA1C(r)).map(r=>({date:parseSheetDate(dmDate(r)),val:parseFloat(dmA1C(r))}));
+  const latestA1C=a1cVals.length?a1cVals[a1cVals.length-1].val:null;
+  const firstA1C=a1cVals.length?a1cVals[0].val:null;
+  const delta=(latestA1C&&firstA1C&&latestA1C!==firstA1C)?(firstA1C-latestA1C).toFixed(1):null;
+  const isAtGoal=latest&&dmGoal(latest).toLowerCase().includes('at goal');
+  const a1cCls=latestA1C?(latestA1C<7?'g':latestA1C<8?'w':'b'):'';
+
+  document.getElementById(containerId).innerHTML=`
+    <div class="dh">
+      <div class="dav">${pid.toString().slice(-4)}</div>
+      <div style="flex:1">
+        <div class="did">Patient ${pid}</div>
+        <div class="dsub">${latest?dmDx(latest):''}</div>
+      </div>
+      <span class="bdg ${isAtGoal?'bok':'bwn'}">${isAtGoal?'At goal':'Above goal'}</span>
+    </div>
+    <div class="metrics">
+      <div class="met"><div class="ml">Latest A1C</div><div class="mv ${a1cCls}">${latestA1C?latestA1C.toFixed(1)+'%':'—'}</div><div class="ms">${delta?'▼ '+Math.abs(delta)+'% from first visit':'Baseline'}</div></div>
+      <div class="met"><div class="ml">Visits recorded</div><div class="mv">${sorted.length}</div><div class="ms">Last: ${latest?parseSheetDate(dmDate(latest)):'—'}</div></div>
+      <div class="met"><div class="ml">Goal status</div><div class="mv ${isAtGoal?'g':'w'}" style="font-size:18px">${isAtGoal?'At goal':'Above goal'}</div><div class="ms">Most recent visit</div></div>
+    </div>
+    <div class="card">
+      <div class="card-title">A1C trend</div>
+      <div class="leg"><span><span class="ld" style="background:#A85208"></span>HbA1c %</span></div>
+      <div class="cw"><canvas id="a1c-${containerId}" role="img" aria-label="A1C trend">A1C trend</canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Visit history</div>
+      <div style="overflow-x:auto"><table class="tbl">
+        <thead><tr><th>Date</th><th>Diagnosis</th><th>A1C</th><th>Goal status</th></tr></thead>
+        <tbody>${sorted.map(r=>`<tr>
+          <td style="font-family:'DM Mono',monospace;font-size:12px">${parseSheetDate(dmDate(r))}</td>
+          <td>${dmDx(r)}</td>
+          <td style="font-family:'DM Mono',monospace;font-weight:500">${dmA1C(r)||'—'}</td>
+          <td><span class="bdg ${dmGoal(r).toLowerCase().includes('at goal')?'bok':'bwn'}" style="font-size:10px">${dmGoal(r)||'—'}</span></td>
+        </tr>`).join('')}</tbody>
+      </table></div>
+    </div>`;
+
+  if(a1cVals.length){
+    charts['a1c']=new Chart(document.getElementById('a1c-'+containerId),{
+      type:'line',
+      data:{labels:a1cVals.map(v=>v.date.slice(5)),datasets:[{label:'A1C',data:a1cVals.map(v=>v.val),borderColor:'#A85208',backgroundColor:'#A8520818',tension:.4,pointRadius:4,fill:true}]},
+      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+        scales:{y:{min:4,max:14,ticks:{font:{size:10},color:'#A4A19A'},grid:{color:'rgba(0,0,0,0.04)'}},
+          x:{ticks:{font:{size:10},color:'#A4A19A',autoSkip:false,maxRotation:40},grid:{display:false}}}}
+    });
+  }
+}
+
+// ── HTN LIST ──────────────────────────────────────────────
+function renderHTNList(){
+  const q=(document.getElementById('htn-search').value||'').toLowerCase();
+  const f=document.getElementById('htn-filter').value;
+  const ptMap={};
+  HTN.forEach(r=>{
+    const pid=htnPtId(r); if(!pid) return;
+    if(!ptMap[pid]||parseSheetDate(htnDate(r))>parseSheetDate(htnDate(ptMap[pid]))) ptMap[pid]=r;
+  });
+  let pts=Object.values(ptMap);
+  if(q) pts=pts.filter(r=>htnPtId(r).toString().toLowerCase().includes(q)||htnClass(r).toLowerCase().includes(q)||htnDx(r).toLowerCase().includes(q));
+  if(f==='uncontrolled') pts=pts.filter(r=>htnControlled(r).includes('uncontrolled')||htnControlled(r)==='false');
+  if(f==='controlled') pts=pts.filter(r=>htnControlled(r).includes('controlled')&&!htnControlled(r).includes('uncontrolled'));
+  if(f==='crisis') pts=pts.filter(r=>htnCrisis(r).includes('y')||htnCrisis(r)==='true');
+  document.getElementById('htn-count').textContent=pts.length+' patients';
+  document.getElementById('htn-list').innerHTML=pts.length?pts.map(r=>{
+    const pid=htnPtId(r);
+    const isCrisis=htnCrisis(r).includes('y')||htnCrisis(r)==='true';
+    const isCtrl=htnControlled(r).includes('controlled')&&!htnControlled(r).includes('uncontrolled');
+    const isSel=selHTN===pid;
+    return `<div class="pt-row${isSel?' sel':''}" onclick="clickHTN('${pid}')">
+      <div class="av">${pid.toString().slice(-4)}</div>
+      <div style="flex:1;min-width:0"><div class="pid">${pid}</div><div class="pdx">${htnClass(r)||htnDx(r)}</div></div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:3px">
+        ${isCrisis?'<span class="bdg bcr" style="font-size:10px">CRISIS</span>':isCtrl?'<span class="bdg bok" style="font-size:10px">Controlled</span>':'<span class="bdg bwn" style="font-size:10px">Uncontrolled</span>'}
+        <span style="font-size:10px;color:var(--ink3);font-family:'DM Mono',monospace">${htnBP(r)||''}</span>
+      </div>
+    </div>`;
+  }).join(''):'<div class="empty">No patients match</div>';
+}
+
+function clickHTN(pid){
+  selHTN=pid;
+  renderHTNList();
+  renderHTNDetail(pid,HTN.filter(r=>htnPtId(r)===pid),'htn-detail');
+}
+
+function renderHTNDetail(pid,rows,containerId){
+  Object.values(charts).forEach(c=>{try{c.destroy()}catch(e){}});charts={};
+  const sorted=rows.sort((a,b)=>parseSheetDate(htnDate(a)).localeCompare(parseSheetDate(htnDate(b))));
+  const latest=sorted[sorted.length-1];
+  const sysVals=sorted.filter(r=>htnSys(r)).map(r=>({date:parseSheetDate(htnDate(r)),sys:htnSys(r),dia:htnDia(r)}));
+  const latestSys=sysVals.length?sysVals[sysVals.length-1].sys:null;
+  const firstSys=sysVals.length?sysVals[0].sys:null;
+  const delta=(latestSys&&firstSys&&latestSys!==firstSys)?Math.round(firstSys-latestSys):null;
+  const isCrisis=latest&&(htnCrisis(latest).includes('y')||htnCrisis(latest)==='true');
+  const isCtrl=latest&&htnControlled(latest).includes('controlled')&&!htnControlled(latest).includes('uncontrolled');
+  const bpCls=latestSys?(latestSys<130?'g':latestSys<140?'w':'b'):'';
+
+  document.getElementById(containerId).innerHTML=`
+    <div class="dh">
+      <div class="dav">${pid.toString().slice(-4)}</div>
+      <div style="flex:1">
+        <div class="did">Patient ${pid}</div>
+        <div class="dsub">${latest?htnClass(latest)||htnDx(latest):''}</div>
+      </div>
+      ${isCrisis?'<span class="bdg bcr">BP Crisis</span>':isCtrl?'<span class="bdg bok">Controlled</span>':'<span class="bdg bwn">Uncontrolled</span>'}
+    </div>
+    <div class="metrics">
+      <div class="met"><div class="ml">Latest BP</div><div class="mv ${bpCls}">${latest?htnBP(latest)||latestSys+'/'+htnDia(latest):'—'}</div><div class="ms">${delta!==null?(delta>0?'▼ '+delta+' mmHg from first visit':'▲ '+Math.abs(delta)+' mmHg'):'Baseline'}</div></div>
+      <div class="met"><div class="ml">Classification</div><div class="mv" style="font-size:16px;font-weight:400">${latest?htnClass(latest):'—'}</div><div class="ms">Latest visit</div></div>
+      <div class="met"><div class="ml">Visits recorded</div><div class="mv">${sorted.length}</div><div class="ms">Last: ${latest?parseSheetDate(htnDate(latest)):'—'}</div></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Blood pressure trend</div>
+      <div class="leg"><span><span class="ld" style="background:#1A46C8"></span>Systolic</span><span><span class="ld" style="background:#0A6B4E"></span>Diastolic</span></div>
+      <div class="cw"><canvas id="bp-${containerId}" role="img" aria-label="BP trend">BP trend</canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Visit history</div>
+      <div style="overflow-x:auto"><table class="tbl">
+        <thead><tr><th>Date</th><th>BP</th><th>Systolic</th><th>Diastolic</th><th>Classification</th><th>Controlled</th><th>Crisis</th></tr></thead>
+        <tbody>${sorted.map(r=>`<tr>
+          <td style="font-family:'DM Mono',monospace;font-size:12px">${parseSheetDate(htnDate(r))}</td>
+          <td style="font-family:'DM Mono',monospace;font-weight:500">${htnBP(r)||'—'}</td>
+          <td style="font-family:'DM Mono',monospace">${htnSys(r)||'—'}</td>
+          <td style="font-family:'DM Mono',monospace">${htnDia(r)||'—'}</td>
+          <td>${htnClass(r)||'—'}</td>
+          <td><span class="bdg ${htnControlled(r).includes('uncontrolled')||htnControlled(r)==='false'?'bwn':'bok'}" style="font-size:10px">${r['CONTROLLED?']||r['Controlled?']||'—'}</span></td>
+          <td>${(htnCrisis(r).includes('y')||htnCrisis(r)==='true')?'<span class="bdg bcr" style="font-size:10px">YES</span>':'<span style="font-size:12px;color:var(--ink3)">No</span>'}</td>
+        </tr>`).join('')}</tbody>
+      </table></div>
+    </div>`;
+
+  if(sysVals.length){
+    charts['bp']=new Chart(document.getElementById('bp-'+containerId),{
+      type:'line',
+      data:{labels:sysVals.map(v=>v.date.slice(5)),datasets:[
+        {label:'Systolic',data:sysVals.map(v=>v.sys),borderColor:'#1A46C8',backgroundColor:'#1A46C810',tension:.4,pointRadius:4,fill:false},
+        {label:'Diastolic',data:sysVals.map(v=>v.dia),borderColor:'#0A6B4E',backgroundColor:'#0A6B4E10',tension:.4,pointRadius:4,fill:false,borderDash:[5,3]}
+      ]},
+      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+        scales:{y:{min:50,max:200,ticks:{font:{size:10},color:'#A4A19A'},grid:{color:'rgba(0,0,0,0.04)'}},
+          x:{ticks:{font:{size:10},color:'#A4A19A',autoSkip:false,maxRotation:40},grid:{display:false}}}}
+    });
+  }
+}
+
+// ── OUTCOMES ─────────────────────────────────────────────
+let outChart=null;
+function renderOutcomes(){
+  // DM: % at goal
+  const ptMapDM={};
+  DM.forEach(r=>{ const pid=dmPtId(r); if(!pid) return; if(!ptMapDM[pid]||parseSheetDate(dmDate(r))>parseSheetDate(dmDate(ptMapDM[pid]))) ptMapDM[pid]=r; });
+  const dmPts=Object.values(ptMapDM);
+  const dmAtGoal=dmPts.filter(r=>dmGoal(r).toLowerCase().includes('at goal')).length;
+  const dmTotal=dmPts.length;
+
+  // A1C improvement: patients with ≥1% drop
+  const a1cImp=Object.keys(ptMapDM).filter(pid=>{
+    const rows=DM.filter(r=>dmPtId(r)===pid&&dmA1C(r)).sort((a,b)=>parseSheetDate(dmDate(a)).localeCompare(parseSheetDate(dmDate(b))));
+    if(rows.length<2) return false;
+    return parseFloat(dmA1C(rows[0]))-parseFloat(dmA1C(rows[rows.length-1]))>=1;
+  }).length;
+
+  // HTN: % controlled
+  const ptMapHTN={};
+  HTN.forEach(r=>{ const pid=htnPtId(r); if(!pid) return; if(!ptMapHTN[pid]||parseSheetDate(htnDate(r))>parseSheetDate(htnDate(ptMapHTN[pid]))) ptMapHTN[pid]=r; });
+  const htnPts=Object.values(ptMapHTN);
+  const htnCtrl=htnPts.filter(r=>htnControlled(r).includes('controlled')&&!htnControlled(r).includes('uncontrolled')).length;
+  const htnCrisisCount=htnPts.filter(r=>htnCrisis(r).includes('y')||htnCrisis(r)==='true').length;
+  const htnTotal=htnPts.length;
+
+  // BP improvement: ≥10mmHg systolic drop
+  const bpImp=Object.keys(ptMapHTN).filter(pid=>{
+    const rows=HTN.filter(r=>htnPtId(r)===pid&&htnSys(r)).sort((a,b)=>parseSheetDate(htnDate(a)).localeCompare(parseSheetDate(htnDate(b))));
+    if(rows.length<2) return false;
+    return htnSys(rows[0])-htnSys(rows[rows.length-1])>=10;
+  }).length;
+
+  if(outChart){ try{outChart.destroy()}catch(e){} }
+  document.getElementById('out-content').innerHTML=`
+    <div style="margin-bottom:20px">
+      <div class="card-title" style="margin-bottom:12px">Diabetes outcomes</div>
+      <div class="metrics" style="margin-bottom:0">
+        <div class="met"><div class="ml">At goal (latest visit)</div><div class="mv g">${dmTotal?Math.round(dmAtGoal/dmTotal*100):0}%</div><div class="ms">${dmAtGoal} of ${dmTotal} patients</div></div>
+        <div class="met"><div class="ml">A1C improved ≥1%</div><div class="mv g">${dmTotal?Math.round(a1cImp/dmTotal*100):0}%</div><div class="ms">${a1cImp} of ${dmTotal} patients</div></div>
+        <div class="met"><div class="ml">Total DM patients</div><div class="mv">${dmTotal}</div><div class="ms">in database</div></div>
+      </div>
+    </div>
+    <div style="margin-bottom:20px">
+      <div class="card-title" style="margin-bottom:12px">Hypertension outcomes</div>
+      <div class="metrics" style="margin-bottom:0">
+        <div class="met"><div class="ml">BP controlled (latest)</div><div class="mv g">${htnTotal?Math.round(htnCtrl/htnTotal*100):0}%</div><div class="ms">${htnCtrl} of ${htnTotal} patients</div></div>
+        <div class="met"><div class="ml">BP improved ≥10 mmHg</div><div class="mv g">${htnTotal?Math.round(bpImp/htnTotal*100):0}%</div><div class="ms">${bpImp} of ${htnTotal} patients</div></div>
+        <div class="met"><div class="ml">BP crisis cases</div><div class="mv ${htnCrisisCount>0?'b':'g'}">${htnCrisisCount}</div><div class="ms">active patients</div></div>
+        <div class="met"><div class="ml">Total HTN patients</div><div class="mv">${htnTotal}</div><div class="ms">in database</div></div>
+      </div>
+    </div>
+    <div class="two">
+      <div class="card"><div class="card-title">Diabetes goal status</div>
+        <div style="position:relative;height:170px"><canvas id="dm-pie" role="img" aria-label="DM goal status">DM outcomes</canvas></div>
+        <div style="display:flex;gap:14px;justify-content:center;margin-top:10px;font-size:12px;color:var(--ink3)">
+          <span style="display:flex;align-items:center;gap:5px"><span class="ld" style="background:#0A6B4E"></span>At goal ${dmAtGoal}</span>
+          <span style="display:flex;align-items:center;gap:5px"><span class="ld" style="background:#A85208"></span>Above goal ${dmTotal-dmAtGoal}</span>
+        </div>
+      </div>
+      <div class="card"><div class="card-title">HTN control status</div>
+        <div style="position:relative;height:170px"><canvas id="htn-pie" role="img" aria-label="HTN control status">HTN outcomes</canvas></div>
+        <div style="display:flex;gap:14px;justify-content:center;margin-top:10px;font-size:12px;color:var(--ink3)">
+          <span style="display:flex;align-items:center;gap:5px"><span class="ld" style="background:#0A6B4E"></span>Controlled ${htnCtrl}</span>
+          <span style="display:flex;align-items:center;gap:5px"><span class="ld" style="background:#A85208"></span>Uncontrolled ${htnTotal-htnCtrl}</span>
+        </div>
+      </div>
+    </div>
+    <div class="card"><div class="card-title">Donor summary</div>
+      <div class="ins"><p><strong>${dmTotal?Math.round(dmAtGoal/dmTotal*100):0}%</strong> of diabetes patients are at their A1C goal at their most recent visit.</p></div>
+      <div class="ins"><p><strong>${dmTotal?Math.round(a1cImp/dmTotal*100):0}%</strong> of diabetes patients showed an A1C reduction of ≥1% over the course of their care.</p></div>
+      <div class="ins"><p><strong>${htnTotal?Math.round(htnCtrl/htnTotal*100):0}%</strong> of hypertension patients have controlled blood pressure at their most recent visit.</p></div>
+      <div class="ins"><p><strong>${htnTotal?Math.round(bpImp/htnTotal*100):0}%</strong> of hypertension patients showed a systolic BP reduction of ≥10 mmHg.</p></div>
+    </div>`;
+
+  new Chart(document.getElementById('dm-pie'),{type:'doughnut',data:{labels:['At goal','Above goal'],datasets:[{data:[dmAtGoal,dmTotal-dmAtGoal],backgroundColor:['#0A6B4E','#A85208'],borderWidth:0}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}}}});
+  new Chart(document.getElementById('htn-pie'),{type:'doughnut',data:{labels:['Controlled','Uncontrolled'],datasets:[{data:[htnCtrl,htnTotal-htnCtrl],backgroundColor:['#0A6B4E','#A85208'],borderWidth:0}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}}}});
+}
+
+// ── LOG VISIT WRITE ───────────────────────────────────────
 async function appendRow(sheet,values){
   if(!isSignedIn){ toast('Sign in with Google to save data','err'); return false; }
   try{
@@ -610,386 +930,88 @@ async function appendRow(sheet,values){
       resource:{values:[values]}
     });
     return true;
-  } catch(e){ toast('Save error: '+e.message,'err'); return false; }
+  }catch(e){ toast('Save error: '+e.message,'err'); return false; }
 }
 
-function nextId(prefix,rows,field){
-  if(!rows.length) return prefix+'-0001';
-  const nums=rows.map(r=>parseInt((r[field]||'').replace(prefix+'-',''))||0);
-  return prefix+'-'+String(Math.max(...nums)+1).padStart(4,'0');
+async function submitBP(){
+  const pid=document.getElementById('v-ptid').value.trim(), dt=document.getElementById('v-date').value;
+  const sys=document.getElementById('v-sys').value, dia=document.getElementById('v-dia').value;
+  if(!pid||!dt||!sys||!dia){ toast('Patient ID, date, systolic and diastolic required','err'); return; }
+  const bp=sys+'/'+dia;
+  const sysDec=parseInt(sys);
+  const cls=sysDec>=180?'Hypertensive Crisis':sysDec>=160?'Stage 2 Hypertension':sysDec>=140?'Stage 2 Hypertension':sysDec>=130?'Stage 1 Hypertension':sysDec>=120?'Elevated':'Normal';
+  const ctrl=sysDec<130?'Controlled':'Uncontrolled';
+  const crisis=sysDec>=180?'Yes':'No';
+  const pno=document.getElementById('v-ptid').value.trim();
+  const ok=await appendRow(HTN_SHEET,[dt,pno,'','',pid,bp,sys,dia,cls,ctrl,crisis]);
+  if(ok){ toast('BP saved!'); clearBP(); loadAll(); }
 }
 
-// ── SCHEDULE ──
-function renderSchedule(){
-  const clinicDays = getClinicDays();
-  const todayStr = todayISO();
-  const container = document.getElementById('schedule-days');
-
-  // Build visit lookup: date -> patients seen that day
-  const visitsByDate = {};
-  DB.visits.forEach(v=>{
-    if(!v.Visit_Date) return;
-    if(!visitsByDate[v.Visit_Date]) visitsByDate[v.Visit_Date]=[];
-    if(!visitsByDate[v.Visit_Date].find(p=>p===v.Patient_ID))
-      visitsByDate[v.Visit_Date].push(v.Patient_ID);
-  });
-
-  // Show last 6 clinic days + next 4
-  const shown = clinicDays.slice(0, 10);
-
-  container.innerHTML = shown.map((day,i)=>{
-    const iso = isoDate(day);
-    const isToday = iso === todayStr;
-    const isPast = iso < todayStr;
-    const isFuture = iso > todayStr;
-    const ptIds = visitsByDate[iso] || [];
-    const dotCls = isToday?'today':isPast?'past':'future';
-    const countBadge = ptIds.length > 0
-      ? `<span class="bdg ${isPast?'bok':'bnu'}" style="font-size:11px">${ptIds.length} patient${ptIds.length!==1?'s':''}</span>`
-      : `<span style="font-size:12px;color:var(--ink3)">${isFuture?'Upcoming':'No visits logged'}</span>`;
-
-    const ptsHTML = ptIds.length > 0
-      ? ptIds.map(pid=>{
-          const pt = DB.patients.find(p=>p.Patient_ID===pid);
-          const ptV = DB.vitals.filter(v=>v.Patient_ID===pid);
-          const lv = ptV[ptV.length-1];
-          const [cls,lbl] = lv?bpStatus(lv.Systolic_BP):['bnu','—'];
-          return `<div class="pt-row-sched${selPt&&selPt.Patient_ID===pid?' sel':''}" onclick="selectPtSched('${pid}')">
-            <div class="av">${pid.replace('PT-','')}</div>
-            <div style="flex:1;min-width:0"><div class="pid">${pid}</div><div class="pdx">${pt?pt.Primary_Dx||'—':'—'}</div></div>
-            <span class="bdg ${cls}" style="font-size:11px">${lbl}</span>
-          </div>`;
-        }).join('')
-      : `<div class="day-empty">${isFuture?'No patients scheduled yet':'No visits recorded for this day'}</div>`;
-
-    return `<div class="clinic-day">
-      <div class="day-header" onclick="toggleDay('day-${i}')">
-        <div class="day-dot ${dotCls}"></div>
-        <div>
-          <span class="day-name">${day.toLocaleDateString('en-US',{weekday:'long'})}</span>
-          <span class="day-date">${day.toLocaleDateString('en-US',{month:'numeric',day:'numeric',year:'2-digit'})}</span>
-        </div>
-        ${isToday?'<span class="day-today-tag">Today</span>':''}
-        <div style="margin-left:auto;display:flex;align-items:center;gap:10px">
-          ${countBadge}
-          <span class="day-chevron" id="chev-${i}">${i===0?'▲':'▼'}</span>
-        </div>
-      </div>
-      <div class="day-body${i!==0?' collapsed':''}" id="day-${i}">${ptsHTML}</div>
-    </div>`;
-  }).join('');
+async function submitA1C(){
+  const pid=document.getElementById('v-ptid').value.trim(), dt=document.getElementById('v-date').value;
+  const a1c=document.getElementById('v-a1c').value;
+  if(!pid||!dt||!a1c){ toast('Patient ID, date, and A1C required','err'); return; }
+  const goal=document.getElementById('v-a1c-goal').value;
+  const pno=document.getElementById('v-ptid').value.trim();
+  const ok=await appendRow(DM_SHEET,[dt,pno,'',pid,a1c,goal,pid]);
+  if(ok){ toast('A1C saved!'); clearA1C(); loadAll(); }
 }
 
-function toggleDay(id){
-  const body = document.getElementById(id);
-  const idx = id.replace('day-','');
-  const chev = document.getElementById('chev-'+idx);
-  body.classList.toggle('collapsed');
-  chev.textContent = body.classList.contains('collapsed') ? '▼' : '▲';
+async function submitLabs(){
+  const pid=document.getElementById('v-ptid').value.trim(), dt=document.getElementById('v-date').value;
+  if(!pid||!dt){ toast('Patient ID and date required','err'); return; }
+  let saved=0;
+  for(const el of document.querySelectorAll('.lab-row-item')){
+    const name=el.querySelector('.lr-name').value.trim(), val=el.querySelector('.lr-val').value.trim();
+    if(!name||!val) continue;
+    const lo=el.querySelector('.lr-low').value, hi=el.querySelector('.lr-high').value;
+    const flag=(lo&&hi)?(parseFloat(val)<parseFloat(lo)||parseFloat(val)>parseFloat(hi)?'ABNORMAL':'Normal'):'';
+    const ok=await appendRow(DM_SHEET,[dt,'','',pid,val,flag,pid]);
+    if(ok) saved++;
+  }
+  if(saved){ toast(saved+' result(s) saved!'); document.getElementById('lab-rows').innerHTML=''; addLabRow(); loadAll(); }
+  else toast('No valid rows to save','err');
 }
 
-function selectPtSched(id){
-  selPt = DB.patients.find(p=>p.Patient_ID===id);
-  renderSchedule();
-  renderDetailInto('sched-detail');
+async function submitMeds(){
+  toast('Medication logging — connect a medications sheet to enable writing','err');
 }
 
-// ── ALL PATIENTS ──
-function renderAllPatients(){
-  const q = (document.getElementById('pt-search')||{}).value||'';
-  const list = document.getElementById('pt-all-list');
-  let pts = DB.patients;
-  if(q) pts = pts.filter(p=> p.Patient_ID.toLowerCase().includes(q.toLowerCase()) || (p.Primary_Dx||'').toLowerCase().includes(q.toLowerCase()));
-  if(!pts.length){ list.innerHTML='<div class="empty">No patients found</div>'; return; }
-  list.innerHTML = pts.map(p=>{
-    const ptV=DB.vitals.filter(v=>v.Patient_ID===p.Patient_ID);
-    const lv=ptV[ptV.length-1];
-    const [cls,lbl]=lv?bpStatus(lv.Systolic_BP):['bnu','—'];
-    return `<div class="pt-row-sched${selPt&&selPt.Patient_ID===p.Patient_ID?' sel':''}" onclick="selectPtAll('${p.Patient_ID}')">
-      <div class="av">${p.Patient_ID.replace('PT-','')}</div>
-      <div style="flex:1;min-width:0"><div class="pid">${p.Patient_ID}</div><div class="pdx">${p.Primary_Dx||'—'}</div></div>
-      <span class="bdg ${cls}" style="font-size:11px">${lbl}</span>
-    </div>`;
-  }).join('');
+function clearBP(){ ['v-sys','v-dia','v-hr','v-wt','v-o2','v-pain'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';}); }
+function clearA1C(){ ['v-a1c','v-glucose','v-a1c-notes'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';}); }
+
+function addLabRow(){
+  const d=document.createElement('div'); d.className='lab-row-item';
+  d.innerHTML=`
+    <div class="f"><input class="lr-name" placeholder="Test name" style="font-size:13px;padding:8px 10px"/></div>
+    <div class="f"><input class="lr-val" placeholder="Value" style="font-size:13px;padding:8px 10px"/></div>
+    <div class="f"><input class="lr-unit" placeholder="Unit" style="font-size:13px;padding:8px 10px"/></div>
+    <div class="f"><select class="lr-cat" style="font-size:13px;padding:8px 10px"><option>Metabolic</option><option>Lipid Panel</option><option>Renal</option><option>Hepatic</option><option>CBC</option><option>Thyroid</option><option>Cardiac</option><option>Other</option></select></div>
+    <div class="f"><input class="lr-low" placeholder="Low" style="font-size:13px;padding:8px 10px"/></div>
+    <div class="f"><input class="lr-high" placeholder="High" style="font-size:13px;padding:8px 10px"/></div>`;
+  document.getElementById('lab-rows').appendChild(d);
 }
 
-function selectPtAll(id){
-  selPt=DB.patients.find(p=>p.Patient_ID===id);
-  renderAllPatients();
-  renderDetailInto('pt-detail');
+function addMedRow(){
+  const d=document.createElement('div'); d.className='med-row-item';
+  d.innerHTML=`
+    <div class="f"><input class="mr-name" placeholder="Medication" style="font-size:13px;padding:8px 10px"/></div>
+    <div class="f"><input class="mr-dose" placeholder="Dose" style="font-size:13px;padding:8px 10px"/></div>
+    <div class="f"><input class="mr-unit" placeholder="mg" style="font-size:13px;padding:8px 10px"/></div>
+    <div class="f"><input class="mr-freq" placeholder="Once daily" style="font-size:13px;padding:8px 10px"/></div>
+    <div class="f"><select class="mr-route" style="font-size:13px;padding:8px 10px"><option>PO</option><option>SQ</option><option>IM</option><option>IV</option><option>Inhaled</option><option>Topical</option><option>Other</option></select></div>
+    <div class="f"><input class="mr-class" placeholder="Drug class" style="font-size:13px;padding:8px 10px"/></div>`;
+  document.getElementById('med-rows').appendChild(d);
 }
 
-// ── PATIENT DETAIL ──
-function bpStatus(s){ const v=parseFloat(s); if(!v) return ['bnu','—']; if(v<130) return ['bok','Controlled']; if(v<140) return ['bwn','Elevated']; return ['bbd','High']; }
-
-function renderDetailInto(containerId){
-  const p=selPt; if(!p) return;
-  Object.values(charts).forEach(c=>{ try{c.destroy()}catch(e){} }); charts={};
-
-  const ptV=DB.vitals.filter(v=>v.Patient_ID===p.Patient_ID).sort((a,b)=>a.Recorded_Date.localeCompare(b.Recorded_Date));
-  const ptL=DB.labs.filter(l=>l.Patient_ID===p.Patient_ID).sort((a,b)=>a.Test_Date.localeCompare(b.Test_Date));
-  const ptM=DB.meds.filter(m=>m.Patient_ID===p.Patient_ID&&m.Active==='Yes');
-  const ptVi=DB.visits.filter(v=>v.Patient_ID===p.Patient_ID);
-  const lv=ptV[ptV.length-1],fv=ptV[0];
-  const [bpCls]=lv?bpStatus(lv.Systolic_BP):[''];
-  const bpD=(lv&&fv&&lv!==fv)?Math.round(parseFloat(fv.Systolic_BP)-parseFloat(lv.Systolic_BP)):null;
-  const a1cs=ptL.filter(l=>(l.Test_Name||'').toLowerCase().includes('a1c'));
-  const la=a1cs[a1cs.length-1],fa=a1cs[0];
-  const a1cD=(la&&fa&&la!==fa)?(parseFloat(fa.Result_Value)-parseFloat(la.Result_Value)).toFixed(1):null;
-  const a1cCls=la?(parseFloat(la.Result_Value)<7?'g':parseFloat(la.Result_Value)<8?'w':'b'):'';
-
-  document.getElementById(containerId).innerHTML=`
-    <div class="dh">
-      <div class="dav">${p.Patient_ID.replace('PT-','')}</div>
-      <div style="flex:1">
-        <div class="did">${p.Patient_ID}</div>
-        <div class="dsub">${[p.Primary_Dx,p.Secondary_Dx_1,p.Secondary_Dx_2].filter(Boolean).join(' · ')}</div>
-      </div>
-      <button class="btn btn-sm" onclick="prefillVisit('${p.Patient_ID}')">+ Log visit</button>
-    </div>
-    <div class="metrics">
-      <div class="met"><div class="ml">Latest BP</div><div class="mv ${bpCls}">${lv&&lv.Systolic_BP?lv.Systolic_BP+'/'+lv.Diastolic_BP:'—'}</div><div class="ms">${bpD!==null?(bpD>0?'▼ '+bpD+' mmHg':'▲ '+Math.abs(bpD)+' mmHg'):'Baseline'}</div></div>
-      <div class="met"><div class="ml">Latest A1C</div><div class="mv ${a1cCls}">${la?parseFloat(la.Result_Value).toFixed(1)+'%':'—'}</div><div class="ms">${a1cD?'▼ '+Math.abs(a1cD)+'%':'No A1C data'}</div></div>
-      <div class="met"><div class="ml">Visits</div><div class="mv">${ptVi.length}</div><div class="ms">Last: ${lv?lv.Recorded_Date:'—'}</div></div>
-      <div class="met"><div class="ml">Active meds</div><div class="mv">${ptM.length}</div><div class="ms">on file</div></div>
-    </div>
-    <div class="two">
-      <div class="card"><div class="card-title">Blood pressure</div>
-        <div class="leg"><span><span class="ld" style="background:#1A46C8"></span>Systolic</span><span><span class="ld" style="background:#0A6B4E"></span>Diastolic</span></div>
-        <div class="cw"><canvas id="bp-c-${containerId}" role="img" aria-label="BP trend">BP</canvas></div>
-      </div>
-      <div class="card"><div class="card-title">A1C</div>
-        <div class="leg"><span><span class="ld" style="background:#A85208"></span>HbA1c %</span></div>
-        <div class="cw"><canvas id="a1c-c-${containerId}" role="img" aria-label="A1C trend">A1C</canvas></div>
-      </div>
-    </div>
-    <div class="card"><div class="card-title">Lab &amp; test results</div>
-      ${ptL.length?`<div style="overflow-x:auto"><table class="tbl">
-        <thead><tr><th>Date</th><th>Category</th><th>Test</th><th>Result</th><th>Unit</th><th>Ref range</th><th>Flag</th></tr></thead>
-        <tbody>${ptL.map(l=>`<tr>
-          <td style="font-family:'DM Mono',monospace;font-size:12px">${l.Test_Date}</td>
-          <td>${l.Test_Category}</td><td style="font-weight:500">${l.Test_Name}</td>
-          <td style="font-family:'DM Mono',monospace;font-weight:500">${l.Result_Value}</td>
-          <td style="color:var(--ink3)">${l.Result_Unit}</td>
-          <td style="color:var(--ink3)">${l.Reference_Low&&l.Reference_High?l.Reference_Low+'–'+l.Reference_High:'—'}</td>
-          <td class="${l.Abnormal_Flag==='ABNORMAL'?'abn':'nrm'}">${l.Abnormal_Flag||'—'}</td>
-        </tr>`).join('')}</tbody></table></div>`:'<div class="empty">No lab results yet</div>'}
-    </div>
-    <div class="card"><div class="card-title">Active medications</div>
-      ${ptM.length?`<table class="tbl">
-        <thead><tr><th>Medication</th><th>Class</th><th>Dose</th><th>Frequency</th><th>Route</th><th>Started</th></tr></thead>
-        <tbody>${ptM.map(m=>`<tr>
-          <td style="font-weight:500">${m.Medication_Name}</td><td>${m.Drug_Class}</td>
-          <td style="font-family:'DM Mono',monospace">${m.Dose} ${m.Dose_Unit}</td>
-          <td>${m.Frequency}</td><td>${m.Route}</td>
-          <td style="font-family:'DM Mono',monospace;font-size:12px">${m.Start_Date}</td>
-        </tr>`).join('')}</tbody></table>`:'<div class="empty">No active medications</div>'}
-    </div>`;
-
-  if(ptV.length){ charts['bp']=new Chart(document.getElementById('bp-c-'+containerId),{type:'line',data:{labels:ptV.map(v=>v.Recorded_Date.slice(5)),datasets:[
-    {label:'Systolic',data:ptV.map(v=>parseFloat(v.Systolic_BP)||null),borderColor:'#1A46C8',backgroundColor:'#1A46C810',tension:.4,pointRadius:3,fill:false},
-    {label:'Diastolic',data:ptV.map(v=>parseFloat(v.Diastolic_BP)||null),borderColor:'#0A6B4E',backgroundColor:'#0A6B4E10',tension:.4,pointRadius:3,fill:false,borderDash:[5,3]}
-  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{min:50,max:200,ticks:{font:{size:10},color:'#A4A19A'},grid:{color:'rgba(0,0,0,0.04)'}},x:{ticks:{font:{size:10},color:'#A4A19A',autoSkip:false,maxRotation:40},grid:{display:false}}}}}); }
-  if(a1cs.length){ charts['a1c']=new Chart(document.getElementById('a1c-c-'+containerId),{type:'line',data:{labels:a1cs.map(l=>l.Test_Date.slice(5)),datasets:[
-    {label:'A1C',data:a1cs.map(l=>parseFloat(l.Result_Value)||null),borderColor:'#A85208',backgroundColor:'#A8520818',tension:.4,pointRadius:3,fill:true}
-  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{min:4,max:12,ticks:{font:{size:10},color:'#A4A19A'},grid:{color:'rgba(0,0,0,0.04)'}},x:{ticks:{font:{size:10},color:'#A4A19A',autoSkip:false,maxRotation:40},grid:{display:false}}}}}); }
-}
-
-// ── LOG VISIT TABS ──
-function switchLogTab(id, btn){
+function switchLogTab(id,btn){
   document.querySelectorAll('.log-tab').forEach(b=>b.classList.remove('on'));
   document.querySelectorAll('.log-panel').forEach(p=>p.classList.remove('on'));
   btn.classList.add('on');
   document.getElementById('panel-'+id).classList.add('on');
 }
 
-// ── SUBMIT BP ──
-async function submitBP(){
-  const ptid=document.getElementById('v-ptid').value.trim();
-  const vdate=document.getElementById('v-date').value;
-  const sys=document.getElementById('v-sys').value;
-  const dia=document.getElementById('v-dia').value;
-  if(!ptid||!vdate||!sys||!dia){ toast('Patient ID, date, systolic and diastolic BP are required','err'); return; }
-  const visitId=await ensureVisit(ptid,vdate);
-  if(!visitId) return;
-  const ht=document.getElementById('v-ht').value, wt=document.getElementById('v-wt').value;
-  const bmi=(ht&&wt)?((parseFloat(wt)/(parseFloat(ht)**2))*703).toFixed(1):'';
-  const ok=await appendRow('3_Vitals',[nextId('VIT',DB.vitals,'Vital_ID'),visitId,ptid,vdate,
-    sys,dia,document.getElementById('v-hr').value,wt,ht,bmi,
-    document.getElementById('v-temp').value,document.getElementById('v-o2').value,'',
-    document.getElementById('v-pain').value]);
-  if(ok){ toast('BP saved for '+ptid+'!'); clearBP(); loadAllData(); }
-}
-
-// ── SUBMIT A1C ──
-async function submitA1C(){
-  const ptid=document.getElementById('v-ptid').value.trim();
-  const vdate=document.getElementById('v-date').value;
-  const a1c=document.getElementById('v-a1c').value;
-  if(!ptid||!vdate||!a1c){ toast('Patient ID, date, and A1C value are required','err'); return; }
-  const visitId=await ensureVisit(ptid,vdate);
-  if(!visitId) return;
-  const labN=DB.labs.length+1;
-  const rows=[];
-  if(a1c) rows.push(['LAB-'+String(labN).padStart(4,'0'),visitId,ptid,vdate,'Metabolic','HbA1c',a1c,'%','4.0','5.6',parseFloat(a1c)>5.6?'ABNORMAL':'Normal',document.getElementById('v-a1c-fasting').value,'','In-house',document.getElementById('v-a1c-notes').value]);
-  const glu=document.getElementById('v-glucose').value;
-  if(glu) rows.push(['LAB-'+String(labN+1).padStart(4,'0'),visitId,ptid,vdate,'Metabolic','Fasting Glucose',glu,'mg/dL','70','99',parseFloat(glu)>99||parseFloat(glu)<70?'ABNORMAL':'Normal',document.getElementById('v-a1c-fasting').value,'','In-house','']);
-  let ok=true; for(const r of rows){ ok=await appendRow('4_Labs_Tests',r); if(!ok) break; }
-  if(ok){ toast('A1C saved for '+ptid+'!'); clearA1C(); loadAllData(); }
-}
-
-// ── SUBMIT LABS ──
-async function submitLabs(){
-  const ptid=document.getElementById('v-ptid').value.trim();
-  const vdate=document.getElementById('v-date').value;
-  if(!ptid||!vdate){ toast('Patient ID and date are required','err'); return; }
-  const visitId=await ensureVisit(ptid,vdate);
-  if(!visitId) return;
-  let labN=DB.labs.length+1, saved=0;
-  for(const el of document.querySelectorAll('.lab-row-item')){
-    const name=el.querySelector('.lr-name').value.trim(), val=el.querySelector('.lr-val').value.trim();
-    if(!name||!val) continue;
-    const lo=el.querySelector('.lr-low').value, hi=el.querySelector('.lr-high').value;
-    const flag=(lo&&hi&&val)?(parseFloat(val)<parseFloat(lo)||parseFloat(val)>parseFloat(hi)?'ABNORMAL':'Normal'):'';
-    const ok=await appendRow('4_Labs_Tests',['LAB-'+String(labN++).padStart(4,'0'),visitId,ptid,vdate,
-      el.querySelector('.lr-cat').value,name,val,el.querySelector('.lr-unit').value,lo,hi,flag,'No','','In-house','']);
-    if(ok) saved++;
-  }
-  if(saved){ toast(saved+' test result(s) saved!'); document.getElementById('lab-rows').innerHTML=''; addLabRow(); loadAllData(); }
-  else toast('No valid rows to save','err');
-}
-
-// ── SUBMIT MEDS ──
-async function submitMeds(){
-  const ptid=document.getElementById('v-ptid').value.trim();
-  const vdate=document.getElementById('v-date').value;
-  if(!ptid||!vdate){ toast('Patient ID and date are required','err'); return; }
-  const visitId=await ensureVisit(ptid,vdate);
-  if(!visitId) return;
-  let medN=DB.meds.length+1, saved=0;
-  for(const el of document.querySelectorAll('.med-row-item')){
-    const name=el.querySelector('.mr-name').value.trim(); if(!name) continue;
-    const ok=await appendRow('5_Medications',['MED-'+String(medN++).padStart(4,'0'),ptid,visitId,
-      name,el.querySelector('.mr-class').value,el.querySelector('.mr-dose').value,
-      el.querySelector('.mr-unit').value,el.querySelector('.mr-freq').value,
-      el.querySelector('.mr-route').value,vdate,'','Yes','','','']);
-    if(ok) saved++;
-  }
-  if(saved){ toast(saved+' medication(s) saved!'); document.getElementById('med-rows').innerHTML=''; addMedRow(); loadAllData(); }
-  else toast('No valid rows to save','err');
-}
-
-// ensure a visit row exists for this pt+date, return visitId
-async function ensureVisit(ptid, vdate){
-  const existing=DB.visits.find(v=>v.Patient_ID===ptid&&v.Visit_Date===vdate);
-  if(existing) return existing.Visit_ID;
-  const visitId=nextId('VIS',DB.visits,'Visit_ID');
-  const vNum=DB.visits.filter(v=>v.Patient_ID===ptid).length+1;
-  const ok=await appendRow('2_Visits',[visitId,ptid,vdate,vNum,
-    document.getElementById('v-type').value,
-    document.getElementById('v-provider').value,'','','','No','']);
-  if(!ok) return null;
-  DB.visits.push({Visit_ID:visitId,Patient_ID:ptid,Visit_Date:vdate});
-  return visitId;
-}
-
-function clearBP(){
-  ['v-sys','v-dia','v-hr','v-wt','v-ht','v-o2','v-temp','v-pain','v-assess-bp'].forEach(id=>{
-    const e=document.getElementById(id); if(e) e.value='';
-  });
-}
-function clearA1C(){
-  ['v-a1c','v-glucose','v-a1c-notes'].forEach(id=>{ const e=document.getElementById(id); if(e) e.value=''; });
-}
-
-function addLabRow(){
-  const d=document.createElement('div'); d.className='lab-row-item';
-  d.innerHTML=`<div class="f"><input class="lr-name" placeholder="LDL" style="font-size:13px;padding:8px 10px"/></div>
-    <div class="f"><input class="lr-val" placeholder="142" style="font-size:13px;padding:8px 10px"/></div>
-    <div class="f"><input class="lr-unit" placeholder="mg/dL" style="font-size:13px;padding:8px 10px"/></div>
-    <div class="f"><select class="lr-cat" style="font-size:13px;padding:8px 10px"><option>Metabolic</option><option>Lipid Panel</option><option>Renal</option><option>Hepatic</option><option>CBC</option><option>Thyroid</option><option>Cardiac</option><option>Mental Health Screen</option><option>Other</option></select></div>
-    <div class="f"><input class="lr-low" placeholder="0" style="font-size:13px;padding:8px 10px"/></div>
-    <div class="f"><input class="lr-high" placeholder="100" style="font-size:13px;padding:8px 10px"/></div>`;
-  document.getElementById('lab-rows').appendChild(d);
-}
-
-function addMedRow(){
-  const d=document.createElement('div'); d.className='med-row-item';
-  d.innerHTML=`<div class="f"><input class="mr-name" placeholder="Lisinopril" style="font-size:13px;padding:8px 10px"/></div>
-    <div class="f"><input class="mr-dose" placeholder="10" style="font-size:13px;padding:8px 10px"/></div>
-    <div class="f"><input class="mr-unit" placeholder="mg" style="font-size:13px;padding:8px 10px"/></div>
-    <div class="f"><input class="mr-freq" placeholder="Once daily" style="font-size:13px;padding:8px 10px"/></div>
-    <div class="f"><select class="mr-route" style="font-size:13px;padding:8px 10px"><option>PO</option><option>SQ</option><option>IM</option><option>IV</option><option>Inhaled</option><option>Topical</option><option>Other</option></select></div>
-    <div class="f"><input class="mr-class" placeholder="ACE Inhibitor" style="font-size:13px;padding:8px 10px"/></div>`;
-  document.getElementById('med-rows').appendChild(d);
-}
-
-// ── PATIENT FORM ──
-async function submitPatient(){
-  const id=document.getElementById('np-id').value.trim();
-  const dx1=document.getElementById('np-dx1').value.trim();
-  if(!id||!dx1){ toast('Patient ID and primary diagnosis are required','err'); return; }
-  if(DB.patients.find(p=>p.Patient_ID===id)){ toast('Patient ID already exists','err'); return; }
-  const ok=await appendRow('1_Patients',[id,todayISO(),
-    document.getElementById('np-yob').value,document.getElementById('np-sex').value,
-    '','',dx1,document.getElementById('np-dx2').value,document.getElementById('np-dx3').value,
-    '','Yes',document.getElementById('np-notes').value]);
-  if(ok){ toast('Patient '+id+' added!'); clearPatientForm(); loadAllData(); }
-}
-function clearPatientForm(){
-  ['np-id','np-yob','np-lang','np-dx1','np-dx2','np-dx3','np-notes'].forEach(id=>{ const e=document.getElementById(id); if(e) e.value=''; });
-}
-
-// ── OUTCOMES ──
-let outChart=null;
-function renderOutcomes(){
-  const cond=document.getElementById('cond-sel').value, win=parseInt(document.getElementById('win-sel').value);
-  const unit=cond==='bp'?'mmHg':'%', thresh=cond==='bp'?10:0.5;
-  let imp=0,nc=0,wo=0,tot=0; const deltas=[],breakdown=[];
-  DB.patients.forEach(p=>{
-    const s=cond==='bp'
-      ?DB.vitals.filter(v=>v.Patient_ID===p.Patient_ID&&v.Systolic_BP).sort((a,b)=>a.Recorded_Date.localeCompare(b.Recorded_Date)).map(v=>parseFloat(v.Systolic_BP))
-      :DB.labs.filter(l=>l.Patient_ID===p.Patient_ID&&(l.Test_Name||'').toLowerCase().includes('a1c')&&l.Result_Value).sort((a,b)=>a.Test_Date.localeCompare(b.Test_Date)).map(l=>parseFloat(l.Result_Value));
-    if(s.length<2) return;
-    const sl=win===99?s.slice(1):s.slice(1,1+win); if(!sl.length) return;
-    const delta=parseFloat((s[0]-Math.min(...sl)).toFixed(1));
-    tot++; deltas.push(delta); if(delta>=thresh) imp++; else if(delta>=0) nc++; else wo++;
-    breakdown.push({id:p.Patient_ID,delta,met:delta>=thresh});
-  });
-  const pct=tot>0?Math.round(imp/tot*100):0;
-  const avg=deltas.length?(deltas.reduce((a,b)=>a+b,0)/deltas.length).toFixed(1):0;
-  if(outChart){ try{outChart.destroy()}catch(e){} }
-  document.getElementById('out-content').innerHTML=`
-    <div class="metrics">
-      <div class="met"><div class="ml">Patients improved</div><div class="mv g">${pct}%</div><div class="ms">${imp} of ${tot}</div></div>
-      <div class="met"><div class="ml">Avg reduction</div><div class="mv ${parseFloat(avg)>0?'g':'b'}">▼ ${Math.abs(avg)} ${unit}</div><div class="ms">mean across patients</div></div>
-      <div class="met"><div class="ml">Tracked</div><div class="mv">${tot}</div><div class="ms">with sufficient data</div></div>
-    </div>
-    <div class="two">
-      <div class="card"><div class="card-title">Distribution</div>
-        <div style="position:relative;height:170px"><canvas id="out-pie" role="img" aria-label="Outcomes">Outcomes</canvas></div>
-        <div style="display:flex;gap:14px;justify-content:center;margin-top:10px;font-size:12px;color:var(--ink3)">
-          <span style="display:flex;align-items:center;gap:5px"><span class="ld" style="background:#0A6B4E"></span>Improved ${imp}</span>
-          <span style="display:flex;align-items:center;gap:5px"><span class="ld" style="background:#A4A19A"></span>No change ${nc}</span>
-          <span style="display:flex;align-items:center;gap:5px"><span class="ld" style="background:#B83228"></span>Worsened ${wo}</span>
-        </div>
-      </div>
-      <div class="card"><div class="card-title">By patient</div>
-        ${breakdown.length?breakdown.map(x=>`<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
-          <div class="av" style="width:28px;height:28px;font-size:10px">${x.id.replace('PT-','')}</div>
-          <div style="flex:1;font-size:13px;font-family:'DM Mono',monospace">${x.id}</div>
-          <span class="bdg ${x.met?'bok':x.delta>=0?'bwn':'bbd'}">${x.delta>0?'▼':'▲'} ${Math.abs(x.delta)} ${unit}</span>
-        </div>`).join(''):'<div class="empty">Not enough data yet</div>'}
-      </div>
-    </div>
-    <div class="card"><div class="card-title">Donor summary</div>
-      <div class="ins"><p><strong>${pct}%</strong> of patients improved their ${cond==='bp'?'blood pressure':'A1C'} by ≥${thresh} ${unit} within ${win===99?'all recorded':win} visits.</p></div>
-      <div class="ins"><p>Average ${cond==='bp'?'systolic BP':'A1C'} reduction: <strong>${Math.abs(avg)} ${unit}</strong> across ${tot} tracked patients.</p></div>
-    </div>`;
-  outChart=new Chart(document.getElementById('out-pie'),{type:'doughnut',data:{labels:['Improved','No change','Worsened'],datasets:[{data:[imp,nc,wo],backgroundColor:['#0A6B4E','#A4A19A','#B83228'],borderWidth:0}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}}}});
-}
-
-// ── NAV ──
+// ── NAV ───────────────────────────────────────────────────
 function showTab(id,btn){
   document.querySelectorAll('.sec').forEach(s=>s.classList.remove('on'));
   document.querySelectorAll('.ni').forEach(b=>b.classList.remove('on'));
@@ -997,18 +1019,14 @@ function showTab(id,btn){
   if(btn) btn.classList.add('on');
 }
 
-function prefillVisit(id){
-  document.getElementById('v-ptid').value=id;
-  document.getElementById('v-date').value=todayISO();
-  showTab('log-visit',document.querySelectorAll('.ni')[4]);
-}
-
 function saveSettings(){
   SHEET_ID=document.getElementById('cfg-sid').value.trim();
   API_KEY=document.getElementById('cfg-key').value.trim();
   CLIENT_ID=document.getElementById('cfg-client').value.trim();
-  if(CLIENT_ID) initTokenClient();
-  toast('Saved — reloading data…'); loadAllData();
+  DM_SHEET=document.getElementById('cfg-dm-sheet').value.trim();
+  HTN_SHEET=document.getElementById('cfg-htn-sheet').value.trim();
+  if(CLIENT_ID) initTC();
+  toast('Saved — reloading…'); loadAll();
 }
 
 function toast(msg,type='ok'){
@@ -1017,11 +1035,11 @@ function toast(msg,type='ok'){
   setTimeout(()=>t.classList.remove('show'),3200);
 }
 
-// ── BOOT ──
+// ── BOOT ─────────────────────────────────────────────────
 document.getElementById('v-date').value=todayISO();
 addLabRow(); addMedRow();
-loadAllData();
 </script>
+
 <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
 <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
 </body>
