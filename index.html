@@ -5,492 +5,291 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Clinic Tracker</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Epilogue:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Epilogue:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <style>
-:root {
-  --bg:       #080b12;
-  --s1:       #0d1120;
-  --s2:       #121828;
-  --s3:       #182035;
-  --s4:       #1e2840;
-  --border:   #1f2d45;
-  --border2:  #2a3d5a;
-  --ink:      #e4eaf7;
-  --ink2:     #8a96b4;
-  --ink3:     #4a5578;
-  --cyan:     #00d4ff;
-  --cyan-dim: rgba(0,212,255,.1);
-  --cyan-dk:  #0099bb;
-  --green:    #00e5a0;
-  --green-dim:rgba(0,229,160,.1);
-  --amber:    #ffb340;
-  --amber-dim:rgba(255,179,64,.1);
-  --red:      #ff4d6a;
-  --red-dim:  rgba(255,77,106,.1);
-  --purple:   #b78bff;
-  --purple-dim:rgba(183,139,255,.1);
-  --r:8px; --r2:14px; --r3:20px;
+:root{
+  --bg:#07090f;--s1:#0c1018;--s2:#111520;--s3:#161c2c;--s4:#1b2235;
+  --border:#1e2a3f;--bord2:#273550;
+  --ink:#dde4f5;--ink2:#7d8aaa;--ink3:#404f6e;
+  --cyan:#00d4ff;--cyan-d:rgba(0,212,255,.12);--cyan-dk:#007a99;
+  --green:#00e5a0;--green-d:rgba(0,229,160,.12);--green-dk:#007a52;
+  --amber:#ffb340;--amber-d:rgba(255,179,64,.12);
+  --red:#ff4d6a;--red-d:rgba(255,77,106,.12);
+  --purple:#b78bff;--purple-d:rgba(183,139,255,.12);
+  --r:8px;--r2:13px;--r3:18px;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;font-family:'Epilogue',sans-serif;background:var(--bg);color:var(--ink);font-size:14px;line-height:1.5;overflow:hidden}
 
 /* ═══ TOPBAR ═══ */
-.topbar{
-height:58px;background:var(–s1);border-bottom:1px solid var(–border);
-display:flex;align-items:center;padding:0 22px;gap:14px;flex-shrink:0;
-position:relative;z-index:20;
-}
-.logo{
-display:flex;align-items:center;gap:10px;
-}
-.logo-icon{
-width:32px;height:32px;border-radius:9px;
-background:linear-gradient(135deg,var(–cyan),var(–green));
-display:flex;align-items:center;justify-content:center;flex-shrink:0;
-}
-.logo-icon svg{width:16px;height:16px;stroke:#000;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
-.logo-text{font-family:‘Syne’,sans-serif;font-weight:700;font-size:15px;letter-spacing:.02em;color:var(–ink)}
-.logo-text span{color:var(–cyan)}
-.topbar-center{margin-left:auto;margin-right:auto;display:flex;align-items:center;gap:6px}
-.status-pill{
-display:flex;align-items:center;gap:6px;padding:5px 12px;
-border-radius:20px;background:var(–s3);border:1px solid var(–border);
-font-size:11px;font-family:‘JetBrains Mono’,monospace;color:var(–ink3);
-}
-.status-pip{width:6px;height:6px;border-radius:50%;background:var(–border2);transition:all .3s}
-.status-pip.live{background:var(–green);box-shadow:0 0 8px var(–green)}
-.topbar-right{display:flex;align-items:center;gap:8px}
-.icon-btn{
-width:34px;height:34px;border-radius:var(–r);border:1px solid var(–border);
-background:transparent;color:var(–ink3);cursor:pointer;
-display:flex;align-items:center;justify-content:center;transition:all .15s;
-}
-.icon-btn:hover{background:var(–s3);color:var(–ink);border-color:var(–border2)}
-.icon-btn svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.signin-btn{
-padding:7px 16px;border-radius:var(–r);
-background:var(–cyan-dim);border:1px solid var(–cyan-dk);
-font-family:‘Epilogue’,sans-serif;font-size:12px;font-weight:600;
-color:var(–cyan);cursor:pointer;transition:all .15s;letter-spacing:.03em;
-}
-.signin-btn:hover{background:var(–cyan);color:#000}
-.signin-btn.live{background:var(–green-dim);border-color:var(–green);color:var(–green)}
-.signin-btn.live:hover{background:var(–green);color:#000}
+.topbar{height:52px;background:var(–s1);border-bottom:1px solid var(–border);display:flex;align-items:center;padding:0 20px;gap:12px;flex-shrink:0;position:relative;z-index:20}
+.logo{display:flex;align-items:center;gap:9px}
+.logo-mark{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,var(–cyan),var(–green));display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.logo-mark svg{width:15px;height:15px;stroke:#000;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.logo-name{font-family:‘Syne’,sans-serif;font-weight:800;font-size:14px;letter-spacing:.02em;color:var(–ink)}
+.logo-name span{color:var(–cyan)}
+.tb-mid{margin:0 auto;display:flex;align-items:center;gap:7px}
+.status-pill{display:flex;align-items:center;gap:6px;padding:4px 11px;border-radius:20px;background:var(–s3);border:1px solid var(–border);font-size:11px;font-family:‘JetBrains Mono’,monospace;color:var(–ink3)}
+.pip{width:6px;height:6px;border-radius:50%;background:var(–bord2);transition:all .3s}
+.pip.live{background:var(–green);box-shadow:0 0 8px var(–green)}
+.tb-right{display:flex;align-items:center;gap:8px}
+.auth-btn{padding:6px 14px;border-radius:var(–r);border:1px solid var(–bord2);background:transparent;font-family:‘Epilogue’,sans-serif;font-size:12px;font-weight:600;color:var(–ink2);cursor:pointer;transition:all .15s}
+.auth-btn:hover{background:var(–s3);color:var(–ink)}
+.auth-btn.live{background:var(–green-d);border-color:var(–green-dk);color:var(–green)}
+.auth-btn.live:hover{background:var(–green);color:#000}
+.icon-btn{width:32px;height:32px;border-radius:var(–r);border:1px solid var(–border);background:transparent;color:var(–ink3);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.icon-btn:hover{background:var(–s3);color:var(–ink);border-color:var(–bord2)}
+.icon-btn svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 
-/* ═══ LAYOUT ═══ */
-.shell{display:flex;height:calc(100vh - 58px);overflow:hidden}
+/* ═══ SHELL ═══ */
+.shell{display:flex;height:calc(100vh - 52px);overflow:hidden}
 
 /* ═══ SIDEBAR ═══ */
-.sidebar{
-width:210px;flex-shrink:0;background:var(–s1);
-border-right:1px solid var(–border);
-display:flex;flex-direction:column;overflow:hidden;
-}
-.sidebar-label{
-padding:16px 16px 8px;
-font-family:‘Syne’,sans-serif;font-size:9px;font-weight:700;
-color:var(–ink3);text-transform:uppercase;letter-spacing:.15em;
-}
-.day-list{flex:1;overflow-y:auto;padding:0 8px 16px}
-.week-sep{
-font-size:9px;font-weight:700;color:var(–ink3);
-text-transform:uppercase;letter-spacing:.12em;
-padding:12px 8px 5px;opacity:.6;
-}
-.week-sep:first-child{padding-top:4px}
-.day-btn{
-width:100%;padding:10px 11px;border-radius:var(–r2);
-border:1px solid transparent;background:transparent;
-cursor:pointer;text-align:left;font-family:‘Epilogue’,sans-serif;
-transition:all .15s;margin-bottom:2px;
-}
+.sidebar{width:196px;flex-shrink:0;background:var(–s1);border-right:1px solid var(–border);display:flex;flex-direction:column;overflow:hidden}
+.sb-hd{padding:14px 14px 7px;font-family:‘Syne’,sans-serif;font-size:9px;font-weight:700;color:var(–ink3);text-transform:uppercase;letter-spacing:.15em}
+.day-list{flex:1;overflow-y:auto;padding:0 7px 16px}
+.wk-lbl{font-size:9px;font-weight:700;color:var(–ink3);text-transform:uppercase;letter-spacing:.12em;padding:11px 6px 4px;opacity:.55}
+.wk-lbl:first-child{padding-top:3px}
+.day-btn{width:100%;padding:9px 10px;border-radius:var(–r2);border:1px solid transparent;background:transparent;cursor:pointer;text-align:left;font-family:‘Epilogue’,sans-serif;transition:all .14s;margin-bottom:2px}
 .day-btn:hover{background:var(–s3);border-color:var(–border)}
-.day-btn.active{background:var(–s3);border-color:var(–border2)}
+.day-btn.active{background:var(–s3);border-color:var(–bord2)}
 .day-btn.active .db-dow{color:var(–cyan)}
-.day-btn.is-today{border-color:rgba(0,212,255,.3)}
-.db-row1{display:flex;align-items:center;justify-content:space-between;margin-bottom:2px}
-.db-dow{font-family:‘Syne’,sans-serif;font-size:12px;font-weight:700;color:var(–ink);letter-spacing:.03em}
-.db-today{
-font-size:8px;font-weight:700;padding:2px 6px;
-border-radius:5px;background:var(–cyan);color:#000;
-letter-spacing:.05em;text-transform:uppercase;
-}
-.db-date{font-size:10px;color:var(–ink3);font-family:‘JetBrains Mono’,monospace;margin-bottom:6px}
-.db-chip{
-display:inline-flex;align-items:center;gap:4px;
-font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;
-font-family:‘JetBrains Mono’,monospace;
-}
-.db-chip.has-pts{background:var(–green-dim);color:var(–green)}
-.db-chip.no-pts{background:var(–s4);color:var(–ink3)}
-.db-chip.upcoming{background:var(–cyan-dim);color:var(–cyan)}
+.day-btn.is-today{border-color:rgba(0,212,255,.28)}
+.db-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:2px}
+.db-dow{font-family:‘Syne’,sans-serif;font-size:11px;font-weight:700;color:var(–ink);letter-spacing:.03em}
+.db-today{font-size:8px;font-weight:700;padding:1px 5px;border-radius:4px;background:var(–cyan);color:#000;letter-spacing:.05em;text-transform:uppercase}
+.db-date{font-size:10px;color:var(–ink3);font-family:‘JetBrains Mono’,monospace;margin-bottom:5px}
+.db-chip{display:inline-flex;align-items:center;font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;font-family:‘JetBrains Mono’,monospace;letter-spacing:.03em}
+.db-chip.has{background:var(–green-d);color:var(–green)}
+.db-chip.none{background:var(–s4);color:var(–ink3)}
+.db-chip.future{background:var(–cyan-d);color:var(–cyan)}
 
 /* ═══ MAIN ═══ */
-.main{flex:1;display:flex;flex-direction:column;overflow:hidden;background:var(–bg)}
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden}
 
 /* Day bar */
-.day-bar{
-flex-shrink:0;padding:14px 24px;
-background:var(–s1);border-bottom:1px solid var(–border);
-display:flex;align-items:center;gap:16px;
-}
-.day-bar-title{font-family:‘Syne’,sans-serif;font-size:20px;font-weight:800;color:var(–ink);letter-spacing:-.01em}
-.day-bar-title span{color:var(–cyan)}
-.day-bar-meta{font-size:12px;color:var(–ink3);margin-top:2px;font-family:‘JetBrains Mono’,monospace}
+.day-bar{flex-shrink:0;padding:12px 22px;background:var(–s1);border-bottom:1px solid var(–border);display:flex;align-items:center;gap:14px}
+.day-bar-name{font-family:‘Syne’,sans-serif;font-size:19px;font-weight:800;color:var(–ink);letter-spacing:-.01em}
+.day-bar-name span{color:var(–cyan)}
+.day-bar-meta{font-size:11px;color:var(–ink3);font-family:‘JetBrains Mono’,monospace;margin-top:1px}
 .day-bar-right{margin-left:auto;display:flex;gap:8px}
-.add-btn{
-display:flex;align-items:center;gap:7px;
-padding:9px 18px;border-radius:var(–r);
-background:var(–cyan);color:#000;border:none;
-font-family:‘Syne’,sans-serif;font-size:12px;font-weight:700;
-cursor:pointer;transition:all .15s;letter-spacing:.04em;text-transform:uppercase;
-}
-.add-btn:hover{background:#33ddff;transform:translateY(-1px);box-shadow:0 4px 20px rgba(0,212,255,.3)}
-.add-btn svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:3;stroke-linecap:round}
-.add-btn.secondary{background:transparent;border:1px solid var(–border2);color:var(–ink2)}
-.add-btn.secondary:hover{background:var(–s3);color:var(–ink);box-shadow:none;transform:none}
+.add-pt-btn{display:flex;align-items:center;gap:6px;padding:8px 16px;border-radius:var(–r);background:var(–cyan);color:#000;border:none;font-family:‘Syne’,sans-serif;font-size:11px;font-weight:700;cursor:pointer;transition:all .15s;letter-spacing:.05em;text-transform:uppercase}
+.add-pt-btn:hover{background:#33ddff;box-shadow:0 4px 18px rgba(0,212,255,.28);transform:translateY(-1px)}
+.add-pt-btn svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:3;stroke-linecap:round}
 
 /* ═══ TWO-COL ═══ */
 .two-col{display:flex;flex:1;min-height:0;overflow:hidden}
 
 /* Patient list */
-.pt-col{
-width:255px;flex-shrink:0;border-right:1px solid var(–border);
-display:flex;flex-direction:column;background:var(–s1);overflow:hidden;
-}
-.pt-col-head{
-padding:11px 14px;background:var(–s2);border-bottom:1px solid var(–border);
-display:flex;align-items:center;justify-content:space-between;flex-shrink:0;
-}
-.pt-col-label{font-family:‘Syne’,sans-serif;font-size:9px;font-weight:700;color:var(–ink3);text-transform:uppercase;letter-spacing:.12em}
-.pt-col-count{font-size:10px;color:var(–ink3);font-family:‘JetBrains Mono’,monospace}
+.pt-col{width:248px;flex-shrink:0;border-right:1px solid var(–border);display:flex;flex-direction:column;background:var(–s1);overflow:hidden}
+.pt-col-hd{padding:10px 13px;background:var(–s2);border-bottom:1px solid var(–border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.pt-col-lbl{font-family:‘Syne’,sans-serif;font-size:9px;font-weight:700;color:var(–ink3);text-transform:uppercase;letter-spacing:.12em}
+.pt-col-cnt{font-size:10px;color:var(–ink3);font-family:‘JetBrains Mono’,monospace}
 .pt-scroll{flex:1;overflow-y:auto}
-
-/* Patient card */
-.pt-card{
-display:flex;align-items:center;gap:11px;
-padding:11px 14px;border-bottom:1px solid var(–border);
-cursor:pointer;transition:all .12s;position:relative;
-}
-.pt-card::before{content:’’;position:absolute;left:0;top:0;bottom:0;width:2px;background:transparent;transition:background .15s}
+.pt-card{display:flex;align-items:center;gap:10px;padding:10px 13px;border-bottom:1px solid var(–border);cursor:pointer;transition:all .12s;position:relative}
+.pt-card::before{content:’’;position:absolute;left:0;top:0;bottom:0;width:2px;background:transparent;transition:background .15s;border-radius:0 2px 2px 0}
+.pt-card:last-child{border-bottom:none}
 .pt-card:hover{background:var(–s2)}
 .pt-card.active{background:var(–s3)}
 .pt-card.active::before{background:var(–cyan)}
-.pt-av{
-width:36px;height:36px;border-radius:10px;
-background:var(–s4);border:1px solid var(–border2);
-display:flex;align-items:center;justify-content:center;
-font-size:10px;font-weight:600;color:var(–ink2);
-font-family:‘JetBrains Mono’,monospace;flex-shrink:0;
-transition:all .15s;
-}
-.pt-card.active .pt-av{background:var(–cyan-dim);border-color:var(–cyan-dk);color:var(–cyan)}
-.pt-id{font-family:‘JetBrains Mono’,monospace;font-size:13px;font-weight:500;color:var(–ink)}
+.pt-av{width:34px;height:34px;border-radius:9px;background:var(–s4);border:1px solid var(–bord2);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:var(–ink2);font-family:‘JetBrains Mono’,monospace;flex-shrink:0;transition:all .15s}
+.pt-card.active .pt-av{background:var(–cyan-d);border-color:var(–cyan-dk);color:var(–cyan)}
+.pt-id{font-family:‘JetBrains Mono’,monospace;font-size:12px;font-weight:500;color:var(–ink)}
 .pt-tags{display:flex;flex-wrap:wrap;gap:3px;margin-top:3px}
-.pt-right{margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:3px;flex-shrink:0}
-
-/* Tags / badges */
-.tag{
-display:inline-flex;align-items:center;padding:2px 7px;
-border-radius:20px;font-size:9px;font-weight:700;
-letter-spacing:.04em;white-space:nowrap;text-transform:uppercase;
-}
-.tag-ok{background:var(–green-dim);color:var(–green)}
-.tag-warn{background:var(–amber-dim);color:var(–amber)}
-.tag-crit{background:var(–red-dim);color:var(–red);border:1px solid rgba(255,77,106,.25)}
-.tag-blue{background:var(–cyan-dim);color:var(–cyan)}
-.tag-grey{background:var(–s4);color:var(–ink3)}
-.tag-purple{background:var(–purple-dim);color:var(–purple)}
+.pt-right{margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:2px;flex-shrink:0}
 .mini-val{font-size:10px;color:var(–ink3);font-family:‘JetBrains Mono’,monospace}
+.pt-empty{padding:36px 18px;text-align:center;color:var(–ink3);line-height:1.8}
+.pt-empty-title{font-family:‘Syne’,sans-serif;font-size:13px;font-weight:700;color:var(–ink2);margin-bottom:4px}
 
-.pt-empty{padding:40px 20px;text-align:center;color:var(–ink3);line-height:1.8}
-.pt-empty-title{font-family:‘Syne’,sans-serif;font-size:14px;font-weight:700;color:var(–ink2);margin-bottom:4px}
+/* Tags */
+.tag{display:inline-flex;align-items:center;padding:2px 7px;border-radius:20px;font-size:9px;font-weight:700;letter-spacing:.04em;white-space:nowrap;text-transform:uppercase}
+.tok{background:var(–green-d);color:var(–green)}
+.twn{background:var(–amber-d);color:var(–amber)}
+.tcr{background:var(–red-d);color:var(–red);border:1px solid rgba(255,77,106,.25)}
+.tbl{background:var(–cyan-d);color:var(–cyan)}
+.tpu{background:var(–purple-d);color:var(–purple)}
+.tgy{background:var(–s4);color:var(–ink3)}
 
-/* ═══ ENTRY PANEL ═══ */
-.entry-col{flex:1;overflow-y:auto;padding:24px;background:var(–bg)}
+/* ═══ ENTRY / DASHBOARD COL ═══ */
+.dash-col{flex:1;overflow-y:auto;background:var(–bg)}
 
-.no-sel{
-height:100%;display:flex;flex-direction:column;
-align-items:center;justify-content:center;gap:14px;color:var(–ink3);
-}
-.no-sel-ring{
-width:64px;height:64px;border-radius:50%;
-border:1px solid var(–border2);background:var(–s2);
-display:flex;align-items:center;justify-content:center;
-}
-.no-sel-ring svg{width:24px;height:24px;stroke:var(–ink3);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-.no-sel-title{font-family:‘Syne’,sans-serif;font-size:16px;font-weight:700;color:var(–ink2)}
-.no-sel-sub{font-size:12px;color:var(–ink3);text-align:center;max-width:220px;line-height:1.7}
+/* No-selection */
+.no-sel{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:var(–ink3)}
+.no-sel-ring{width:60px;height:60px;border-radius:50%;border:1px solid var(–bord2);background:var(–s2);display:flex;align-items:center;justify-content:center}
+.no-sel-ring svg{width:22px;height:22px;stroke:var(–ink3);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.no-sel-title{font-family:‘Syne’,sans-serif;font-size:15px;font-weight:700;color:var(–ink2)}
+.no-sel-sub{font-size:12px;color:var(–ink3);text-align:center;max-width:200px;line-height:1.7}
 
-/* Patient entry header */
-.entry-header{
-display:flex;align-items:center;gap:16px;
-padding:20px 22px;margin-bottom:20px;
-background:var(–s1);border:1px solid var(–border);border-radius:var(–r3);
-}
-.entry-av{
-width:48px;height:48px;border-radius:13px;
-background:var(–cyan-dim);border:1px solid var(–cyan-dk);
-display:flex;align-items:center;justify-content:center;
-font-family:‘JetBrains Mono’,monospace;font-size:13px;font-weight:600;
-color:var(–cyan);flex-shrink:0;
-}
-.entry-id{font-family:‘Syne’,sans-serif;font-size:22px;font-weight:800;color:var(–ink);letter-spacing:-.01em}
-.entry-date{font-size:11px;color:var(–ink3);font-family:‘JetBrains Mono’,monospace;margin-top:2px}
-.entry-status-row{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+/* ─ Patient dashboard header ─ */
+.dash-header{padding:20px 22px 16px;background:var(–s1);border-bottom:1px solid var(–border)}
+.dash-hd-row{display:flex;align-items:center;gap:14px}
+.dash-av{width:46px;height:46px;border-radius:12px;background:var(–cyan-d);border:1px solid var(–cyan-dk);display:flex;align-items:center;justify-content:center;font-family:‘JetBrains Mono’,monospace;font-size:12px;font-weight:600;color:var(–cyan);flex-shrink:0}
+.dash-pid{font-family:‘Syne’,sans-serif;font-size:21px;font-weight:800;color:var(–ink);letter-spacing:-.01em}
+.dash-date{font-size:11px;color:var(–ink3);font-family:‘JetBrains Mono’,monospace;margin-top:2px}
+.dash-tags{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
 
-/* Section cards */
-.section{
-background:var(–s1);border:1px solid var(–border);
-border-radius:var(–r3);margin-bottom:14px;overflow:hidden;
-transition:border-color .2s;
-}
-.section:has(.sec-body.open){border-color:var(–border2)}
-.sec-head{
-display:flex;align-items:center;gap:12px;
-padding:16px 20px;cursor:pointer;user-select:none;
-transition:background .15s;
-}
-.sec-head:hover{background:var(–s2)}
-.sec-icon{
-width:36px;height:36px;border-radius:10px;
-display:flex;align-items:center;justify-content:center;flex-shrink:0;
-}
-.sec-icon svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.sec-icon.c{background:var(–cyan-dim);color:var(–cyan)}
-.sec-icon.g{background:var(–green-dim);color:var(–green)}
-.sec-icon.a{background:var(–amber-dim);color:var(–amber)}
-.sec-icon.p{background:var(–purple-dim);color:var(–purple)}
+/* ─ TAB NAV ─ */
+.tab-nav{display:flex;gap:0;border-bottom:1px solid var(–border);background:var(–s1);flex-shrink:0}
+.tab-btn{padding:10px 20px;background:transparent;border:none;border-bottom:2px solid transparent;font-family:‘Syne’,sans-serif;font-size:11px;font-weight:700;color:var(–ink3);cursor:pointer;transition:all .15s;letter-spacing:.05em;text-transform:uppercase;display:flex;align-items:center;gap:6px}
+.tab-btn:hover{color:var(–ink2)}
+.tab-btn.active{color:var(–cyan);border-bottom-color:var(–cyan)}
+.tab-btn svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.tab-panel{display:none;padding:20px 22px 32px}
+.tab-panel.active{display:block}
+
+/* ─ STAT CARDS ─ */
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px}
+.stat-card{background:var(–s1);border:1px solid var(–border);border-radius:var(–r2);padding:14px 16px}
+.stat-lbl{font-size:9px;font-weight:700;color:var(–ink3);text-transform:uppercase;letter-spacing:.1em;font-family:‘Syne’,sans-serif;margin-bottom:5px}
+.stat-val{font-family:‘JetBrains Mono’,monospace;font-size:26px;font-weight:500;color:var(–ink);letter-spacing:-.02em;line-height:1}
+.stat-val.c-green{color:var(–green)}
+.stat-val.c-amber{color:var(–amber)}
+.stat-val.c-red{color:var(–red)}
+.stat-val.c-cyan{color:var(–cyan)}
+.stat-sub{font-size:10px;color:var(–ink3);margin-top:4px;font-family:‘JetBrains Mono’,monospace}
+.stat-trend{font-size:10px;margin-top:4px;font-weight:600}
+.trend-good{color:var(–green)}
+.trend-bad{color:var(–red)}
+.trend-neutral{color:var(–ink3)}
+
+/* ─ CHART CARDS ─ */
+.chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px}
+.chart-card{background:var(–s1);border:1px solid var(–border);border-radius:var(–r2);padding:16px}
+.chart-card.full{grid-column:1/-1}
+.cc-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.cc-title{font-family:‘Syne’,sans-serif;font-size:11px;font-weight:700;color:var(–ink2);text-transform:uppercase;letter-spacing:.08em}
+.cc-meta{font-size:10px;color:var(–ink3);font-family:‘JetBrains Mono’,monospace}
+.chart-wrap{position:relative;height:160px}
+.chart-wrap.tall{height:200px}
+.cc-legend{display:flex;gap:12px;margin-top:8px}
+.cc-leg-item{display:flex;align-items:center;gap:5px;font-size:10px;color:var(–ink3)}
+.cc-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0}
+.no-data-msg{height:160px;display:flex;align-items:center;justify-content:center;color:var(–ink3);font-size:12px;flex-direction:column;gap:6px}
+.no-data-msg svg{width:24px;height:24px;stroke:var(–ink3);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;opacity:.5}
+
+/* ─ HISTORY TABLE ─ */
+.hist-section{background:var(–s1);border:1px solid var(–border);border-radius:var(–r2);overflow:hidden;margin-bottom:12px}
+.hist-section-hd{padding:12px 16px;border-bottom:1px solid var(–border);background:var(–s2);display:flex;align-items:center;justify-content:space-between}
+.hist-section-title{font-family:‘Syne’,sans-serif;font-size:10px;font-weight:700;color:var(–ink2);text-transform:uppercase;letter-spacing:.1em}
+.hist-table{width:100%;border-collapse:collapse;font-size:12px}
+.hist-table th{padding:8px 14px;text-align:left;font-size:9px;font-weight:700;color:var(–ink3);text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid var(–border);background:var(–s2);font-family:‘Syne’,sans-serif}
+.hist-table td{padding:9px 14px;border-bottom:1px solid var(–border);color:var(–ink);vertical-align:middle}
+.hist-table tr:last-child td{border-bottom:none}
+.hist-table tbody tr:hover td{background:var(–s2)}
+.mono{font-family:‘JetBrains Mono’,monospace;font-size:11px}
+
+/* ─ ENTRY FORMS ─ */
+.entry-section{background:var(–s1);border:1px solid var(–border);border-radius:var(–r2);margin-bottom:12px;overflow:hidden}
+.entry-sec-hd{display:flex;align-items:center;gap:11px;padding:14px 18px;cursor:pointer;user-select:none;transition:background .14s;border-bottom:1px solid transparent}
+.entry-sec-hd:hover{background:var(–s2)}
+.entry-sec-hd.open{border-bottom-color:var(–border)}
+.sec-icon{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sec-icon svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.si-cyan{background:var(–cyan-d);color:var(–cyan)}
+.si-amber{background:var(–amber-d);color:var(–amber)}
+.si-green{background:var(–green-d);color:var(–green)}
+.si-purple{background:var(–purple-d);color:var(–purple)}
 .sec-info{flex:1}
-.sec-title{font-family:‘Syne’,sans-serif;font-size:13px;font-weight:700;color:var(–ink);letter-spacing:.01em}
+.sec-title{font-family:‘Syne’,sans-serif;font-size:12px;font-weight:700;color:var(–ink);letter-spacing:.01em}
 .sec-sub{font-size:11px;color:var(–ink3);margin-top:1px}
-.sec-chevron{
-width:28px;height:28px;border-radius:8px;background:var(–s3);
-display:flex;align-items:center;justify-content:center;
-flex-shrink:0;transition:all .2s;
-}
-.sec-chevron svg{width:13px;height:13px;stroke:var(–ink3);fill:none;stroke-width:2.5;stroke-linecap:round;transition:transform .25s}
-.sec-body.open ~ .sec-head .sec-chevron svg,
-.sec-head.open .sec-chevron svg{transform:rotate(180deg)}
-.sec-head.open .sec-chevron{background:var(–cyan-dim)}
-.sec-head.open .sec-chevron svg{stroke:var(–cyan)}
-
-.sec-body{display:none;padding:0 20px 20px}
+.sec-chev{width:26px;height:26px;border-radius:7px;background:var(–s3);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s}
+.sec-chev svg{width:12px;height:12px;stroke:var(–ink3);fill:none;stroke-width:2.5;stroke-linecap:round;transition:transform .22s}
+.entry-sec-hd.open .sec-chev{background:var(–cyan-d)}
+.entry-sec-hd.open .sec-chev svg{stroke:var(–cyan);transform:rotate(180deg)}
+.sec-body{display:none;padding:16px 18px 18px}
 .sec-body.open{display:block}
 
-/* Form elements */
-.fg2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.fg3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
-.fg4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px}
-.f{display:flex;flex-direction:column;gap:5px}
-.f label{
-font-size:9px;font-weight:700;color:var(–ink3);
-text-transform:uppercase;letter-spacing:.1em;font-family:‘Syne’,sans-serif;
-}
-.f input,.f select,.f textarea{
-padding:10px 13px;background:var(–s2);
-border:1px solid var(–border2);border-radius:var(–r);
-font-family:‘JetBrains Mono’,monospace;font-size:14px;
-color:var(–ink);transition:border-color .15s,box-shadow .15s;width:100%;
-}
-.f input:focus,.f select:focus{
-outline:none;border-color:var(–cyan);box-shadow:0 0 0 3px var(–cyan-dim);
-}
-.f input::placeholder{color:var(–ink3)}
-.f select option{background:var(–s2)}
-.f-xl input{font-size:30px!important;font-weight:300!important;padding:14px!important;text-align:center;letter-spacing:-.02em}
+/* Form */
+.fg2{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.fg3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px}
+.fg4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:11px}
 .mb12{margin-bottom:12px}
 .mb16{margin-bottom:16px}
+.f{display:flex;flex-direction:column;gap:5px}
+.f label{font-size:9px;font-weight:700;color:var(–ink3);text-transform:uppercase;letter-spacing:.1em;font-family:‘Syne’,sans-serif}
+.f input,.f select,.f textarea{padding:9px 12px;background:var(–s2);border:1px solid var(–bord2);border-radius:var(–r);font-family:‘JetBrains Mono’,monospace;font-size:13px;color:var(–ink);transition:border-color .15s,box-shadow .15s;width:100%}
+.f input:focus,.f select:focus{outline:none;border-color:var(–cyan);box-shadow:0 0 0 3px var(–cyan-d)}
+.f input::placeholder{color:var(–ink3)}
+.f select option{background:var(–s2)}
+.f-xl input{font-size:28px!important;font-weight:300!important;padding:13px!important;text-align:center;letter-spacing:-.02em}
 
-/* BP live card */
-.bp-live{
-display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;
-padding:16px;background:var(–s2);border:1px solid var(–border);
-border-radius:var(–r2);margin-top:14px;margin-bottom:16px;
-}
-.bp-live-item{text-align:center}
-.bp-live-label{font-size:9px;font-weight:700;color:var(–ink3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;font-family:‘Syne’,sans-serif}
-.bp-live-val{font-family:‘JetBrains Mono’,monospace;font-size:22px;font-weight:500;color:var(–ink);transition:color .2s}
-.bp-live-val.normal{color:var(–green)}
-.bp-live-val.elevated{color:var(–amber)}
-.bp-live-val.high{color:var(–red)}
-.bp-live-sub{font-size:10px;color:var(–ink3);margin-top:3px}
+/* BP live preview */
+.bp-live{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;padding:14px;background:var(–s2);border:1px solid var(–border);border-radius:var(–r2);margin:12px 0}
+.bpl-item{text-align:center}
+.bpl-lbl{font-size:9px;font-weight:700;color:var(–ink3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;font-family:‘Syne’,sans-serif}
+.bpl-val{font-family:‘JetBrains Mono’,monospace;font-size:20px;font-weight:500;color:var(–ink);transition:color .2s;line-height:1}
+.bpl-val.c-green{color:var(–green)}
+.bpl-val.c-amber{color:var(–amber)}
+.bpl-val.c-red{color:var(–red)}
+.bpl-sub{font-size:10px;color:var(–ink3);margin-top:3px}
 
 /* Save buttons */
-.save-btn{
-width:100%;padding:13px;border-radius:var(–r2);border:none;
-font-family:‘Syne’,sans-serif;font-size:13px;font-weight:700;
-cursor:pointer;transition:all .15s;letter-spacing:.05em;text-transform:uppercase;
-display:flex;align-items:center;justify-content:center;gap:8px;margin-top:16px;
-}
-.save-btn svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
-.save-btn.cyan{background:var(–cyan);color:#000}
-.save-btn.cyan:hover{background:#33ddff;box-shadow:0 4px 24px rgba(0,212,255,.3);transform:translateY(-1px)}
-.save-btn.green{background:var(–green);color:#000}
-.save-btn.green:hover{background:#33ffb8;box-shadow:0 4px 24px rgba(0,229,160,.3);transform:translateY(-1px)}
-.save-btn.amber{background:var(–amber);color:#000}
-.save-btn.amber:hover{background:#ffc966;box-shadow:0 4px 24px rgba(255,179,64,.3);transform:translateY(-1px)}
-.save-btn.purple{background:var(–purple);color:#000}
-.save-btn.purple:hover{background:#c9adff;box-shadow:0 4px 24px rgba(183,139,255,.3);transform:translateY(-1px)}
+.save-btn{width:100%;padding:12px;border-radius:var(–r2);border:none;font-family:‘Syne’,sans-serif;font-size:12px;font-weight:700;cursor:pointer;transition:all .15s;letter-spacing:.05em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:7px;margin-top:14px}
+.save-btn svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.save-btn.s-cyan{background:var(–cyan);color:#000}
+.save-btn.s-cyan:hover{background:#33ddff;box-shadow:0 4px 20px rgba(0,212,255,.25);transform:translateY(-1px)}
+.save-btn.s-amber{background:var(–amber);color:#000}
+.save-btn.s-amber:hover{background:#ffc966;box-shadow:0 4px 20px rgba(255,179,64,.25);transform:translateY(-1px)}
+.save-btn.s-green{background:var(–green);color:#000}
+.save-btn.s-green:hover{background:#33ffb8;box-shadow:0 4px 20px rgba(0,229,160,.25);transform:translateY(-1px)}
+.save-btn.s-purple{background:var(–purple);color:#000}
+.save-btn.s-purple:hover{background:#c9adff;box-shadow:0 4px 20px rgba(183,139,255,.25);transform:translateY(-1px)}
 .save-btn:active{transform:none!important}
 .save-btn.saving{opacity:.6;pointer-events:none}
 
-/* Divider */
-.divider{height:1px;background:var(–border);margin:16px 0}
-
-/* Dynamic rows (labs/meds) */
-.dyn-row{
-display:grid;gap:7px;align-items:end;
-padding:10px 12px;background:var(–s2);
-border:1px solid var(–border);border-radius:var(–r);
-margin-bottom:6px;
-}
-.dyn-row.lab-r{grid-template-columns:2fr 1fr 1fr 1.3fr .8fr .8fr 28px}
-.dyn-row.med-r{grid-template-columns:2fr 1fr 1fr 1.4fr 1fr 28px}
-.del-btn{
-width:28px;height:28px;align-self:flex-end;
-border-radius:7px;border:1px solid var(–border2);
-background:transparent;color:var(–ink3);cursor:pointer;
-display:flex;align-items:center;justify-content:center;transition:all .15s;
-}
-.del-btn:hover{background:var(–red-dim);color:var(–red);border-color:var(–red)}
-.del-btn svg{width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round}
-.col-hdrs{
-display:grid;gap:7px;padding:0 12px 5px;
-font-size:9px;font-weight:700;color:var(–ink3);
-text-transform:uppercase;letter-spacing:.08em;font-family:‘Syne’,sans-serif;
-}
-.col-hdrs.lab-r{grid-template-columns:2fr 1fr 1fr 1.3fr .8fr .8fr 28px}
-.col-hdrs.med-r{grid-template-columns:2fr 1fr 1fr 1.4fr 1fr 28px}
-.add-row-btn{
-width:100%;padding:8px;border-radius:var(–r);
-border:1px dashed var(–border2);background:transparent;
-font-family:‘Epilogue’,sans-serif;font-size:12px;color:var(–ink3);
-cursor:pointer;transition:all .15s;margin-top:4px;
-display:flex;align-items:center;justify-content:center;gap:6px;
-}
-.add-row-btn:hover{border-color:var(–cyan);color:var(–cyan);background:var(–cyan-dim)}
-.add-row-btn svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round}
-
-/* History accordion */
-.hist-toggle{
-width:100%;display:flex;align-items:center;gap:8px;padding:10px 0 0;
-border:none;background:transparent;font-family:‘Epilogue’,sans-serif;
-font-size:11px;color:var(–ink3);cursor:pointer;transition:color .15s;
-border-top:1px solid var(–border);margin-top:12px;
-}
-.hist-toggle:hover{color:var(–ink2)}
-.hist-toggle svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;transition:transform .2s}
-.hist-toggle.open svg{transform:rotate(180deg)}
-.hist-body{display:none;margin-top:8px}
-.hist-body.open{display:block}
-.hist-row{
-display:flex;align-items:center;gap:10px;
-padding:7px 0;border-bottom:1px solid var(–border);font-size:12px;
-}
-.hist-row:last-child{border-bottom:none}
-.hist-date{color:var(–ink3);font-family:‘JetBrains Mono’,monospace;font-size:10px;width:80px;flex-shrink:0}
-.hist-val{font-family:‘JetBrains Mono’,monospace;font-weight:500;color:var(–ink)}
-.hist-extra{color:var(–ink3);font-size:11px;margin-left:4px}
-.hist-right{margin-left:auto}
+/* Dyn rows */
+.dyn-row{display:grid;gap:7px;align-items:end;padding:9px 11px;background:var(–s2);border:1px solid var(–border);border-radius:var(–r);margin-bottom:5px}
+.dr-lab{grid-template-columns:2fr 1fr 1fr 1.3fr .8fr .8fr 26px}
+.dr-med{grid-template-columns:2fr 1fr 1fr 1.4fr 1fr 26px}
+.col-hdrs{display:grid;gap:7px;padding:0 11px 5px;font-size:9px;font-weight:700;color:var(–ink3);text-transform:uppercase;letter-spacing:.08em;font-family:‘Syne’,sans-serif}
+.ch-lab{grid-template-columns:2fr 1fr 1fr 1.3fr .8fr .8fr 26px}
+.ch-med{grid-template-columns:2fr 1fr 1fr 1.4fr 1fr 26px}
+.del-btn{width:26px;height:26px;align-self:flex-end;border-radius:6px;border:1px solid var(–bord2);background:transparent;color:var(–ink3);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .14s}
+.del-btn:hover{background:var(–red-d);color:var(–red);border-color:var(–red)}
+.del-btn svg{width:10px;height:10px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round}
+.add-row-btn{width:100%;padding:7px;border-radius:var(–r);border:1px dashed var(–bord2);background:transparent;font-family:‘Epilogue’,sans-serif;font-size:12px;color:var(–ink3);cursor:pointer;transition:all .14s;margin-top:4px;display:flex;align-items:center;justify-content:center;gap:6px}
+.add-row-btn:hover{border-color:var(–cyan);color:var(–cyan);background:var(–cyan-d)}
+.add-row-btn svg{width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round}
 
 /* ═══ MODAL ═══ */
-.overlay{
-position:fixed;inset:0;background:rgba(0,0,0,.75);
-backdrop-filter:blur(6px);z-index:100;
-display:flex;align-items:center;justify-content:center;
-opacity:0;pointer-events:none;transition:opacity .2s;
-}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(5px);z-index:100;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s}
 .overlay.open{opacity:1;pointer-events:all}
-.modal{
-background:var(–s1);border:1px solid var(–border2);
-border-radius:var(–r3);padding:28px;width:420px;max-width:92vw;
-transform:scale(.96) translateY(10px);transition:transform .22s;
-}
+.modal{background:var(–s1);border:1px solid var(–bord2);border-radius:var(–r3);padding:26px;width:400px;max-width:92vw;transform:scale(.96) translateY(8px);transition:transform .22s}
 .overlay.open .modal{transform:scale(1) translateY(0)}
-.modal-title{font-family:‘Syne’,sans-serif;font-size:18px;font-weight:800;margin-bottom:4px}
-.modal-sub{font-size:12px;color:var(–ink3);margin-bottom:22px;line-height:1.6}
-.modal-foot{display:flex;gap:10px;margin-top:22px}
-.btn-cancel{
-flex:1;padding:11px;border-radius:var(–r);
-border:1px solid var(–border2);background:transparent;
-font-family:‘Epilogue’,sans-serif;font-size:13px;color:var(–ink2);cursor:pointer;transition:all .15s;
-}
+.modal-title{font-family:‘Syne’,sans-serif;font-size:17px;font-weight:800;margin-bottom:3px}
+.modal-sub{font-size:12px;color:var(–ink3);margin-bottom:20px;line-height:1.6}
+.modal-foot{display:flex;gap:10px;margin-top:20px}
+.btn-cancel{flex:1;padding:10px;border-radius:var(–r);border:1px solid var(–bord2);background:transparent;font-family:‘Epilogue’,sans-serif;font-size:13px;color:var(–ink2);cursor:pointer;transition:all .15s}
 .btn-cancel:hover{background:var(–s3)}
-.btn-ok{
-flex:2;padding:11px;border-radius:var(–r);
-border:none;background:var(–cyan);
-font-family:‘Syne’,sans-serif;font-size:13px;font-weight:700;
-color:#000;cursor:pointer;transition:all .15s;letter-spacing:.04em;text-transform:uppercase;
-}
+.btn-ok{flex:2;padding:10px;border-radius:var(–r);border:none;background:var(–cyan);font-family:‘Syne’,sans-serif;font-size:13px;font-weight:700;color:#000;cursor:pointer;transition:all .15s;letter-spacing:.04em;text-transform:uppercase}
 .btn-ok:hover{background:#33ddff}
+.input-big input{font-size:20px!important;padding:12px 14px!important;text-align:center;font-family:‘JetBrains Mono’,monospace!important}
 
-/* ═══ SETTINGS DRAWER ═══ */
-.drawer-overlay{
-position:fixed;inset:0;background:rgba(0,0,0,.6);
-backdrop-filter:blur(4px);z-index:100;
-opacity:0;pointer-events:none;transition:opacity .2s;
-}
-.drawer-overlay.open{opacity:1;pointer-events:all}
-.drawer{
-position:fixed;right:0;top:0;bottom:0;width:420px;
-background:var(–s1);border-left:1px solid var(–border2);
-padding:26px;overflow-y:auto;z-index:101;
-transform:translateX(100%);transition:transform .28s cubic-bezier(.4,0,.2,1);
-}
-.drawer-overlay.open ~ .drawer,
+/* ═══ DRAWER ═══ */
+.drw-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);backdrop-filter:blur(4px);z-index:100;opacity:0;pointer-events:none;transition:opacity .2s}
+.drw-overlay.open{opacity:1;pointer-events:all}
+.drawer{position:fixed;right:0;top:0;bottom:0;width:400px;background:var(–s1);border-left:1px solid var(–bord2);padding:24px;overflow-y:auto;z-index:101;transform:translateX(100%);transition:transform .26s cubic-bezier(.4,0,.2,1)}
 .drawer.open{transform:translateX(0)}
-.drawer-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:26px}
-.drawer-title{font-family:‘Syne’,sans-serif;font-size:18px;font-weight:800}
-.drawer-close{
-width:34px;height:34px;border-radius:var(–r);border:1px solid var(–border2);
-background:transparent;color:var(–ink3);cursor:pointer;
-display:flex;align-items:center;justify-content:center;transition:all .15s;
-}
-.drawer-close:hover{background:var(–s3);color:var(–ink)}
-.drawer-close svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round}
-.drawer-section{margin-bottom:26px}
-.drawer-section-title{
-font-family:‘Syne’,sans-serif;font-size:9px;font-weight:700;
-color:var(–ink3);text-transform:uppercase;letter-spacing:.15em;
-margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(–border);
-}
-.drawer-hint{font-size:12px;color:var(–ink3);line-height:1.7;margin-bottom:14px}
-.drawer-hint code{
-background:var(–s3);padding:1px 6px;border-radius:5px;
-font-family:‘JetBrains Mono’,monospace;font-size:11px;color:var(–amber);
-}
-.save-set-btn{
-width:100%;padding:12px;border-radius:var(–r);border:none;
-background:var(–cyan);font-family:‘Syne’,sans-serif;
-font-size:13px;font-weight:700;color:#000;cursor:pointer;
-transition:all .15s;letter-spacing:.04em;text-transform:uppercase;margin-top:4px;
-}
+.drw-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}
+.drw-title{font-family:‘Syne’,sans-serif;font-size:17px;font-weight:800}
+.drw-close{width:32px;height:32px;border-radius:var(–r);border:1px solid var(–bord2);background:transparent;color:var(–ink3);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .14s}
+.drw-close:hover{background:var(–s3);color:var(–ink)}
+.drw-close svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round}
+.drw-section{margin-bottom:22px}
+.drw-sec-title{font-family:‘Syne’,sans-serif;font-size:9px;font-weight:700;color:var(–ink3);text-transform:uppercase;letter-spacing:.15em;margin-bottom:11px;padding-bottom:7px;border-bottom:1px solid var(–border)}
+.drw-hint{font-size:12px;color:var(–ink3);line-height:1.7;margin-bottom:13px}
+.drw-hint code{background:var(–s3);padding:1px 5px;border-radius:4px;font-family:‘JetBrains Mono’,monospace;font-size:11px;color:var(–amber)}
+.save-set-btn{width:100%;padding:11px;border-radius:var(–r);border:none;background:var(–cyan);font-family:‘Syne’,sans-serif;font-size:12px;font-weight:700;color:#000;cursor:pointer;transition:all .15s;letter-spacing:.04em;text-transform:uppercase;margin-top:4px}
 .save-set-btn:hover{background:#33ddff}
-.col-ref{
-background:var(–s2);border:1px solid var(–border);
-border-radius:var(–r);overflow:hidden;
-}
-.col-ref-row{
-display:flex;gap:10px;padding:9px 13px;
-border-bottom:1px solid var(–border);font-size:11px;
-}
+.col-ref{background:var(–s2);border:1px solid var(–border);border-radius:var(–r);overflow:hidden}
+.col-ref-row{display:flex;gap:10px;padding:8px 12px;border-bottom:1px solid var(–border);font-size:11px}
 .col-ref-row:last-child{border-bottom:none}
-.col-ref-sheet{
-color:var(–cyan);font-family:‘JetBrains Mono’,monospace;
-font-size:10px;width:76px;flex-shrink:0;font-weight:500;
-}
+.col-ref-sheet{color:var(–cyan);font-family:‘JetBrains Mono’,monospace;font-size:10px;width:72px;flex-shrink:0;font-weight:500}
 .col-ref-cols{color:var(–ink3);line-height:1.6}
 
 /* Toast */
-.toast{
-position:fixed;bottom:24px;right:24px;z-index:200;
-padding:12px 20px;border-radius:var(–r2);
-font-size:13px;font-weight:600;font-family:‘Syne’,sans-serif;
-opacity:0;transform:translateY(10px);
-transition:all .22s;pointer-events:none;
-}
+.toast{position:fixed;bottom:22px;right:22px;z-index:200;padding:11px 18px;border-radius:var(–r2);font-size:12px;font-weight:700;font-family:‘Syne’,sans-serif;opacity:0;transform:translateY(8px);transition:all .22s;pointer-events:none;letter-spacing:.03em}
 .toast.show{opacity:1;transform:translateY(0)}
 .toast.ok{background:var(–green);color:#000}
 .toast.err{background:var(–red);color:#fff}
@@ -498,11 +297,7 @@ transition:all .22s;pointer-events:none;
 /* Scrollbar */
 ::-webkit-scrollbar{width:4px;height:4px}
 ::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:var(–border2);border-radius:10px}
-::-webkit-scrollbar-thumb:hover{background:var(–ink3)}
-
-/* Input in modal big */
-.input-big input{font-size:20px!important;padding:13px 16px!important;text-align:center;font-family:‘JetBrains Mono’,monospace!important}
+::-webkit-scrollbar-thumb{background:var(–bord2);border-radius:10px}
 </style>
 
 </head>
@@ -512,17 +307,14 @@ transition:all .22s;pointer-events:none;
 
 <header class="topbar">
   <div class="logo">
-    <div class="logo-icon"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
-    <span class="logo-text">Clinic<span>Tracker</span></span>
+    <div class="logo-mark"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+    <span class="logo-name">Clinic<span>Tracker</span></span>
   </div>
-  <div class="topbar-center">
-    <div class="status-pill">
-      <div class="status-pip" id="sync-pip"></div>
-      <span id="sync-lbl">not connected</span>
-    </div>
+  <div class="tb-mid">
+    <div class="status-pill"><div class="pip" id="pip"></div><span id="sync-lbl">not connected</span></div>
   </div>
-  <div class="topbar-right">
-    <button class="signin-btn" id="auth-btn" onclick="handleAuth()">Sign In</button>
+  <div class="tb-right">
+    <button class="auth-btn" id="auth-btn" onclick="handleAuth()">Sign In</button>
     <button class="icon-btn" onclick="openDrawer()" title="Settings">
       <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M4.93 4.93l1.41 1.41M4.93 19.07l1.41-1.41M19.07 19.07l-1.41-1.41M12 2v2M12 20v2M2 12h2M20 12h2"/></svg>
     </button>
@@ -534,7 +326,7 @@ transition:all .22s;pointer-events:none;
   <!-- ═══ SIDEBAR ═══ -->
 
   <aside class="sidebar">
-    <div class="sidebar-label">Clinic Days</div>
+    <div class="sb-hd">Clinic Days</div>
     <div class="day-list" id="day-list"></div>
   </aside>
 
@@ -543,11 +335,11 @@ transition:all .22s;pointer-events:none;
   <div class="main">
     <div class="day-bar">
       <div>
-        <div class="day-bar-title" id="bar-title">Select a <span>clinic day</span></div>
+        <div class="day-bar-name" id="bar-name">Select a <span>clinic day</span></div>
         <div class="day-bar-meta" id="bar-meta">← pick a Tuesday or Thursday</div>
       </div>
       <div class="day-bar-right">
-        <button class="add-btn" id="add-pt-btn" style="display:none" onclick="openAddModal()">
+        <button class="add-pt-btn" id="add-pt-btn" style="display:none" onclick="openAddModal()">
           <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
           Add Patient
         </button>
@@ -558,21 +350,21 @@ transition:all .22s;pointer-events:none;
 <div class="two-col">
   <!-- Patient list -->
   <div class="pt-col">
-    <div class="pt-col-head">
-      <span class="pt-col-label">Patients</span>
-      <span class="pt-col-count" id="pt-count">—</span>
+    <div class="pt-col-hd">
+      <span class="pt-col-lbl">Patients</span>
+      <span class="pt-col-cnt" id="pt-cnt">—</span>
     </div>
     <div class="pt-scroll" id="pt-scroll">
       <div class="pt-empty"><div class="pt-empty-title">No day selected</div>Pick a clinic day from the sidebar</div>
     </div>
   </div>
 
-  <!-- Entry panel -->
-  <div class="entry-col" id="entry-col">
+  <!-- Dashboard / entry col -->
+  <div class="dash-col" id="dash-col">
     <div class="no-sel">
       <div class="no-sel-ring"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
       <div class="no-sel-title">No patient selected</div>
-      <div class="no-sel-sub">Select a day, add a patient, then log their vitals and results</div>
+      <div class="no-sel-sub">Select a patient to view their clinical dashboard and log new data</div>
     </div>
   </div>
 </div>
@@ -600,32 +392,24 @@ transition:all .22s;pointer-events:none;
 
 <!-- ═══ SETTINGS DRAWER ═══ -->
 
-<div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
+<div class="drw-overlay" id="drw-overlay" onclick="closeDrawer()"></div>
 <div class="drawer" id="drawer">
-  <div class="drawer-head">
-    <div class="drawer-title">Settings</div>
-    <button class="drawer-close" onclick="closeDrawer()">
-      <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-    </button>
+  <div class="drw-hd">
+    <div class="drw-title">Settings</div>
+    <button class="drw-close" onclick="closeDrawer()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
   </div>
-
-  <div class="drawer-section">
-    <div class="drawer-section-title">Google Sheets Connection</div>
-    <div class="drawer-hint">
-      Create a spreadsheet with three tabs named exactly:
-      <code>BP Visits</code>, <code>A1C Visits</code>, <code>Labs &amp; Meds</code>.
-      Headers are written automatically on first save.
-    </div>
-    <div style="display:flex;flex-direction:column;gap:12px">
+  <div class="drw-section">
+    <div class="drw-sec-title">Google Sheets Connection</div>
+    <div class="drw-hint">Create a spreadsheet with three tabs: <code>BP Visits</code>, <code>A1C Visits</code>, <code>Labs &amp; Meds</code>. Headers are written automatically on first save.</div>
+    <div style="display:flex;flex-direction:column;gap:11px">
       <div class="f"><label>Spreadsheet ID</label><input id="cfg-sid" style="font-size:12px" placeholder="1BxiMV…"/></div>
       <div class="f"><label>API Key (read)</label><input id="cfg-key" style="font-size:12px" placeholder="AIza…"/></div>
       <div class="f"><label>OAuth2 Client ID (write)</label><input id="cfg-client" style="font-size:12px" placeholder="xxxxx.apps.googleusercontent.com"/></div>
     </div>
     <button class="save-set-btn" onclick="saveSettings()">Save &amp; Connect</button>
   </div>
-
-  <div class="drawer-section">
-    <div class="drawer-section-title">Sheet Column Reference</div>
+  <div class="drw-section">
+    <div class="drw-sec-title">Column Reference</div>
     <div class="col-ref">
       <div class="col-ref-row"><span class="col-ref-sheet">BP Visits</span><span class="col-ref-cols">Date · Patient ID · Systolic · Diastolic · Heart Rate · Weight · O2 Sat · Pain · BP Reading · Classification · Controlled · Crisis</span></div>
       <div class="col-ref-row"><span class="col-ref-sheet">A1C Visits</span><span class="col-ref-cols">Date · Patient ID · HbA1c (%) · Fasting Glucose · Goal Status · Notes</span></div>
@@ -637,65 +421,99 @@ transition:all .22s;pointer-events:none;
 <div class="toast" id="toast"></div>
 
 <script>
-// ═══════════════════════════════════════════════
-// ▶ CREDENTIALS — baked in, no need to re-enter
-// ═══════════════════════════════════════════════
+// ══════════════════════════════════════════
+// ▶ CREDENTIALS — baked in
+// ══════════════════════════════════════════
 let SHEET_ID  = '1hCw4bB4zBzrB05KRd7DsKadfbYerY3IFNt0UgavGUwY';
 let API_KEY   = 'AIzaSyA5cyE1GCsNUQBJlXZI6Ccwn2kvcFZcN_k';
-let CLIENT_ID = '660117509501-pkqh7re3v6m729rhjin32en83osfutec.apps.googleusercontent.com';   // ← paste your OAuth2 Client ID here between the quotes
+let CLIENT_ID = '660117509501-pkqh7re3v6m729rhjin32en83osfutec.apps.googleusercontent.com';  // ← paste your OAuth2 Client ID here
 
-const SHEET_BP   = 'BP Visits';
-const SHEET_A1C  = 'A1C Visits';
-const SHEET_LABS = 'Labs & Meds';
-const SCOPES = 'https://www.googleapis.com/auth/spreadsheets';
-const DISC   = 'https://sheets.googleapis.com/$discovery/rest?version=v4';
-const HEADERS = {
-  [SHEET_BP]:   ['Date','Patient ID','Systolic','Diastolic','Heart Rate','Weight (lbs)','O2 Sat (%)','Pain Score','BP Reading','Classification','Controlled','Crisis'],
-  [SHEET_A1C]:  ['Date','Patient ID','HbA1c (%)','Fasting Glucose (mg/dL)','Goal Status','Notes'],
-  [SHEET_LABS]: ['Date','Patient ID','Record Type','Name','Value / Dose','Unit','Category / Frequency','Route','Ref Low','Ref High','Flag'],
+const SHEET_BP='BP Visits', SHEET_A1C='A1C Visits', SHEET_LABS='Labs & Meds';
+const SCOPES='https://www.googleapis.com/auth/spreadsheets';
+const DISC='https://sheets.googleapis.com/$discovery/rest?version=v4';
+const HEADERS={
+  [SHEET_BP]:  ['Date','Patient ID','Systolic','Diastolic','Heart Rate','Weight (lbs)','O2 Sat (%)','Pain Score','BP Reading','Classification','Controlled','Crisis'],
+  [SHEET_A1C]: ['Date','Patient ID','HbA1c (%)','Fasting Glucose (mg/dL)','Goal Status','Notes'],
+  [SHEET_LABS]:['Date','Patient ID','Record Type','Name','Value / Dose','Unit','Category / Frequency','Route','Ref Low','Ref High','Flag'],
 };
 
-// ═══════════════════════════════════════════════
+// ══════════════════════════════════════════
 // STATE
-// ═══════════════════════════════════════════════
+// ══════════════════════════════════════════
 let allBP=[], allA1C=[], allLabs=[];
-let schedule={};          // { 'iso': [{ptId}] }
+let schedule={};
 let activeDayISO=null, activePtId=null;
 let isSignedIn=false, tokenClient=null, headersWritten={};
+let charts={};
 
-// ═══════════════════════════════════════════════
-// GAPI / AUTH
-// ═══════════════════════════════════════════════
+// ══════════════════════════════════════════
+// PERSISTENT AUTH — store token in sessionStorage
+// so page refresh doesn't require re-login
+// ══════════════════════════════════════════
+const TOKEN_KEY='ct_gtoken';
+
+function saveToken(token){ try{ sessionStorage.setItem(TOKEN_KEY, JSON.stringify(token)); }catch(e){} }
+function loadToken(){ try{ const t=sessionStorage.getItem(TOKEN_KEY); return t?JSON.parse(t):null; }catch(e){ return null; } }
+function clearToken(){ try{ sessionStorage.removeItem(TOKEN_KEY); }catch(e){} }
+
 function gapiLoaded(){
-  gapi.load('client',async()=>{
+  gapi.load('client', async ()=>{
     if(!API_KEY) return;
-    await gapi.client.init({apiKey:API_KEY,discoveryDocs:[DISC]});
+    await gapi.client.init({apiKey:API_KEY, discoveryDocs:[DISC]});
+    // Try to restore session
+    const saved=loadToken();
+    if(saved){
+      gapi.client.setToken(saved);
+      isSignedIn=true;
+      setAuthUI(true);
+    }
     loadAll();
   });
 }
-function gisLoaded(){ if(CLIENT_ID) initTC(); }
+
+function gisLoaded(){
+  if(CLIENT_ID) initTC();
+}
+
 function initTC(){
   if(!CLIENT_ID||typeof google==='undefined') return;
   tokenClient=google.accounts.oauth2.initTokenClient({
-    client_id:CLIENT_ID,scope:SCOPES,
-    callback:(r)=>{ if(!r.error){ isSignedIn=true; setAuthUI(true); toast('Signed in — write enabled'); } }
+    client_id:CLIENT_ID, scope:SCOPES,
+    callback:(r)=>{
+      if(!r.error){
+        isSignedIn=true;
+        saveToken(gapi.client.getToken());
+        setAuthUI(true);
+        toast('Signed in — write enabled');
+      }
+    }
   });
 }
+
 function handleAuth(){
   if(!CLIENT_ID){ openDrawer(); toast('Paste your OAuth2 Client ID in Settings','err'); return; }
   if(isSignedIn){
-    google.accounts.oauth2.revoke(gapi.client.getToken().access_token,()=>{ gapi.client.setToken(''); isSignedIn=false; setAuthUI(false); });
-  } else { if(!tokenClient) initTC(); tokenClient.requestAccessToken({prompt:'consent'}); }
-}
-function setAuthUI(on){
-  const b=document.getElementById('auth-btn'),p=document.getElementById('sync-pip'),l=document.getElementById('sync-lbl');
-  if(on){ b.textContent='Sign Out'; b.classList.add('live'); p.classList.add('live'); l.textContent='write enabled'; }
-  else  { b.textContent='Sign In';  b.classList.remove('live'); p.classList.remove('live'); l.textContent='read-only'; }
+    try{ google.accounts.oauth2.revoke(gapi.client.getToken()?.access_token, ()=>{}); }catch(e){}
+    gapi.client.setToken(null);
+    clearToken();
+    isSignedIn=false;
+    setAuthUI(false);
+    toast('Signed out');
+  } else {
+    if(!tokenClient) initTC();
+    tokenClient.requestAccessToken({prompt:''});  // prompt:'' skips consent if already granted
+  }
 }
 
-// ═══════════════════════════════════════════════
+function setAuthUI(on){
+  const b=document.getElementById('auth-btn'), p=document.getElementById('pip'), l=document.getElementById('sync-lbl');
+  if(on){ b.textContent='Sign Out'; b.classList.add('live'); p.classList.add('live'); l.textContent='write enabled'; }
+  else  { b.textContent='Sign In';  b.classList.remove('live'); p.classList.remove('live'); l.textContent=SHEET_ID?'read-only':'not connected'; }
+}
+
+// ══════════════════════════════════════════
 // DATA
-// ═══════════════════════════════════════════════
+// ══════════════════════════════════════════
 async function fetchSheet(tab,range){
   if(!SHEET_ID||!API_KEY) return [];
   const url=`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${encodeURIComponent(tab+'!'+range)}?key=${API_KEY}`;
@@ -707,6 +525,7 @@ async function fetchSheet(tab,range){
     const o={}; h.forEach((k,i)=>o[(k||'').trim()]=(r[i]||'')); return o;
   });
 }
+
 async function loadAll(){
   if(!SHEET_ID||!API_KEY) return;
   try{
@@ -717,16 +536,16 @@ async function loadAll(){
     ]);
     buildSchedule();
     renderSidebar();
-    document.getElementById('sync-pip').classList.add('live');
+    document.getElementById('pip').classList.add('live');
     document.getElementById('sync-lbl').textContent=isSignedIn?'write enabled':'connected · read-only';
     if(activeDayISO) renderPtList(activeDayISO);
-    if(activeDayISO&&activePtId) renderEntry(activeDayISO,activePtId);
+    if(activeDayISO&&activePtId) renderDash(activeDayISO, activePtId);
   }catch(e){ toast(e.message,'err'); }
 }
 
-// ═══════════════════════════════════════════════
-// SCHEDULE
-// ═══════════════════════════════════════════════
+// ══════════════════════════════════════════
+// HELPERS
+// ══════════════════════════════════════════
 function pd(str){
   if(!str) return '';
   if(str.includes('-')) return str.slice(0,10);
@@ -736,24 +555,8 @@ function pd(str){
 }
 function todayISO(){ return new Date().toISOString().slice(0,10); }
 function isoOf(d){ return d.toISOString().slice(0,10); }
-
-function buildSchedule(){
-  const prev=JSON.parse(JSON.stringify(schedule));
-  schedule={};
-  const add=(iso,pid)=>{
-    if(!iso||!pid) return;
-    if(!schedule[iso]) schedule[iso]=prev[iso]||[];
-    if(!schedule[iso].find(p=>p.ptId===pid)) schedule[iso].push({ptId:pid});
-  };
-  allBP.forEach(r=>add(pd(r['Date']),r['Patient ID']));
-  allA1C.forEach(r=>add(pd(r['Date']),r['Patient ID']));
-  allLabs.forEach(r=>add(pd(r['Date']),r['Patient ID']));
-  // keep locally-added patients that haven't been saved yet
-  Object.entries(prev).forEach(([iso,pts])=>{
-    if(!schedule[iso]) schedule[iso]=[];
-    pts.forEach(p=>{ if(!schedule[iso].find(x=>x.ptId===p.ptId)) schedule[iso].push(p); });
-  });
-}
+function g(id){ return document.getElementById(id)?.value||''; }
+function killCharts(){ Object.values(charts).forEach(c=>{try{c.destroy()}catch(e){}}); charts={}; }
 
 function clinicDays(){
   const days=[],now=new Date();
@@ -764,340 +567,546 @@ function clinicDays(){
   return days.reverse();
 }
 
-// ═══════════════════════════════════════════════
+// ══════════════════════════════════════════
+// SCHEDULE BUILD
+// ══════════════════════════════════════════
+function buildSchedule(){
+  const prev=JSON.parse(JSON.stringify(schedule));
+  schedule={};
+  const add=(iso,pid)=>{
+    if(!iso||!pid) return;
+    if(!schedule[iso]) schedule[iso]=[];
+    if(!schedule[iso].find(p=>p.ptId===pid)) schedule[iso].push({ptId:pid});
+  };
+  allBP.forEach(r=>add(pd(r['Date']),r['Patient ID']));
+  allA1C.forEach(r=>add(pd(r['Date']),r['Patient ID']));
+  allLabs.forEach(r=>add(pd(r['Date']),r['Patient ID']));
+  Object.entries(prev).forEach(([iso,pts])=>{
+    if(!schedule[iso]) schedule[iso]=[];
+    pts.forEach(p=>{ if(!schedule[iso].find(x=>x.ptId===p.ptId)) schedule[iso].push(p); });
+  });
+}
+
+// ══════════════════════════════════════════
 // SIDEBAR
-// ═══════════════════════════════════════════════
+// ══════════════════════════════════════════
 function renderSidebar(){
   const days=clinicDays(), today=todayISO();
   let lastWk='',html='';
   days.forEach(day=>{
     const iso=isoOf(day), isToday=iso===today, isPast=iso<today;
-    const pts=schedule[iso]||[];
-    const isActive=activeDayISO===iso;
+    const pts=schedule[iso]||[], isActive=activeDayISO===iso;
     const ws=new Date(day); ws.setDate(day.getDate()-day.getDay()+1);
-    const wl='Week of '+ws.toLocaleDateString('en-US',{month:'short',day:'numeric'});
-    if(wl!==lastWk){ html+=`<div class="week-sep">${wl}</div>`; lastWk=wl; }
-    let chipCls='no-pts',chipTxt='No visits';
-    if(pts.length){ chipCls=isPast?'has-pts':'upcoming'; chipTxt=pts.length+' pt'+(pts.length!==1?'s':''); }
-    else if(!isPast){ chipCls='upcoming'; chipTxt='Upcoming'; }
+    const wl='Wk '+ws.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+    if(wl!==lastWk){ html+=`<div class="wk-lbl">${wl}</div>`; lastWk=wl; }
+    let cc='none', ct='No visits';
+    if(pts.length){ cc=isPast?'has':'future'; ct=pts.length+' pt'+(pts.length!==1?'s':''); }
+    else if(!isPast&&!isToday){ cc='future'; ct='Upcoming'; }
     html+=`<button class="day-btn${isActive?' active':''}${isToday?' is-today':''}" onclick="selectDay('${iso}')">
-      <div class="db-row1">
-        <span class="db-dow">${day.toLocaleDateString('en-US',{weekday:'short'})}</span>
-        ${isToday?'<span class="db-today">Today</span>':''}
-      </div>
+      <div class="db-top"><span class="db-dow">${day.toLocaleDateString('en-US',{weekday:'short'})}</span>${isToday?'<span class="db-today">Today</span>':''}</div>
       <div class="db-date">${day.toLocaleDateString('en-US',{month:'numeric',day:'numeric',year:'2-digit'})}</div>
-      <span class="db-chip ${chipCls}">${chipTxt}</span>
+      <span class="db-chip ${cc}">${ct}</span>
     </button>`;
   });
   document.getElementById('day-list').innerHTML=html;
 }
 
-// ═══════════════════════════════════════════════
+// ══════════════════════════════════════════
 // SELECT DAY
-// ═══════════════════════════════════════════════
+// ══════════════════════════════════════════
 function selectDay(iso){
   activeDayISO=iso; activePtId=null;
   const day=new Date(iso+'T12:00:00');
-  document.getElementById('bar-title').innerHTML=
+  document.getElementById('bar-name').innerHTML=
     `<span style="color:var(--ink)">${day.toLocaleDateString('en-US',{weekday:'long'})}</span> <span>${day.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})}</span>`;
-  document.getElementById('bar-meta').textContent=(schedule[iso]||[]).length+' patients this day';
+  document.getElementById('bar-meta').textContent=(schedule[iso]||[]).length+' patients';
   document.getElementById('add-pt-btn').style.display='flex';
   document.getElementById('modal-sub').textContent='Adding patient for '+day.toLocaleDateString('en-US',{weekday:'long',month:'short',day:'numeric'});
   renderSidebar();
   renderPtList(iso);
-  document.getElementById('entry-col').innerHTML=`
+  killCharts();
+  document.getElementById('dash-col').innerHTML=`
     <div class="no-sel">
-      <div class="no-sel-ring"><svg viewBox="0 0 24 24" width="24" height="24" stroke="var(--ink3)" fill="none" stroke-width="1.5" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+      <div class="no-sel-ring"><svg viewBox="0 0 24 24" width="22" height="22" stroke="var(--ink3)" fill="none" stroke-width="1.5" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
       <div class="no-sel-title">Select a patient</div>
-      <div class="no-sel-sub">Or click <strong style="color:var(--cyan)">+ Add Patient</strong> to add one for today</div>
+      <div class="no-sel-sub">Click a patient to view their dashboard, or add a new one</div>
     </div>`;
 }
 
-// ═══════════════════════════════════════════════
+// ══════════════════════════════════════════
 // PATIENT LIST
-// ═══════════════════════════════════════════════
+// ══════════════════════════════════════════
 function renderPtList(iso){
   const pts=schedule[iso]||[];
-  document.getElementById('pt-count').textContent=pts.length+' patient'+(pts.length!==1?'s':'');
+  document.getElementById('pt-cnt').textContent=pts.length+' patient'+(pts.length!==1?'s':'');
   if(!pts.length){
-    document.getElementById('pt-scroll').innerHTML=`
-      <div class="pt-empty">
-        <div class="pt-empty-title">No patients yet</div>
-        Click "+ Add Patient" above to add the first patient for this day
-      </div>`; return;
+    document.getElementById('pt-scroll').innerHTML=`<div class="pt-empty"><div class="pt-empty-title">No patients yet</div>Click "+ Add Patient" to add the first patient for this day</div>`;
+    return;
   }
   document.getElementById('pt-scroll').innerHTML=pts.map(p=>{
     const pid=p.ptId;
     const bpT=allBP.filter(r=>pd(r['Date'])===iso&&r['Patient ID']===pid);
     const a1T=allA1C.filter(r=>pd(r['Date'])===iso&&r['Patient ID']===pid);
-    const lbT=allLabs.filter(r=>pd(r['Date'])===iso&&r['Patient ID']===pid);
+    const lbT=allLabs.filter(r=>pd(r['Date'])===iso&&r['Patient ID']===pid&&r['Record Type']==='Lab');
     const latBP=bpT.length?bpT[bpT.length-1]:null;
     const latA1C=a1T.length?a1T[a1T.length-1]:null;
     const isActive=activePtId===pid;
-    // tags
-    let tags='', miniVal='';
+    let tags='', mini='';
     if(latBP){
-      const sys=parseInt(latBP['Systolic']||0);
-      const crisis=(latBP['Crisis']||'').toLowerCase().includes('y');
-      tags+=crisis?'<span class="tag tag-crit">Crisis</span>':sys>=140?'<span class="tag tag-warn">Uncontrolled</span>':'<span class="tag tag-ok">Controlled</span>';
-      miniVal=`<span class="mini-val">${latBP['BP Reading']||sys+'/'+latBP['Diastolic']}</span>`;
+      const s=parseInt(latBP['Systolic']||0), cr=(latBP['Crisis']||'').toLowerCase().includes('y');
+      tags+=cr?'<span class="tag tcr">Crisis</span>':s>=140?'<span class="tag twn">Uncontrolled</span>':'<span class="tag tok">Controlled</span>';
+      mini=`<span class="mini-val">${latBP['BP Reading']||s+'/'+latBP['Diastolic']}</span>`;
     }
-    if(latA1C){
-      const goal=(latA1C['Goal Status']||'').toLowerCase();
-      tags+=goal.includes('at')?'<span class="tag tag-ok">At Goal</span>':'<span class="tag tag-warn">Above Goal</span>';
-    }
-    if(lbT.length) tags+=`<span class="tag tag-blue">${lbT.filter(r=>r['Record Type']==='Lab').length} Lab${lbT.filter(r=>r['Record Type']==='Lab').length!==1?'s':''}</span>`;
-    if(!latBP&&!latA1C&&!lbT.length) tags='<span class="tag tag-grey">Pending</span>';
+    if(latA1C){ const gl=(latA1C['Goal Status']||'').toLowerCase(); tags+=gl.includes('at')?'<span class="tag tok">At Goal</span>':'<span class="tag twn">Above Goal</span>'; }
+    if(lbT.length) tags+=`<span class="tag tbl">${lbT.length} Lab${lbT.length!==1?'s':''}</span>`;
+    if(!latBP&&!latA1C&&!lbT.length) tags='<span class="tag tgy">Pending</span>';
     return `<div class="pt-card${isActive?' active':''}" onclick="selectPt('${pid}')">
       <div class="pt-av">${pid.toString().slice(-4)}</div>
-      <div style="flex:1;min-width:0">
-        <div class="pt-id">${pid}</div>
-        <div class="pt-tags">${tags}</div>
-      </div>
-      <div class="pt-right">${miniVal}</div>
+      <div style="flex:1;min-width:0"><div class="pt-id">${pid}</div><div class="pt-tags">${tags}</div></div>
+      <div class="pt-right">${mini}</div>
     </div>`;
   }).join('');
 }
 
-// ═══════════════════════════════════════════════
-// SELECT PATIENT → ENTRY PANEL
-// ═══════════════════════════════════════════════
+// ══════════════════════════════════════════
+// SELECT PATIENT → FULL DASHBOARD
+// ══════════════════════════════════════════
 function selectPt(pid){
   activePtId=pid;
   renderPtList(activeDayISO);
-  renderEntry(activeDayISO,pid);
+  renderDash(activeDayISO, pid);
 }
 
-function renderEntry(iso,pid){
+function renderDash(iso, pid){
+  killCharts();
   const day=new Date(iso+'T12:00:00');
   const dateStr=day.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'});
-  const bpT=allBP.filter(r=>pd(r['Date'])===iso&&r['Patient ID']===pid);
-  const a1T=allA1C.filter(r=>pd(r['Date'])===iso&&r['Patient ID']===pid);
-  const lbT=allLabs.filter(r=>pd(r['Date'])===iso&&r['Patient ID']===pid&&r['Record Type']==='Lab');
-  const mdT=allLabs.filter(r=>pd(r['Date'])===iso&&r['Patient ID']===pid&&r['Record Type']==='Medication');
-  const latBP=bpT.length?bpT[bpT.length-1]:null;
-  const latA1C=a1T.length?a1T[a1T.length-1]:null;
+
+  // All history sorted
   const bpHist=allBP.filter(r=>r['Patient ID']===pid).sort((a,b)=>pd(a['Date']).localeCompare(pd(b['Date'])));
   const a1Hist=allA1C.filter(r=>r['Patient ID']===pid).sort((a,b)=>pd(a['Date']).localeCompare(pd(b['Date'])));
+  const labHist=allLabs.filter(r=>r['Patient ID']===pid&&r['Record Type']==='Lab');
+  const medHist=allLabs.filter(r=>r['Patient ID']===pid&&r['Record Type']==='Medication');
 
-  // Header status tags
+  // Today's data
+  const bpT=bpHist.filter(r=>pd(r['Date'])===iso);
+  const a1T=a1Hist.filter(r=>pd(r['Date'])===iso);
+  const lbT=labHist.filter(r=>pd(r['Date'])===iso);
+  const mdT=medHist.filter(r=>pd(r['Date'])===iso);
+  const latBP=bpT.length?bpT[bpT.length-1]:(bpHist.length?bpHist[bpHist.length-1]:null);
+  const latA1C=a1T.length?a1T[a1T.length-1]:(a1Hist.length?a1Hist[a1Hist.length-1]:null);
+
+  // Compute trends
+  const sys=latBP?parseInt(latBP['Systolic']||0):null;
+  const dia=latBP?parseInt(latBP['Diastolic']||0):null;
+  const a1cVal=latA1C?parseFloat(latA1C['HbA1c (%)']||0):null;
+  const firstSys=bpHist.length>=2?parseInt(bpHist[0]['Systolic']||0):null;
+  const firstA1C=a1Hist.length>=2?parseFloat(a1Hist[0]['HbA1c (%)']||0):null;
+  const sysDelta=sys&&firstSys?Math.round(firstSys-sys):null;
+  const a1cDelta=a1cVal&&firstA1C?(firstA1C-a1cVal).toFixed(1):null;
+
+  // Status tags for header
   let hTags='';
-  if(latBP){ const s=parseInt(latBP['Systolic']||0); const cr=(latBP['Crisis']||'').toLowerCase().includes('y'); hTags+=cr?'<span class="tag tag-crit">BP Crisis</span>':s>=140?'<span class="tag tag-warn">BP Uncontrolled</span>':'<span class="tag tag-ok">BP Controlled</span>'; }
-  if(latA1C){ const g=(latA1C['Goal Status']||'').toLowerCase(); hTags+=g.includes('at')?'<span class="tag tag-ok">A1C At Goal</span>':'<span class="tag tag-warn">A1C Above Goal</span>'; }
+  if(latBP){
+    const cr=(latBP['Crisis']||'').toLowerCase().includes('y');
+    hTags+=cr?'<span class="tag tcr">BP Crisis</span>':sys>=140?'<span class="tag twn">BP Uncontrolled</span>':sys>0?'<span class="tag tok">BP Controlled</span>':'';
+  }
+  if(latA1C){ hTags+=(latA1C['Goal Status']||'').toLowerCase().includes('at')?'<span class="tag tok">A1C At Goal</span>':'<span class="tag twn">A1C Above Goal</span>'; }
 
-  document.getElementById('entry-col').innerHTML=`
-    <div class="entry-header">
-      <div class="entry-av">${pid.toString().slice(-4)}</div>
-      <div>
-        <div class="entry-id">${pid}</div>
-        <div class="entry-date">${dateStr}</div>
+  // BP color
+  const bpColor=!sys?'':sys>=180?'c-red':sys>=130?'c-amber':'c-green';
+  const a1cColor=!a1cVal?'':a1cVal<7?'c-green':a1cVal<8?'c-amber':'c-red';
+
+  document.getElementById('dash-col').innerHTML=`
+    <!-- HEADER -->
+    <div class="dash-header">
+      <div class="dash-hd-row">
+        <div class="dash-av">${pid.toString().slice(-4)}</div>
+        <div>
+          <div class="dash-pid">${pid}</div>
+          <div class="dash-date">${dateStr}</div>
+        </div>
+        <div class="dash-tags">${hTags||'<span class="tag tgy">No data yet</span>'}</div>
       </div>
-      <div class="entry-status-row">${hTags}</div>
     </div>
 
-    <!-- ▸ BLOOD PRESSURE -->
-    <div class="section" id="sec-bp">
-      <div class="sec-head${latBP?' open':''}" onclick="toggleSec('sec-bp',this)" id="shd-bp">
-        <div class="sec-icon c"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
-        <div class="sec-info">
-          <div class="sec-title">Blood Pressure</div>
-          <div class="sec-sub">${latBP?'Recorded today · '+latBP['BP Reading']:'Not recorded yet — toggle to add'}</div>
+    <!-- TAB NAV -->
+    <div class="tab-nav">
+      <button class="tab-btn active" id="tab-overview" onclick="switchTab('overview')">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        Overview
+      </button>
+      <button class="tab-btn" id="tab-log" onclick="switchTab('log')">
+        <svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        Log Visit
+      </button>
+    </div>
+
+    <!-- OVERVIEW TAB -->
+    <div class="tab-panel active" id="panel-overview">
+
+      <!-- Stat cards -->
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-lbl">Latest BP</div>
+          <div class="stat-val ${bpColor}">${sys&&dia?sys+'/'+dia:'—'}</div>
+          <div class="stat-sub">${latBP?pd(latBP['Date']):'No data'}</div>
+          ${sysDelta!==null?`<div class="stat-trend ${sysDelta>0?'trend-good':'trend-bad'}">${sysDelta>0?'▼ '+sysDelta+' mmHg improved':'▲ '+Math.abs(sysDelta)+' mmHg increased'}</div>`:''}
         </div>
-        <div class="sec-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        <div class="stat-card">
+          <div class="stat-lbl">Latest A1C</div>
+          <div class="stat-val ${a1cColor}">${a1cVal?a1cVal.toFixed(1)+'%':'—'}</div>
+          <div class="stat-sub">${latA1C?pd(latA1C['Date']):'No data'}</div>
+          ${a1cDelta!==null?`<div class="stat-trend ${parseFloat(a1cDelta)>0?'trend-good':'trend-bad'}">${parseFloat(a1cDelta)>0?'▼ '+Math.abs(a1cDelta)+'% improved':'▲ '+Math.abs(a1cDelta)+'% increased'}</div>`:''}
+        </div>
+        <div class="stat-card">
+          <div class="stat-lbl">Total Visits</div>
+          <div class="stat-val c-cyan">${Math.max(bpHist.length,a1Hist.length)}</div>
+          <div class="stat-sub">BP: ${bpHist.length} · A1C: ${a1Hist.length}</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-lbl">BP Classification</div>
+          <div class="stat-val" style="font-size:14px;font-weight:700;margin-top:4px;color:${!sys?'var(--ink3)':sys>=180?'var(--red)':sys>=130?'var(--amber)':'var(--green)'}">${latBP?latBP['Classification']||'—':'—'}</div>
+          <div class="stat-sub">${latBP?latBP['Controlled']||'':''}</div>
+        </div>
       </div>
-      <div class="sec-body${latBP?' open':''}" id="sbdy-bp">
-        <div class="fg3 mb12">
-          <div class="f f-xl"><label>Systolic</label><input id="v-sys" type="number" placeholder="120" value="${latBP?latBP['Systolic']:''}" oninput="livePreview()"/></div>
-          <div class="f f-xl"><label>Diastolic</label><input id="v-dia" type="number" placeholder="80"  value="${latBP?latBP['Diastolic']:''}" oninput="livePreview()"/></div>
-          <div class="f f-xl"><label>Heart Rate</label><input id="v-hr"  type="number" placeholder="72"  value="${latBP?latBP['Heart Rate']:''}"/></div>
+
+      <!-- Charts -->
+      <div class="chart-grid">
+        <div class="chart-card">
+          <div class="cc-hd"><span class="cc-title">Blood Pressure Trend</span><span class="cc-meta">${bpHist.length} readings</span></div>
+          ${bpHist.length>=2
+            ?`<div class="chart-wrap"><canvas id="chart-bp"></canvas></div>
+               <div class="cc-legend">
+                 <div class="cc-leg-item"><div class="cc-dot" style="background:var(--cyan)"></div>Systolic</div>
+                 <div class="cc-leg-item"><div class="cc-dot" style="background:var(--green)"></div>Diastolic</div>
+               </div>`
+            :`<div class="no-data-msg"><svg viewBox="0 0 24 24"><polyline points="22 20 14 12 9 17 2 10"/></svg>${bpHist.length===1?'Only 1 reading — need 2+ for trend':'No BP data recorded yet'}</div>`}
         </div>
-        <div class="fg3 mb16">
-          <div class="f"><label>Weight (lbs)</label><input id="v-wt" type="number" placeholder="165" value="${latBP?latBP['Weight (lbs)']:''}"/></div>
-          <div class="f"><label>O2 Sat (%)</label><input id="v-o2" type="number" placeholder="98"  value="${latBP?latBP['O2 Sat (%)']:''}"/></div>
-          <div class="f"><label>Pain (0–10)</label><input id="v-pain" type="number" min="0" max="10" placeholder="0" value="${latBP?latBP['Pain Score']:''}"/></div>
+        <div class="chart-card">
+          <div class="cc-hd"><span class="cc-title">A1C Trend</span><span class="cc-meta">${a1Hist.length} readings</span></div>
+          ${a1Hist.length>=2
+            ?`<div class="chart-wrap"><canvas id="chart-a1c"></canvas></div>
+               <div class="cc-legend"><div class="cc-leg-item"><div class="cc-dot" style="background:var(--amber)"></div>HbA1c %</div></div>`
+            :`<div class="no-data-msg"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12h8M12 8v8"/></svg>${a1Hist.length===1?'Only 1 reading — need 2+ for trend':'No A1C data recorded yet'}</div>`}
         </div>
-        <div class="bp-live">
-          <div class="bp-live-item">
-            <div class="bp-live-label">Reading</div>
-            <div class="bp-live-val" id="bpl-reading">${latBP?latBP['BP Reading']:'—/—'}</div>
-            <div class="bp-live-sub">mmHg</div>
-          </div>
-          <div class="bp-live-item">
-            <div class="bp-live-label">Classification</div>
-            <div class="bp-live-val" id="bpl-class" style="font-size:14px;font-weight:600">${latBP?latBP['Classification']:'—'}</div>
-            <div class="bp-live-sub" id="bpl-ctrl">${latBP?latBP['Controlled']:''}</div>
-          </div>
-          <div class="bp-live-item">
-            <div class="bp-live-label">Crisis</div>
-            <div class="bp-live-val" id="bpl-crisis" style="font-size:14px">${latBP?(latBP['Crisis']||'No'):'—'}</div>
-            <div class="bp-live-sub">status</div>
-          </div>
-        </div>
-        <button class="save-btn cyan" id="bp-save" onclick="saveBP('${pid}','${iso}')">
-          <svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
-          ${latBP?'Update BP Reading':'Save BP Reading'}
-        </button>
-        ${bpHist.length>1?`
-        <button class="hist-toggle" id="bph-tog" onclick="toggleHist('bph-body','bph-tog')">
-          <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-          BP history (${bpHist.length} visits)
-        </button>
-        <div class="hist-body" id="bph-body">
-          ${bpHist.slice().reverse().map(r=>`
-          <div class="hist-row">
-            <span class="hist-date">${pd(r['Date'])}</span>
-            <span class="hist-val">${r['BP Reading']||r['Systolic']+'/'+r['Diastolic']}</span>
-            <span class="hist-extra">${r['Heart Rate']?r['Heart Rate']+' bpm':''}</span>
-            <span class="hist-right"><span class="tag ${bpTagCls(r)}">${r['Classification']||'—'}</span></span>
-          </div>`).join('')}
+        ${bpHist.length>=2?`
+        <div class="chart-card full">
+          <div class="cc-hd"><span class="cc-title">Systolic Over Time — Full History</span><span class="cc-meta">Goal: &lt;130 mmHg</span></div>
+          <div class="chart-wrap tall"><canvas id="chart-sys-full"></canvas></div>
         </div>`:''}
       </div>
-    </div>
 
-    <!-- ▸ A1C -->
-    <div class="section" id="sec-a1c">
-      <div class="sec-head${latA1C?' open':''}" onclick="toggleSec('sec-a1c',this)" id="shd-a1c">
-        <div class="sec-icon a"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12h8M12 8v8"/></svg></div>
-        <div class="sec-info">
-          <div class="sec-title">A1C / HbA1c</div>
-          <div class="sec-sub">${latA1C?'Recorded today · '+latA1C['HbA1c (%)']+'%  ·  '+latA1C['Goal Status']:'Not recorded yet — toggle to add'}</div>
-        </div>
-        <div class="sec-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
-      </div>
-      <div class="sec-body${latA1C?' open':''}" id="sbdy-a1c">
-        <div class="fg2 mb12">
-          <div class="f f-xl"><label>HbA1c (%)</label><input id="v-a1c" type="number" step="0.1" placeholder="7.2" value="${latA1C?latA1C['HbA1c (%)']:''}"/></div>
-          <div class="f f-xl"><label>Fasting Glucose (mg/dL)</label><input id="v-glucose" type="number" placeholder="104" value="${latA1C?latA1C['Fasting Glucose (mg/dL)']:''}"/></div>
-        </div>
-        <div class="fg2">
-          <div class="f">
-            <label>Goal Status</label>
-            <select id="v-a1c-goal">
-              <option value="At Goal"${latA1C&&latA1C['Goal Status']==='At Goal'?' selected':''}>At Goal</option>
-              <option value="Above Goal"${latA1C&&latA1C['Goal Status']==='Above Goal'?' selected':''}>Above Goal</option>
-            </select>
+      <!-- BP History Table -->
+      ${bpHist.length?`
+      <div class="hist-section">
+        <div class="hist-section-hd"><span class="hist-section-title">Blood Pressure History</span><span style="font-size:10px;color:var(--ink3);font-family:'JetBrains Mono',monospace">${bpHist.length} records</span></div>
+        <table class="hist-table">
+          <thead><tr><th>Date</th><th>BP</th><th>Systolic</th><th>Diastolic</th><th>HR</th><th>Weight</th><th>O2</th><th>Classification</th><th>Status</th></tr></thead>
+          <tbody>${bpHist.slice().reverse().map(r=>`<tr>
+            <td class="mono">${pd(r['Date'])}</td>
+            <td class="mono" style="font-weight:600">${r['BP Reading']||r['Systolic']+'/'+r['Diastolic']}</td>
+            <td class="mono">${r['Systolic']||'—'}</td>
+            <td class="mono">${r['Diastolic']||'—'}</td>
+            <td class="mono">${r['Heart Rate']||'—'}</td>
+            <td class="mono">${r['Weight (lbs)']||'—'}</td>
+            <td class="mono">${r['O2 Sat (%)']||'—'}</td>
+            <td>${r['Classification']||'—'}</td>
+            <td><span class="tag ${bpTagCls(r)}">${r['Controlled']||'—'}</span>${(r['Crisis']||'').toLowerCase().includes('y')?'<span class="tag tcr" style="margin-left:4px">Crisis</span>':''}</td>
+          </tr>`).join('')}</tbody>
+        </table>
+      </div>`:''}
+
+      <!-- A1C History Table -->
+      ${a1Hist.length?`
+      <div class="hist-section">
+        <div class="hist-section-hd"><span class="hist-section-title">A1C History</span><span style="font-size:10px;color:var(--ink3);font-family:'JetBrains Mono',monospace">${a1Hist.length} records</span></div>
+        <table class="hist-table">
+          <thead><tr><th>Date</th><th>HbA1c %</th><th>Fasting Glucose</th><th>Goal Status</th><th>Notes</th></tr></thead>
+          <tbody>${a1Hist.slice().reverse().map(r=>`<tr>
+            <td class="mono">${pd(r['Date'])}</td>
+            <td class="mono" style="font-weight:600;color:${parseFloat(r['HbA1c (%)']||99)<7?'var(--green)':parseFloat(r['HbA1c (%)']||99)<8?'var(--amber)':'var(--red)'}">${r['HbA1c (%)']||'—'}%</td>
+            <td class="mono">${r['Fasting Glucose (mg/dL)']?r['Fasting Glucose (mg/dL)']+' mg/dL':'—'}</td>
+            <td><span class="tag ${(r['Goal Status']||'').toLowerCase().includes('at')?'tok':'twn'}">${r['Goal Status']||'—'}</span></td>
+            <td style="font-size:11px;color:var(--ink3)">${r['Notes']||''}</td>
+          </tr>`).join('')}</tbody>
+        </table>
+      </div>`:''}
+
+      <!-- Labs History -->
+      ${labHist.length?`
+      <div class="hist-section">
+        <div class="hist-section-hd"><span class="hist-section-title">Lab Results History</span><span style="font-size:10px;color:var(--ink3);font-family:'JetBrains Mono',monospace">${labHist.length} results</span></div>
+        <table class="hist-table">
+          <thead><tr><th>Date</th><th>Test</th><th>Result</th><th>Unit</th><th>Category</th><th>Flag</th></tr></thead>
+          <tbody>${labHist.slice().reverse().map(r=>`<tr>
+            <td class="mono">${pd(r['Date'])}</td>
+            <td>${r['Name']||'—'}</td>
+            <td class="mono" style="font-weight:600">${r['Value / Dose']||'—'}</td>
+            <td class="mono">${r['Unit']||'—'}</td>
+            <td>${r['Category / Frequency']||'—'}</td>
+            <td>${r['Flag']?`<span class="tag ${r['Flag']==='ABNORMAL'?'tcr':'tok'}">${r['Flag']}</span>`:''}</td>
+          </tr>`).join('')}</tbody>
+        </table>
+      </div>`:''}
+
+      <!-- Meds -->
+      ${medHist.length?`
+      <div class="hist-section">
+        <div class="hist-section-hd"><span class="hist-section-title">Medications History</span><span style="font-size:10px;color:var(--ink3);font-family:'JetBrains Mono',monospace">${medHist.length} entries</span></div>
+        <table class="hist-table">
+          <thead><tr><th>Date</th><th>Medication</th><th>Dose</th><th>Frequency</th><th>Route</th></tr></thead>
+          <tbody>${medHist.slice().reverse().map(r=>`<tr>
+            <td class="mono">${pd(r['Date'])}</td>
+            <td style="font-weight:500">${r['Name']||'—'}</td>
+            <td class="mono">${r['Value / Dose']||'—'} ${r['Unit']||''}</td>
+            <td>${r['Category / Frequency']||'—'}</td>
+            <td><span class="tag tgy">${r['Route']||'—'}</span></td>
+          </tr>`).join('')}</tbody>
+        </table>
+      </div>`:''}
+
+    </div><!-- /panel-overview -->
+
+    <!-- LOG VISIT TAB -->
+    <div class="tab-panel" id="panel-log">
+
+      <!-- BP -->
+      <div class="entry-section">
+        <div class="entry-sec-hd${bpT.length?' open':''}" onclick="toggleSec(this,'ebody-bp')" id="ehd-bp">
+          <div class="sec-icon si-cyan"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+          <div class="sec-info">
+            <div class="sec-title">Blood Pressure</div>
+            <div class="sec-sub">${bpT.length?'Recorded today · '+bpT[bpT.length-1]['BP Reading']:'Not recorded yet'}</div>
           </div>
-          <div class="f"><label>Notes</label><input id="v-a1c-notes" placeholder="Baseline, trending down…" value="${latA1C?latA1C['Notes']:''}"/></div>
+          <div class="sec-chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
         </div>
-        <button class="save-btn amber" id="a1c-save" onclick="saveA1C('${pid}','${iso}')">
-          <svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
-          ${latA1C?'Update A1C':'Save A1C'}
-        </button>
-        ${a1Hist.length>1?`
-        <button class="hist-toggle" id="a1h-tog" onclick="toggleHist('a1h-body','a1h-tog')">
-          <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-          A1C history (${a1Hist.length} visits)
-        </button>
-        <div class="hist-body" id="a1h-body">
-          ${a1Hist.slice().reverse().map(r=>`
-          <div class="hist-row">
-            <span class="hist-date">${pd(r['Date'])}</span>
-            <span class="hist-val">${r['HbA1c (%)']||'—'}%</span>
-            <span class="hist-extra">${r['Fasting Glucose (mg/dL)']?r['Fasting Glucose (mg/dL)']+' mg/dL':''}</span>
-            <span class="hist-right"><span class="tag ${(r['Goal Status']||'').toLowerCase().includes('at')?'tag-ok':'tag-warn'}">${r['Goal Status']||'—'}</span></span>
-          </div>`).join('')}
-        </div>`:''}
+        <div class="sec-body${bpT.length?' open':''}" id="ebody-bp">
+          <div class="fg3 mb12">
+            <div class="f f-xl"><label>Systolic</label><input id="v-sys" type="number" placeholder="120" value="${bpT.length?bpT[bpT.length-1]['Systolic']:''}" oninput="livePreview()"/></div>
+            <div class="f f-xl"><label>Diastolic</label><input id="v-dia" type="number" placeholder="80"  value="${bpT.length?bpT[bpT.length-1]['Diastolic']:''}" oninput="livePreview()"/></div>
+            <div class="f f-xl"><label>Heart Rate</label><input id="v-hr"  type="number" placeholder="72"  value="${bpT.length?bpT[bpT.length-1]['Heart Rate']:''}"/></div>
+          </div>
+          <div class="fg4 mb12">
+            <div class="f"><label>Weight (lbs)</label><input id="v-wt"   type="number" placeholder="165" value="${bpT.length?bpT[bpT.length-1]['Weight (lbs)']:''}"/></div>
+            <div class="f"><label>O2 Sat (%)</label>  <input id="v-o2"   type="number" placeholder="98"  value="${bpT.length?bpT[bpT.length-1]['O2 Sat (%)']:''}"/></div>
+            <div class="f"><label>Pain (0–10)</label>  <input id="v-pain" type="number" placeholder="0" min="0" max="10" value="${bpT.length?bpT[bpT.length-1]['Pain Score']:''}"/></div>
+            <div class="f"><label>&nbsp;</label></div>
+          </div>
+          <div class="bp-live">
+            <div class="bpl-item"><div class="bpl-lbl">Reading</div><div class="bpl-val" id="bpl-r">${bpT.length?bpT[bpT.length-1]['BP Reading']:'—/—'}</div><div class="bpl-sub">mmHg</div></div>
+            <div class="bpl-item"><div class="bpl-lbl">Classification</div><div class="bpl-val" id="bpl-c" style="font-size:13px;font-weight:700">${bpT.length?bpT[bpT.length-1]['Classification']:'—'}</div><div class="bpl-sub" id="bpl-ctrl">${bpT.length?bpT[bpT.length-1]['Controlled']:''}</div></div>
+            <div class="bpl-item"><div class="bpl-lbl">Crisis</div><div class="bpl-val" id="bpl-cr" style="font-size:13px">${bpT.length?(bpT[bpT.length-1]['Crisis']||'No'):'—'}</div><div class="bpl-sub">flag</div></div>
+          </div>
+          <button class="save-btn s-cyan" id="bp-save" onclick="saveBP('${pid}','${iso}')">
+            <svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+            ${bpT.length?'Update BP Reading':'Save BP Reading'}
+          </button>
+        </div>
       </div>
-    </div>
 
-    <!-- ▸ OTHER LABS -->
-    <div class="section" id="sec-labs">
-      <div class="sec-head${lbT.length?' open':''}" onclick="toggleSec('sec-labs',this)" id="shd-labs">
-        <div class="sec-icon g"><svg viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2v-4M9 21H5a2 2 0 0 1-2-2v-4m0 0h18"/></svg></div>
-        <div class="sec-info">
-          <div class="sec-title">Other Labs</div>
-          <div class="sec-sub">${lbT.length?lbT.length+' result(s) recorded today':'Optional — lipids, renal, CBC, etc.'}</div>
+      <!-- A1C -->
+      <div class="entry-section">
+        <div class="entry-sec-hd${a1T.length?' open':''}" onclick="toggleSec(this,'ebody-a1c')">
+          <div class="sec-icon si-amber"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12h8M12 8v8"/></svg></div>
+          <div class="sec-info">
+            <div class="sec-title">A1C / HbA1c</div>
+            <div class="sec-sub">${a1T.length?'Recorded today · '+a1T[a1T.length-1]['HbA1c (%)']+'%  ·  '+a1T[a1T.length-1]['Goal Status']:'Not recorded yet'}</div>
+          </div>
+          <div class="sec-chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
         </div>
-        <div class="sec-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        <div class="sec-body${a1T.length?' open':''}" id="ebody-a1c">
+          <div class="fg2 mb12">
+            <div class="f f-xl"><label>HbA1c (%)</label><input id="v-a1c" type="number" step="0.1" placeholder="7.2" value="${a1T.length?a1T[a1T.length-1]['HbA1c (%)']:''}"/></div>
+            <div class="f f-xl"><label>Fasting Glucose (mg/dL)</label><input id="v-glucose" type="number" placeholder="104" value="${a1T.length?a1T[a1T.length-1]['Fasting Glucose (mg/dL)']:''}"/></div>
+          </div>
+          <div class="fg2">
+            <div class="f"><label>Goal Status</label>
+              <select id="v-a1c-goal">
+                <option value="At Goal"${a1T.length&&a1T[a1T.length-1]['Goal Status']==='At Goal'?' selected':''}>At Goal</option>
+                <option value="Above Goal"${a1T.length&&a1T[a1T.length-1]['Goal Status']==='Above Goal'?' selected':''}>Above Goal</option>
+              </select>
+            </div>
+            <div class="f"><label>Notes</label><input id="v-a1c-notes" placeholder="Trending down, baseline…" value="${a1T.length?a1T[a1T.length-1]['Notes']:''}"/></div>
+          </div>
+          <button class="save-btn s-amber" id="a1c-save" onclick="saveA1C('${pid}','${iso}')">
+            <svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+            ${a1T.length?'Update A1C':'Save A1C'}
+          </button>
+        </div>
       </div>
-      <div class="sec-body${lbT.length?' open':''}" id="sbdy-labs">
-        <div class="col-hdrs lab-r"><span>Test Name</span><span>Result</span><span>Unit</span><span>Category</span><span>Ref Lo</span><span>Ref Hi</span><span></span></div>
-        <div id="lab-rows"></div>
-        <button class="add-row-btn" onclick="addLabRow()">
-          <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          Add test row
-        </button>
-        <button class="save-btn green" onclick="saveLabs('${pid}','${iso}')">
-          <svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
-          Save Labs
-        </button>
-      </div>
-    </div>
 
-    <!-- ▸ MEDICATIONS -->
-    <div class="section" id="sec-meds">
-      <div class="sec-head${mdT.length?' open':''}" onclick="toggleSec('sec-meds',this)" id="shd-meds">
-        <div class="sec-icon p"><svg viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></div>
-        <div class="sec-info">
-          <div class="sec-title">Medications</div>
-          <div class="sec-sub">${mdT.length?mdT.length+' medication(s) recorded today':'Optional — new or changed medications'}</div>
+      <!-- Labs -->
+      <div class="entry-section">
+        <div class="entry-sec-hd${lbT.length?' open':''}" onclick="toggleSec(this,'ebody-labs')">
+          <div class="sec-icon si-green"><svg viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2v-4M9 21H5a2 2 0 0 1-2-2v-4m0 0h18"/></svg></div>
+          <div class="sec-info">
+            <div class="sec-title">Other Labs</div>
+            <div class="sec-sub">${lbT.length?lbT.length+' result(s) today':'Optional — lipids, renal, CBC, etc.'}</div>
+          </div>
+          <div class="sec-chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
         </div>
-        <div class="sec-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        <div class="sec-body${lbT.length?' open':''}" id="ebody-labs">
+          <div class="col-hdrs ch-lab"><span>Test Name</span><span>Result</span><span>Unit</span><span>Category</span><span>Ref Lo</span><span>Ref Hi</span><span></span></div>
+          <div id="lab-rows"></div>
+          <button class="add-row-btn" onclick="addLabRow()"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add test row</button>
+          <button class="save-btn s-green" onclick="saveLabs('${pid}','${iso}')">
+            <svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+            Save Labs
+          </button>
+        </div>
       </div>
-      <div class="sec-body${mdT.length?' open':''}" id="sbdy-meds">
-        <div class="col-hdrs med-r"><span>Medication</span><span>Dose</span><span>Unit</span><span>Frequency</span><span>Route</span><span></span></div>
-        <div id="med-rows"></div>
-        <button class="add-row-btn" onclick="addMedRow()">
-          <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          Add medication
-        </button>
-        <button class="save-btn purple" onclick="saveMeds('${pid}','${iso}')">
-          <svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
-          Save Medications
-        </button>
+
+      <!-- Meds -->
+      <div class="entry-section" style="margin-bottom:32px">
+        <div class="entry-sec-hd${mdT.length?' open':''}" onclick="toggleSec(this,'ebody-meds')">
+          <div class="sec-icon si-purple"><svg viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></div>
+          <div class="sec-info">
+            <div class="sec-title">Medications</div>
+            <div class="sec-sub">${mdT.length?mdT.length+' medication(s) today':'Optional — new or changed meds'}</div>
+          </div>
+          <div class="sec-chev"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="sec-body${mdT.length?' open':''}" id="ebody-meds">
+          <div class="col-hdrs ch-med"><span>Medication</span><span>Dose</span><span>Unit</span><span>Frequency</span><span>Route</span><span></span></div>
+          <div id="med-rows"></div>
+          <button class="add-row-btn" onclick="addMedRow()"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add medication</button>
+          <button class="save-btn s-purple" onclick="saveMeds('${pid}','${iso}')">
+            <svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+            Save Medications
+          </button>
+        </div>
       </div>
-    </div>
-    <div style="height:40px"></div>
+
+    </div><!-- /panel-log -->
   `;
 
-  // pre-populate rows
+  // Pre-populate dynamic rows
   lbT.length ? lbT.forEach(r=>addLabRow(r['Name'],r['Value / Dose'],r['Unit'],r['Category / Frequency'],r['Ref Low'],r['Ref High'])) : addLabRow();
   mdT.length ? mdT.forEach(r=>addMedRow(r['Name'],r['Value / Dose'],r['Unit'],r['Category / Frequency'],r['Route'])) : addMedRow();
   livePreview();
+
+  // Draw charts after DOM update
+  requestAnimationFrame(()=>{
+    // BP trend (dual line)
+    if(bpHist.length>=2){
+      const labels=bpHist.map(r=>pd(r['Date']).slice(5));
+      const sysVals=bpHist.map(r=>parseInt(r['Systolic']||0)||null);
+      const diaVals=bpHist.map(r=>parseInt(r['Diastolic']||0)||null);
+      charts['bp']=new Chart(document.getElementById('chart-bp'),{
+        type:'line',
+        data:{labels,datasets:[
+          {label:'Systolic',data:sysVals,borderColor:'#00d4ff',backgroundColor:'rgba(0,212,255,.08)',tension:.4,pointRadius:3,pointHoverRadius:5,fill:true},
+          {label:'Diastolic',data:diaVals,borderColor:'#00e5a0',backgroundColor:'rgba(0,229,160,.06)',tension:.4,pointRadius:3,pointHoverRadius:5,fill:true,borderDash:[5,4]},
+        ]},
+        options:chartOpts(50,200)
+      });
+    }
+
+    // A1C trend
+    if(a1Hist.length>=2){
+      const labels=a1Hist.map(r=>pd(r['Date']).slice(5));
+      const vals=a1Hist.map(r=>parseFloat(r['HbA1c (%)']||0)||null);
+      charts['a1c']=new Chart(document.getElementById('chart-a1c'),{
+        type:'line',
+        data:{labels,datasets:[{
+          label:'HbA1c %',data:vals,borderColor:'#ffb340',
+          backgroundColor:'rgba(255,179,64,.1)',tension:.4,pointRadius:3,pointHoverRadius:5,fill:true
+        }]},
+        options:chartOpts(4,14)
+      });
+    }
+
+    // Full systolic history
+    if(bpHist.length>=2){
+      const labels=bpHist.map(r=>pd(r['Date']).slice(5));
+      const sysVals=bpHist.map(r=>parseInt(r['Systolic']||0)||null);
+      charts['sysf']=new Chart(document.getElementById('chart-sys-full'),{
+        type:'line',
+        data:{labels,datasets:[
+          {label:'Systolic',data:sysVals,borderColor:'#00d4ff',backgroundColor:'rgba(0,212,255,.07)',tension:.4,pointRadius:4,pointHoverRadius:6,fill:true},
+          {label:'Goal (130)',data:labels.map(()=>130),borderColor:'rgba(0,229,160,.4)',borderDash:[6,4],pointRadius:0,borderWidth:1.5,fill:false},
+        ]},
+        options:chartOpts(60,220)
+      });
+    }
+  });
 }
 
-// ═══════════════════════════════════════════════
-// UI HELPERS
-// ═══════════════════════════════════════════════
-function toggleSec(secId, hdEl){
-  const body=document.getElementById('sbdy-'+secId.replace('sec-',''));
+function chartOpts(yMin,yMax){
+  return {
+    responsive:true,maintainAspectRatio:false,
+    interaction:{mode:'index',intersect:false},
+    plugins:{
+      legend:{display:false},
+      tooltip:{
+        backgroundColor:'rgba(13,17,32,.95)',
+        borderColor:'#273550',borderWidth:1,
+        titleColor:'#dde4f5',bodyColor:'#7d8aaa',
+        titleFont:{family:'JetBrains Mono',size:11},
+        bodyFont:{family:'JetBrains Mono',size:10},
+        padding:10,
+      }
+    },
+    scales:{
+      y:{min:yMin,max:yMax,grid:{color:'rgba(255,255,255,.04)'},ticks:{color:'#404f6e',font:{family:'JetBrains Mono',size:10},maxTicksLimit:6}},
+      x:{grid:{display:false},ticks:{color:'#404f6e',font:{family:'JetBrains Mono',size:10},maxRotation:40,autoSkip:true,maxTicksLimit:10}}
+    }
+  };
+}
+
+// ══════════════════════════════════════════
+// TAB SWITCH
+// ══════════════════════════════════════════
+function switchTab(name){
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  document.getElementById('panel-'+name).classList.add('active');
+}
+
+// ══════════════════════════════════════════
+// SECTION TOGGLE
+// ══════════════════════════════════════════
+function toggleSec(hdEl, bodyId){
+  const body=document.getElementById(bodyId);
   const isOpen=body.classList.toggle('open');
   hdEl.classList.toggle('open',isOpen);
 }
-function toggleHist(bodyId,togId){
-  document.getElementById(bodyId).classList.toggle('open');
-  document.getElementById(togId).classList.toggle('open');
-}
-function bpTagCls(r){
-  const cr=(r['Crisis']||'').toLowerCase().includes('y');
-  if(cr) return 'tag-crit';
-  const s=parseInt(r['Systolic']||0);
-  return s>=140?'tag-warn':s>0?'tag-ok':'tag-grey';
-}
+
+// ══════════════════════════════════════════
+// BP LIVE PREVIEW
+// ══════════════════════════════════════════
 function livePreview(){
   const sys=parseInt(document.getElementById('v-sys')?.value||0);
   const dia=parseInt(document.getElementById('v-dia')?.value||0);
-  const rd=document.getElementById('bpl-reading');
-  const cl=document.getElementById('bpl-class');
-  const ct=document.getElementById('bpl-ctrl');
-  const cr=document.getElementById('bpl-crisis');
-  if(!rd) return;
-  if(!sys||!dia){ rd.textContent='—/—'; rd.className='bp-live-val'; cl.textContent='—'; ct.textContent=''; cr.textContent='—'; return; }
-  rd.textContent=sys+'/'+dia;
-  let cls='Normal',color='normal',ctrl='Controlled',crisis='No';
-  if(sys>=180||dia>=120){ cls='Hypertensive Crisis'; color='high'; ctrl='Uncontrolled'; crisis='YES'; }
-  else if(sys>=140||dia>=90){ cls='Stage 2 HTN'; color='high'; ctrl='Uncontrolled'; crisis='No'; }
-  else if(sys>=130||dia>=80){ cls='Stage 1 HTN'; color='elevated'; ctrl='Uncontrolled'; crisis='No'; }
-  else if(sys>=120){ cls='Elevated'; color='elevated'; ctrl='Elevated'; crisis='No'; }
-  rd.className='bp-live-val '+color;
-  cl.textContent=cls; cl.className='bp-live-val '+color; cl.style.fontSize='14px'; cl.style.fontWeight='700';
+  const r=document.getElementById('bpl-r'), c=document.getElementById('bpl-c'), ct=document.getElementById('bpl-ctrl'), cr=document.getElementById('bpl-cr');
+  if(!r) return;
+  if(!sys||!dia){ r.textContent='—/—'; r.className='bpl-val'; if(c){c.textContent='—';ct.textContent='';cr.textContent='—';} return; }
+  r.textContent=sys+'/'+dia;
+  let cls='Normal',col='c-green',ctrl='Controlled',crisis='No';
+  if(sys>=180||dia>=120){cls='Hypertensive Crisis';col='c-red';ctrl='Uncontrolled';crisis='YES';}
+  else if(sys>=140||dia>=90){cls='Stage 2 HTN';col='c-red';ctrl='Uncontrolled';}
+  else if(sys>=130||dia>=80){cls='Stage 1 HTN';col='c-amber';ctrl='Uncontrolled';}
+  else if(sys>=120){cls='Elevated';col='c-amber';ctrl='Elevated';}
+  r.className='bpl-val '+col;
+  c.textContent=cls; c.className='bpl-val '+col; c.style.fontSize='13px'; c.style.fontWeight='700';
   ct.textContent=ctrl;
-  cr.textContent=crisis; cr.className='bp-live-val '+(crisis==='YES'?'high':'normal'); cr.style.fontSize='14px';
+  cr.textContent=crisis; cr.className='bpl-val '+(crisis==='YES'?'c-red':'c-green'); cr.style.fontSize='13px';
 }
 
-// ═══════════════════════════════════════════════
+// ══════════════════════════════════════════
+// TAG HELPER
+// ══════════════════════════════════════════
+function bpTagCls(r){
+  if((r['Crisis']||'').toLowerCase().includes('y')) return 'tcr';
+  const s=parseInt(r['Systolic']||0);
+  return s>=140?'twn':s>0?'tok':'tgy';
+}
+
+// ══════════════════════════════════════════
 // ADD PATIENT
-// ═══════════════════════════════════════════════
+// ══════════════════════════════════════════
 function openAddModal(){ document.getElementById('add-modal').classList.add('open'); setTimeout(()=>document.getElementById('modal-pid').focus(),120); }
 function closeAddModal(){ document.getElementById('add-modal').classList.remove('open'); document.getElementById('modal-pid').value=''; }
 function confirmAdd(){
@@ -1105,47 +1114,43 @@ function confirmAdd(){
   if(!pid){ document.getElementById('modal-pid').style.borderColor='var(--red)'; return; }
   if(!activeDayISO) return;
   if(!schedule[activeDayISO]) schedule[activeDayISO]=[];
-  if(schedule[activeDayISO].find(p=>p.ptId===pid)){ toast('Patient already in this day','err'); closeAddModal(); return; }
+  if(schedule[activeDayISO].find(p=>p.ptId===pid)){ toast('Patient already added for this day','err'); closeAddModal(); return; }
   schedule[activeDayISO].push({ptId:pid});
-  document.getElementById('bar-meta').textContent=schedule[activeDayISO].length+' patients this day';
+  document.getElementById('bar-meta').textContent=schedule[activeDayISO].length+' patients';
   renderSidebar(); renderPtList(activeDayISO); closeAddModal(); selectPt(pid);
   toast('Patient '+pid+' added');
 }
 
-// ═══════════════════════════════════════════════
+// ══════════════════════════════════════════
 // DYNAMIC ROWS
-// ═══════════════════════════════════════════════
+// ══════════════════════════════════════════
 function addLabRow(name='',val='',unit='',cat='',lo='',hi=''){
-  const d=document.createElement('div'); d.className='dyn-row lab-r';
+  const d=document.createElement('div'); d.className='dyn-row dr-lab';
   d.innerHTML=`
     <div class="f"><input class="lr-n" placeholder="Test name" value="${name}" style="font-size:12px;padding:7px 9px"/></div>
     <div class="f"><input class="lr-v" placeholder="Value" value="${val}" style="font-size:12px;padding:7px 9px"/></div>
     <div class="f"><input class="lr-u" placeholder="Unit" value="${unit}" style="font-size:12px;padding:7px 9px"/></div>
-    <div class="f"><select class="lr-c" style="font-size:12px;padding:7px 9px">
-      ${['Metabolic','Lipid Panel','Renal','Hepatic','CBC','Thyroid','Cardiac','Other'].map(c=>`<option${c===cat?' selected':''}>${c}</option>`).join('')}
-    </select></div>
+    <div class="f"><select class="lr-c" style="font-size:12px;padding:7px 9px">${['Metabolic','Lipid Panel','Renal','Hepatic','CBC','Thyroid','Cardiac','Other'].map(c=>`<option${c===cat?' selected':''}>${c}</option>`).join('')}</select></div>
     <div class="f"><input class="lr-lo" placeholder="Lo" value="${lo}" style="font-size:12px;padding:7px 9px"/></div>
     <div class="f"><input class="lr-hi" placeholder="Hi" value="${hi}" style="font-size:12px;padding:7px 9px"/></div>
     <button class="del-btn" onclick="this.closest('.dyn-row').remove()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>`;
-  document.getElementById('lab-rows').appendChild(d);
+  document.getElementById('lab-rows')?.appendChild(d);
 }
 function addMedRow(name='',dose='',unit='',freq='',route='PO'){
-  const d=document.createElement('div'); d.className='dyn-row med-r';
+  const d=document.createElement('div'); d.className='dyn-row dr-med';
   d.innerHTML=`
     <div class="f"><input class="mr-n" placeholder="Medication" value="${name}" style="font-size:12px;padding:7px 9px"/></div>
     <div class="f"><input class="mr-d" placeholder="Dose" value="${dose}" style="font-size:12px;padding:7px 9px"/></div>
     <div class="f"><input class="mr-u" placeholder="mg" value="${unit}" style="font-size:12px;padding:7px 9px"/></div>
     <div class="f"><input class="mr-f" placeholder="Once daily" value="${freq}" style="font-size:12px;padding:7px 9px"/></div>
-    <div class="f"><select class="mr-r" style="font-size:12px;padding:7px 9px">
-      ${['PO','SQ','IM','IV','Inhaled','Topical','Other'].map(r=>`<option${r===route?' selected':''}>${r}</option>`).join('')}
-    </select></div>
+    <div class="f"><select class="mr-r" style="font-size:12px;padding:7px 9px">${['PO','SQ','IM','IV','Inhaled','Topical','Other'].map(r=>`<option${r===route?' selected':''}>${r}</option>`).join('')}</select></div>
     <button class="del-btn" onclick="this.closest('.dyn-row').remove()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>`;
-  document.getElementById('med-rows').appendChild(d);
+  document.getElementById('med-rows')?.appendChild(d);
 }
 
-// ═══════════════════════════════════════════════
+// ══════════════════════════════════════════
 // WRITE
-// ═══════════════════════════════════════════════
+// ══════════════════════════════════════════
 async function appendRow(sheet,vals){
   if(!isSignedIn){ toast('Sign in to save data','err'); return false; }
   if(!SHEET_ID)   { toast('Add Spreadsheet ID in Settings','err'); return false; }
@@ -1161,10 +1166,16 @@ async function appendRow(sheet,vals){
     return true;
   }catch(e){ toast('Save error: '+e.message,'err'); return false; }
 }
-function setSaving(id,on){ const b=document.getElementById(id); if(!b) return; b.classList.toggle('saving',on); if(on) b.dataset.orig=b.textContent; else if(b.dataset.orig) b.textContent=b.dataset.orig; }
+
+function setSaving(id,on){
+  const b=document.getElementById(id); if(!b) return;
+  b.classList.toggle('saving',on);
+  if(on){b.dataset.orig=b.textContent;b.textContent='Saving…';}
+  else if(b.dataset.orig) b.textContent=b.dataset.orig;
+}
 
 async function saveBP(pid,iso){
-  const sys=document.getElementById('v-sys')?.value, dia=document.getElementById('v-dia')?.value;
+  const sys=g('v-sys'), dia=g('v-dia');
   if(!sys||!dia){ toast('Systolic and diastolic required','err'); return; }
   const s=parseInt(sys);
   const cls=s>=180?'Hypertensive Crisis':s>=140?'Stage 2 HTN':s>=130?'Stage 1 HTN':s>=120?'Elevated':'Normal';
@@ -1175,7 +1186,7 @@ async function saveBP(pid,iso){
   if(ok){ toast('BP saved ✓'); await loadAll(); }
 }
 async function saveA1C(pid,iso){
-  const a1c=document.getElementById('v-a1c')?.value;
+  const a1c=g('v-a1c');
   if(!a1c){ toast('A1C value required','err'); return; }
   setSaving('a1c-save',true);
   const ok=await appendRow(SHEET_A1C,[iso,pid,a1c,g('v-glucose'),g('v-a1c-goal'),g('v-a1c-notes')]);
@@ -1189,8 +1200,7 @@ async function saveLabs(pid,iso){
     if(!name||!val) continue;
     const lo=el.querySelector('.lr-lo').value, hi=el.querySelector('.lr-hi').value;
     const flag=lo&&hi?(parseFloat(val)<parseFloat(lo)||parseFloat(val)>parseFloat(hi)?'ABNORMAL':'Normal'):'';
-    const ok=await appendRow(SHEET_LABS,[iso,pid,'Lab',name,val,el.querySelector('.lr-u').value,el.querySelector('.lr-c').value,'',lo,hi,flag]);
-    if(ok) saved++;
+    if(await appendRow(SHEET_LABS,[iso,pid,'Lab',name,val,el.querySelector('.lr-u').value,el.querySelector('.lr-c').value,'',lo,hi,flag])) saved++;
   }
   if(saved){ toast(saved+' lab(s) saved ✓'); await loadAll(); }
   else toast('No valid lab rows','err');
@@ -1200,26 +1210,24 @@ async function saveMeds(pid,iso){
   for(const el of document.querySelectorAll('#med-rows .dyn-row')){
     const name=el.querySelector('.mr-n').value.trim();
     if(!name) continue;
-    const ok=await appendRow(SHEET_LABS,[iso,pid,'Medication',name,el.querySelector('.mr-d').value,el.querySelector('.mr-u').value,el.querySelector('.mr-f').value,el.querySelector('.mr-r').value,'','','']);
-    if(ok) saved++;
+    if(await appendRow(SHEET_LABS,[iso,pid,'Medication',name,el.querySelector('.mr-d').value,el.querySelector('.mr-u').value,el.querySelector('.mr-f').value,el.querySelector('.mr-r').value,'','',''])) saved++;
   }
   if(saved){ toast(saved+' med(s) saved ✓'); await loadAll(); }
   else toast('No valid medication rows','err');
 }
-function g(id){ return document.getElementById(id)?.value||''; }
 
-// ═══════════════════════════════════════════════
-// SETTINGS
-// ═══════════════════════════════════════════════
+// ══════════════════════════════════════════
+// SETTINGS DRAWER
+// ══════════════════════════════════════════
 function openDrawer(){
-  document.getElementById('drawer-overlay').classList.add('open');
+  document.getElementById('drw-overlay').classList.add('open');
   document.getElementById('drawer').classList.add('open');
   document.getElementById('cfg-sid').value=SHEET_ID;
   document.getElementById('cfg-key').value=API_KEY;
   document.getElementById('cfg-client').value=CLIENT_ID;
 }
 function closeDrawer(){
-  document.getElementById('drawer-overlay').classList.remove('open');
+  document.getElementById('drw-overlay').classList.remove('open');
   document.getElementById('drawer').classList.remove('open');
 }
 function saveSettings(){
@@ -1232,18 +1240,18 @@ function saveSettings(){
   if(SHEET_ID&&API_KEY) loadAll();
 }
 
-// ═══════════════════════════════════════════════
+// ══════════════════════════════════════════
 // TOAST
-// ═══════════════════════════════════════════════
+// ══════════════════════════════════════════
 function toast(msg,type='ok'){
   const t=document.getElementById('toast');
   t.textContent=msg; t.className='toast '+(type==='err'?'err':'ok')+' show';
   setTimeout(()=>t.classList.remove('show'),3000);
 }
 
-// ═══════════════════════════════════════════════
+// ══════════════════════════════════════════
 // BOOT
-// ═══════════════════════════════════════════════
+// ══════════════════════════════════════════
 renderSidebar();
 (()=>{
   const t=todayISO(), d=new Date(t+'T12:00:00');
