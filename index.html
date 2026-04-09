@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
@@ -21,176 +22,182 @@
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.5;overflow:hidden}
 
-.topbar{height:56px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 24px;gap:14px;flex-shrink:0}
-.logo{width:32px;height:32px;background:var(--teal);border-radius:var(--r);display:flex;align-items:center;justify-content:center}
+.topbar{height:56px;background:var(–surface);border-bottom:1px solid var(–border);display:flex;align-items:center;padding:0 24px;gap:14px;flex-shrink:0}
+.logo{width:32px;height:32px;background:var(–teal);border-radius:var(–r);display:flex;align-items:center;justify-content:center}
 .logo svg{width:17px;height:17px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .app-name{font-size:15px;font-weight:500;letter-spacing:-.01em}
 .topbar-right{margin-left:auto;display:flex;align-items:center;gap:12px}
-.sync-pill{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--ink3)}
-.dot{width:8px;height:8px;border-radius:50%;background:var(--border2)}
-.dot.on{background:var(--teal)}
-.auth-btn{padding:7px 16px;border-radius:var(--r);border:1px solid var(--border2);background:transparent;font-family:inherit;font-size:13px;font-weight:500;cursor:pointer;color:var(--ink2);transition:all .15s}
-.auth-btn:hover{background:var(--surface2)}
-.auth-btn.connected{color:var(--teal);border-color:var(--teal);background:var(--teal-lt)}
+.sync-pill{display:flex;align-items:center;gap:6px;font-size:12px;color:var(–ink3)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(–border2)}
+.dot.on{background:var(–teal)}
+.auth-btn{padding:7px 16px;border-radius:var(–r);border:1px solid var(–border2);background:transparent;font-family:inherit;font-size:13px;font-weight:500;cursor:pointer;color:var(–ink2);transition:all .15s}
+.auth-btn:hover{background:var(–surface2)}
+.auth-btn.connected{color:var(–teal);border-color:var(–teal);background:var(–teal-lt)}
 
 .shell{display:flex;height:calc(100vh - 56px);overflow:hidden}
-.nav{width:210px;background:var(--surface);border-right:1px solid var(--border);padding:12px 10px;display:flex;flex-direction:column;gap:2px;flex-shrink:0;overflow-y:auto}
-.nav-lbl{font-size:10px;font-weight:500;color:var(--ink3);letter-spacing:.08em;text-transform:uppercase;padding:12px 10px 5px}
+.nav{width:210px;background:var(–surface);border-right:1px solid var(–border);padding:12px 10px;display:flex;flex-direction:column;gap:2px;flex-shrink:0;overflow-y:auto}
+.nav-lbl{font-size:10px;font-weight:500;color:var(–ink3);letter-spacing:.08em;text-transform:uppercase;padding:12px 10px 5px}
 .nav-lbl:first-child{padding-top:4px}
-.nav-div{height:1px;background:var(--border);margin:6px 0}
-.ni{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:var(--r);cursor:pointer;color:var(--ink2);font-size:13px;border:none;background:transparent;width:100%;text-align:left;font-family:inherit;font-weight:400;transition:all .12s}
-.ni:hover{background:var(--surface2);color:var(--ink)}
-.ni.on{background:var(--teal-lt);color:var(--teal-dk);font-weight:500}
+.nav-div{height:1px;background:var(–border);margin:6px 0}
+.ni{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:var(–r);cursor:pointer;color:var(–ink2);font-size:13px;border:none;background:transparent;width:100%;text-align:left;font-family:inherit;font-weight:400;transition:all .12s}
+.ni:hover{background:var(–surface2);color:var(–ink)}
+.ni.on{background:var(–teal-lt);color:var(–teal-dk);font-weight:500}
 .ni svg{width:16px;height:16px;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 
 .main{flex:1;overflow:hidden;display:flex;flex-direction:column}
 .sec{display:none;flex:1;flex-direction:column;min-height:0;overflow:hidden}
 .sec.on{display:flex}
-.ph{padding:22px 28px 16px;flex-shrink:0;border-bottom:1px solid var(--border);background:var(--surface)}
-.ph-row{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.ph{padding:20px 28px 14px;flex-shrink:0;border-bottom:1px solid var(–border);background:var(–surface)}
+.ph-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
 .pt-title{font-size:21px;font-weight:500;letter-spacing:-.03em}
-.pt-sub{font-size:13px;color:var(--ink3);margin-top:2px}
+.pt-sub{font-size:13px;color:var(–ink3);margin-top:2px}
 .body-scroll{flex:1;overflow-y:auto;padding:22px 28px 32px}
 
-.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);padding:20px 22px;margin-bottom:14px}
-.card-title{font-size:11px;font-weight:500;color:var(--ink3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:14px}
-
+.card{background:var(–surface);border:1px solid var(–border);border-radius:var(–r2);padding:20px 22px;margin-bottom:14px}
+.card-title{font-size:11px;font-weight:500;color:var(–ink3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:14px}
 .metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:18px}
-.met{background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);padding:16px 18px}
-.ml{font-size:11px;color:var(--ink3);margin-bottom:5px;font-weight:500;letter-spacing:.04em;text-transform:uppercase}
+.met{background:var(–surface);border:1px solid var(–border);border-radius:var(–r2);padding:16px 18px}
+.ml{font-size:11px;color:var(–ink3);margin-bottom:5px;font-weight:500;letter-spacing:.04em;text-transform:uppercase}
 .mv{font-size:28px;font-weight:300;letter-spacing:-.03em}
-.ms{font-size:12px;color:var(--ink3);margin-top:4px}
-.mv.g{color:var(--teal)}.mv.w{color:var(--amber)}.mv.b{color:var(--red)}.mv.p{color:var(--purple)}
+.ms{font-size:12px;color:var(–ink3);margin-top:4px}
+.mv.g{color:var(–teal)}.mv.w{color:var(–amber)}.mv.b{color:var(–red)}
 
-/* Two column layout */
-.split{display:grid;grid-template-columns:320px 1fr;gap:16px;height:100%;min-height:0;overflow:hidden}
-.split-left{overflow-y:auto;padding:22px 0 22px 28px}
-.split-right{overflow-y:auto;padding:22px 28px 22px 0}
+/* ── SCHEDULE 3-pane ── */
+.sched-body{display:flex;flex:1;min-height:0;overflow:hidden}
 
-/* Patient list panel */
-.panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden}
-.panel-head{padding:12px 16px;border-bottom:1px solid var(--border);background:var(--surface2);display:flex;align-items:center;justify-content:space-between}
-.panel-title{font-size:11px;font-weight:500;color:var(--ink2);text-transform:uppercase;letter-spacing:.06em}
-.search-wrap{padding:10px 12px;border-bottom:1px solid var(--border)}
-.search-wrap input{width:100%;padding:7px 10px;border:1px solid var(--border2);border-radius:var(--r);font-family:inherit;font-size:13px;background:var(--surface);color:var(--ink)}
-.search-wrap input:focus{outline:none;border-color:var(--teal)}
+.day-picker{width:190px;flex-shrink:0;background:var(–surface);border-right:1px solid var(–border);padding:12px 10px;display:flex;flex-direction:column;gap:4px;overflow-y:auto}
+.dp-lbl{font-size:10px;font-weight:500;color:var(–ink3);text-transform:uppercase;letter-spacing:.08em;padding:8px 6px 3px}
+.dp-lbl:first-child{padding-top:2px}
 
-/* Schedule / clinic days */
-.clinic-day{background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;margin-bottom:10px}
-.day-header{display:flex;align-items:center;gap:12px;padding:13px 16px;cursor:pointer;user-select:none}
-.day-header:hover{background:var(--surface2)}
-.day-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
-.day-dot.today{background:var(--teal)}
-.day-dot.past{background:var(--border2)}
-.day-dot.future{background:var(--border)}
-.day-name{font-size:14px;font-weight:500}
-.day-date{font-size:13px;color:var(--ink3);margin-left:4px}
-.day-today-tag{background:var(--teal-lt);color:var(--teal-dk);font-size:11px;padding:2px 8px;border-radius:10px;margin-left:6px;font-weight:500}
-.day-body{border-top:1px solid var(--border)}
-.day-body.collapsed{display:none}
+.day-btn{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border-radius:var(–r2);border:1px solid var(–border);background:var(–surface);cursor:pointer;text-align:left;font-family:inherit;transition:all .15s;width:100%}
+.day-btn:hover{background:var(–surface2);border-color:var(–border2)}
+.day-btn.active{background:var(–teal-lt);border-color:var(–teal)}
+.day-btn.is-today{border-color:var(–teal)}
+.db-row1{display:flex;align-items:center;justify-content:space-between}
+.db-dow{font-size:13px;font-weight:500;color:var(–ink)}
+.day-btn.active .db-dow{color:var(–teal-dk)}
+.db-today{background:var(–teal);color:#fff;font-size:9px;padding:1px 5px;border-radius:6px;font-weight:600;letter-spacing:.04em}
+.db-date{font-size:11px;color:var(–ink3);font-family:‘DM Mono’,monospace}
+.db-count{margin-top:4px;font-size:11px;font-weight:500;padding:2px 7px;border-radius:10px;display:inline-block}
 
-/* Patient rows */
-.pt-row{display:flex;align-items:center;gap:11px;padding:11px 16px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .12s}
+.pt-list-pane{width:285px;flex-shrink:0;border-right:1px solid var(–border);display:flex;flex-direction:column;background:var(–surface);overflow:hidden}
+.plp-head{padding:11px 14px;background:var(–surface2);border-bottom:1px solid var(–border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.plp-title{font-size:11px;font-weight:500;color:var(–ink2);text-transform:uppercase;letter-spacing:.06em}
+.plp-count{font-size:11px;color:var(–ink3)}
+.plp-search{padding:9px 12px;border-bottom:1px solid var(–border);flex-shrink:0}
+.plp-search input{width:100%;padding:7px 10px;border:1px solid var(–border2);border-radius:var(–r);font-family:inherit;font-size:13px;background:var(–bg);color:var(–ink)}
+.plp-search input:focus{outline:none;border-color:var(–teal)}
+.plp-list{flex:1;overflow-y:auto}
+
+.detail-pane{flex:1;overflow-y:auto;padding:20px 24px}
+
+/* shared patient rows */
+.pt-row{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(–border);cursor:pointer;transition:background .12s}
 .pt-row:last-child{border-bottom:none}
-.pt-row:hover{background:var(--surface2)}
-.pt-row.sel{background:var(--teal-lt)}
-.av{width:32px;height:32px;border-radius:50%;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:500;color:var(--ink2);flex-shrink:0;font-family:'DM Mono',monospace}
-.pt-row.sel .av{background:var(--teal);color:#fff}
-.pid{font-size:12px;font-weight:500;font-family:'DM Mono',monospace;color:var(--ink)}
-.pdx{font-size:11px;color:var(--ink3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:130px}
-.day-empty{padding:14px 16px;font-size:13px;color:var(--ink3);font-style:italic}
+.pt-row:hover{background:var(–surface2)}
+.pt-row.sel{background:var(–teal-lt)}
+.av{width:32px;height:32px;border-radius:50%;background:var(–surface2);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:500;color:var(–ink2);flex-shrink:0;font-family:‘DM Mono’,monospace}
+.pt-row.sel .av{background:var(–teal);color:#fff}
+.pid{font-size:12px;font-weight:500;font-family:‘DM Mono’,monospace}
+.pdx{font-size:11px;color:var(–ink3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:110px}
+.pt-badges{display:flex;flex-direction:column;align-items:flex-end;gap:3px;flex-shrink:0}
 
-/* Badges */
-.bdg{display:inline-flex;align-items:center;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:500;white-space:nowrap}
-.bok{background:var(--teal-lt);color:var(--teal-dk)}
-.bwn{background:var(--amber-lt);color:var(--amber)}
-.bbd{background:var(--red-lt);color:var(--red)}
-.bpu{background:var(--purple-lt);color:var(--purple)}
-.bnu{background:var(--surface2);color:var(--ink2)}
+/* badges */
+.bdg{display:inline-flex;align-items:center;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:500;white-space:nowrap}
+.bok{background:var(–teal-lt);color:var(–teal-dk)}
+.bwn{background:var(–amber-lt);color:var(–amber)}
+.bbd{background:var(–red-lt);color:var(–red)}
+.bnu{background:var(–surface2);color:var(–ink2)}
 .bcr{background:#FFF0F0;color:#8B0000;border:1px solid #fca5a5;font-weight:600}
+.bteal{background:var(–blue-lt);color:var(–blue)}
+.bpurple{background:var(–purple-lt);color:var(–purple)}
 
-/* Charts */
+/* split (DM / HTN tabs) */
+.split{display:grid;grid-template-columns:280px 1fr;flex:1;min-height:0;overflow:hidden}
+.split-left{overflow-y:auto;background:var(–surface);border-right:1px solid var(–border);display:flex;flex-direction:column}
+.split-right{overflow-y:auto;padding:22px 24px}
+.panel-head{padding:11px 14px;border-bottom:1px solid var(–border);background:var(–surface2);display:flex;align-items:center;justify-content:space-between}
+.panel-title{font-size:11px;font-weight:500;color:var(–ink2);text-transform:uppercase;letter-spacing:.06em}
+.search-wrap{padding:9px 12px;border-bottom:1px solid var(–border)}
+.search-wrap input{width:100%;padding:7px 10px;border:1px solid var(–border2);border-radius:var(–r);font-family:inherit;font-size:13px;background:var(–surface);color:var(–ink)}
+.search-wrap input:focus{outline:none;border-color:var(–teal)}
+
+/* charts */
 .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .cw{position:relative;width:100%;height:180px;margin-top:10px}
-.leg{display:flex;gap:12px;font-size:11px;color:var(--ink3)}
+.leg{display:flex;gap:12px;font-size:11px;color:var(–ink3)}
 .leg span{display:flex;align-items:center;gap:5px}
 .ld{width:9px;height:9px;border-radius:2px}
 
-/* Tables */
+/* tables */
 .tbl{width:100%;font-size:13px;border-collapse:collapse}
-.tbl th{text-align:left;padding:8px 10px;color:var(--ink3);font-size:10px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid var(--border);background:var(--surface2)}
-.tbl td{padding:9px 10px;border-bottom:1px solid var(--border);color:var(--ink);vertical-align:middle}
+.tbl th{text-align:left;padding:8px 10px;color:var(–ink3);font-size:10px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid var(–border);background:var(–surface2)}
+.tbl td{padding:9px 10px;border-bottom:1px solid var(–border);color:var(–ink);vertical-align:middle}
 .tbl tr:last-child td{border-bottom:none}
-.tbl tbody tr:hover td{background:var(--surface2)}
+.tbl tbody tr:hover td{background:var(–surface2)}
 
-/* Detail header */
+/* detail header */
 .dh{display:flex;align-items:center;gap:14px;margin-bottom:18px}
-.dav{width:46px;height:46px;border-radius:50%;background:var(--teal-lt);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;color:var(--teal-dk);font-family:'DM Mono',monospace;flex-shrink:0}
+.dav{width:46px;height:46px;border-radius:50%;background:var(–teal-lt);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;color:var(–teal-dk);font-family:‘DM Mono’,monospace;flex-shrink:0}
 .did{font-size:20px;font-weight:500;letter-spacing:-.02em}
-.dsub{font-size:13px;color:var(--ink3);margin-top:2px}
+.dsub{font-size:13px;color:var(–ink3);margin-top:2px}
 
-/* Forms */
+/* forms */
 .fg{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .fg3{grid-template-columns:1fr 1fr 1fr}
-.fg1{grid-template-columns:1fr}
 .f{display:flex;flex-direction:column;gap:6px}
-.f label{font-size:12px;font-weight:500;color:var(--ink2);letter-spacing:.02em}
-.f input,.f select,.f textarea{padding:10px 12px;border:1px solid var(--border2);border-radius:var(--r);font-family:'DM Sans',sans-serif;font-size:14px;color:var(--ink);background:var(--surface);transition:border-color .15s;width:100%}
-.f input:focus,.f select:focus,.f textarea:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(10,107,78,.1)}
-.f textarea{resize:vertical;min-height:80px}
-.fsec{margin-bottom:22px}
-.fsec-title{font-size:12px;font-weight:500;color:var(--ink2);text-transform:uppercase;letter-spacing:.07em;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.f label{font-size:12px;font-weight:500;color:var(–ink2);letter-spacing:.02em}
+.f input,.f select,.f textarea{padding:10px 12px;border:1px solid var(–border2);border-radius:var(–r);font-family:‘DM Sans’,sans-serif;font-size:14px;color:var(–ink);background:var(–surface);transition:border-color .15s;width:100%}
+.f input:focus,.f select:focus,.f textarea:focus{outline:none;border-color:var(–teal);box-shadow:0 0 0 3px rgba(10,107,78,.1)}
 
-/* Log tabs */
+/* log tabs */
 .log-tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}
-.log-tab{display:flex;align-items:center;gap:12px;padding:16px 20px;border-radius:var(--r2);border:1px solid var(--border);background:var(--surface);cursor:pointer;text-align:left;font-family:inherit;transition:all .15s;flex:1;min-width:160px}
-.log-tab:hover{border-color:var(--border2);background:var(--surface2)}
-.log-tab.on{border-color:var(--teal);background:var(--teal-lt)}
-.log-tab-icon{width:40px;height:40px;border-radius:var(--r);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.log-tab-icon svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.log-tab.on .log-tab-icon{background:var(--teal);color:#fff}
-.log-tab:not(.on) .log-tab-icon{background:var(--surface2);color:var(--ink2)}
-.log-tab-title{font-size:14px;font-weight:500;color:var(--ink)}
-.log-tab-sub{font-size:12px;color:var(--ink3);margin-top:1px}
+.log-tab{display:flex;align-items:center;gap:12px;padding:14px 18px;border-radius:var(–r2);border:1px solid var(–border);background:var(–surface);cursor:pointer;text-align:left;font-family:inherit;transition:all .15s;flex:1;min-width:150px}
+.log-tab:hover{border-color:var(–border2);background:var(–surface2)}
+.log-tab.on{border-color:var(–teal);background:var(–teal-lt)}
+.log-tab-icon{width:38px;height:38px;border-radius:var(–r);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.log-tab-icon svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.log-tab.on .log-tab-icon{background:var(–teal);color:#fff}
+.log-tab:not(.on) .log-tab-icon{background:var(–surface2);color:var(–ink2)}
+.log-tab-title{font-size:14px;font-weight:500;color:var(–ink)}
+.log-tab-sub{font-size:12px;color:var(–ink3);margin-top:1px}
 .log-panel{display:none}.log-panel.on{display:block}
 
-/* Buttons */
-.btn{padding:9px 18px;border-radius:var(--r);border:1px solid var(--border2);background:var(--surface);font-family:inherit;font-size:14px;font-weight:500;cursor:pointer;color:var(--ink);transition:all .15s}
-.btn:hover{background:var(--surface2)}
-.btn-primary{background:var(--teal);color:#fff;border-color:var(--teal)}
-.btn-primary:hover{background:var(--teal-dk)}
+/* buttons */
+.btn{padding:9px 18px;border-radius:var(–r);border:1px solid var(–border2);background:var(–surface);font-family:inherit;font-size:14px;font-weight:500;cursor:pointer;color:var(–ink);transition:all .15s}
+.btn:hover{background:var(–surface2)}
+.btn-primary{background:var(–teal);color:#fff;border-color:var(–teal)}
+.btn-primary:hover{background:var(–teal-dk)}
 .btn-sm{padding:6px 13px;font-size:13px}
 .btn-row{display:flex;gap:10px;margin-top:20px}
 
-/* Misc */
-.alert{padding:12px 16px;border-radius:var(--r);font-size:13px;line-height:1.6;margin-bottom:16px}
-.alert.info{background:var(--blue-lt);color:var(--blue);border:1px solid #c7d7fe}
-.alert.warn{background:var(--amber-lt);color:var(--amber);border:1px solid #fde68a}
-.ins{border-left:2px solid var(--teal);padding:10px 14px;background:var(--teal-lt);margin-bottom:10px;border-radius:0 var(--r) var(--r) 0}
-.ins p{font-size:13px;color:var(--ink2);line-height:1.6}
-.ins p strong{color:var(--ink)}
-.loading{display:flex;align-items:center;gap:10px;padding:4rem;color:var(--ink3);font-size:14px;justify-content:center}
-.spin{width:18px;height:18px;border:2px solid var(--border2);border-top-color:var(--teal);border-radius:50%;animation:spin .7s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-.empty{text-align:center;padding:3rem 1rem;color:var(--ink3);font-size:14px}
-.frow{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;align-items:center}
-.frow label{font-size:13px;color:var(--ink2)}
-.frow select{font-size:13px;padding:6px 10px;border:1px solid var(--border2);border-radius:var(--r);background:var(--surface);color:var(--ink);font-family:inherit}
-.toast{position:fixed;bottom:28px;right:28px;padding:12px 18px;border-radius:var(--r);font-size:14px;font-weight:500;z-index:300;opacity:0;transform:translateY(6px);transition:all .22s;pointer-events:none}
+/* misc */
+.alert{padding:12px 16px;border-radius:var(–r);font-size:13px;line-height:1.6;margin-bottom:16px}
+.alert.warn{background:var(–amber-lt);color:var(–amber);border:1px solid #fde68a}
+.ins{border-left:2px solid var(–teal);padding:10px 14px;background:var(–teal-lt);margin-bottom:10px;border-radius:0 var(–r) var(–r) 0}
+.ins p{font-size:13px;color:var(–ink2);line-height:1.6}
+.ins p strong{color:var(–ink)}
+.frow{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.frow label{font-size:13px;color:var(–ink2)}
+.frow select{font-size:13px;padding:6px 10px;border:1px solid var(–border2);border-radius:var(–r);background:var(–surface);color:var(–ink);font-family:inherit}
+.empty{text-align:center;padding:3rem 1rem;color:var(–ink3);font-size:14px}
+.lab-row-item{display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr 1fr 1fr;gap:8px;margin-bottom:8px;align-items:end}
+.med-row-item{display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr 1fr 1.5fr;gap:8px;margin-bottom:8px;align-items:end}
+.toast{position:fixed;bottom:28px;right:28px;padding:12px 18px;border-radius:var(–r);font-size:14px;font-weight:500;z-index:300;opacity:0;transform:translateY(6px);transition:all .22s;pointer-events:none}
 .toast.show{opacity:1;transform:translateY(0)}
-.toast.ok{background:var(--teal);color:#fff}
-.toast.err{background:var(--red);color:#fff}
-
-.lab-row-item{display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr 1fr 1fr;gap:10px;margin-bottom:10px;align-items:end}
-.med-row-item{display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr 1fr 1.5fr;gap:10px;margin-bottom:10px;align-items:end}
+.toast.ok{background:var(–teal);color:#fff}
+.toast.err{background:var(–red);color:#fff}
 
 @media(max-width:900px){
-  .split{grid-template-columns:1fr;height:auto}
-  .split-left,.split-right{padding:16px}
-  .two{grid-template-columns:1fr}
-  .nav{display:none}
+.nav{display:none}
+.sched-body{flex-direction:column}
+.day-picker{width:100%;flex-direction:row;overflow-x:auto;border-right:none;border-bottom:1px solid var(–border);padding:8px}
+.pt-list-pane{width:100%;border-right:none;max-height:260px}
+.split{grid-template-columns:1fr}
+.two{grid-template-columns:1fr}
 }
 </style>
+
 </head>
 <body>
 
@@ -238,32 +245,36 @@ html,body{height:100%;font-family:'DM Sans',sans-serif;background:var(--bg);colo
 
 <main class="main">
 
-<!-- ── SCHEDULE ── -->
+<!-- ══ SCHEDULE ══ -->
+
 <div id="sec-schedule" class="sec on">
   <div class="ph">
     <div class="ph-row">
-      <div><div class="pt-title">Clinic schedule</div><div class="pt-sub">Tuesdays &amp; Thursdays — patients grouped by visit date</div></div>
+      <div><div class="pt-title">Clinic schedule</div><div class="pt-sub">Click a Tuesday or Thursday to see all patients for that day</div></div>
     </div>
   </div>
-  <div id="sched-loading" class="loading"><div class="spin"></div>&nbsp;Loading from Google Sheets…</div>
-  <div id="sched-error" style="padding:16px 28px"></div>
-  <div id="sched-main" style="display:none;flex:1;overflow:hidden">
-    <div class="split" style="padding:0">
-      <div class="split-left">
-        <div id="schedule-days"></div>
+  <div class="sched-body">
+    <div class="day-picker" id="day-picker"></div>
+    <div class="pt-list-pane">
+      <div class="plp-head">
+        <span class="plp-title" id="plp-title">Select a day</span>
+        <span class="plp-count" id="plp-count"></span>
       </div>
-      <div class="split-right" id="sched-detail"><div class="empty" style="padding-top:5rem">Select a patient to view their record</div></div>
+      <div class="plp-search"><input id="sched-search" placeholder="Search patient ID…" oninput="renderSchedList()"/></div>
+      <div class="plp-list" id="sched-list"><div class="empty">← Pick a clinic day</div></div>
     </div>
+    <div class="detail-pane" id="sched-detail"><div class="empty" style="padding-top:4rem">Select a patient to view their record</div></div>
   </div>
 </div>
 
-<!-- ── DIABETES ── -->
+<!-- ══ DIABETES ══ -->
+
 <div id="sec-diabetes" class="sec">
   <div class="ph">
     <div class="ph-row">
-      <div><div class="pt-title">Diabetes monitoring</div><div class="pt-sub" id="dm-sub">Loading…</div></div>
+      <div><div class="pt-title">Diabetes monitoring</div><div class="pt-sub" id="dm-sub">—</div></div>
       <div class="frow" style="margin:0">
-        <label style="font-size:12px;color:var(--ink2)">Goal status:</label>
+        <label style="font-size:12px;color:var(--ink2)">Goal:</label>
         <select id="dm-filter" onchange="renderDiabetesList()" style="font-size:12px;padding:5px 8px;border:1px solid var(--border2);border-radius:var(--r);background:var(--surface);font-family:inherit">
           <option value="all">All patients</option>
           <option value="above">Above goal</option>
@@ -272,28 +283,22 @@ html,body{height:100%;font-family:'DM Sans',sans-serif;background:var(--bg);colo
       </div>
     </div>
   </div>
-  <div style="flex:1;overflow:hidden;display:flex">
-    <div class="split" style="padding:0;flex:1">
-      <div class="split-left">
-        <div class="panel">
-          <div class="panel-head">
-            <span class="panel-title">Patients</span>
-            <span id="dm-count" style="font-size:11px;color:var(--ink3)"></span>
-          </div>
-          <div class="search-wrap"><input id="dm-search" oninput="renderDiabetesList()" placeholder="Search patient ID or diagnosis…"/></div>
-          <div id="dm-list"></div>
-        </div>
-      </div>
-      <div class="split-right" id="dm-detail"><div class="empty" style="padding-top:5rem">Select a patient</div></div>
+  <div class="split">
+    <div class="split-left">
+      <div class="panel-head"><span class="panel-title">Patients</span><span id="dm-count" style="font-size:11px;color:var(--ink3)"></span></div>
+      <div class="search-wrap"><input id="dm-search" oninput="renderDiabetesList()" placeholder="Search patient ID…"/></div>
+      <div id="dm-list"></div>
     </div>
+    <div class="split-right" id="dm-detail"><div class="empty" style="padding-top:5rem">Select a patient</div></div>
   </div>
 </div>
 
-<!-- ── HTN ── -->
+<!-- ══ HTN ══ -->
+
 <div id="sec-htn" class="sec">
   <div class="ph">
     <div class="ph-row">
-      <div><div class="pt-title">Hypertension monitoring</div><div class="pt-sub" id="htn-sub">Loading…</div></div>
+      <div><div class="pt-title">Hypertension monitoring</div><div class="pt-sub" id="htn-sub">—</div></div>
       <div class="frow" style="margin:0">
         <label style="font-size:12px;color:var(--ink2)">Status:</label>
         <select id="htn-filter" onchange="renderHTNList()" style="font-size:12px;padding:5px 8px;border:1px solid var(--border2);border-radius:var(--r);background:var(--surface);font-family:inherit">
@@ -305,152 +310,172 @@ html,body{height:100%;font-family:'DM Sans',sans-serif;background:var(--bg);colo
       </div>
     </div>
   </div>
-  <div style="flex:1;overflow:hidden;display:flex">
-    <div class="split" style="padding:0;flex:1">
-      <div class="split-left">
-        <div class="panel">
-          <div class="panel-head">
-            <span class="panel-title">Patients</span>
-            <span id="htn-count" style="font-size:11px;color:var(--ink3)"></span>
-          </div>
-          <div class="search-wrap"><input id="htn-search" oninput="renderHTNList()" placeholder="Search patient ID or classification…"/></div>
-          <div id="htn-list"></div>
-        </div>
-      </div>
-      <div class="split-right" id="htn-detail"><div class="empty" style="padding-top:5rem">Select a patient</div></div>
+  <div class="split">
+    <div class="split-left">
+      <div class="panel-head"><span class="panel-title">Patients</span><span id="htn-count" style="font-size:11px;color:var(--ink3)"></span></div>
+      <div class="search-wrap"><input id="htn-search" oninput="renderHTNList()" placeholder="Search patient ID…"/></div>
+      <div id="htn-list"></div>
     </div>
+    <div class="split-right" id="htn-detail"><div class="empty" style="padding-top:5rem">Select a patient</div></div>
   </div>
 </div>
 
-<!-- ── OUTCOMES ── -->
+<!-- ══ OUTCOMES ══ -->
+
 <div id="sec-outcomes" class="sec">
   <div class="ph"><div class="pt-title">Outcomes analytics</div><div class="pt-sub">Donor-ready impact metrics</div></div>
-  <div class="body-scroll" id="out-content"><div class="loading"><div class="spin"></div>&nbsp;Loading…</div></div>
+  <div class="body-scroll" id="out-content"><div class="empty">Connect your spreadsheet to see outcomes</div></div>
 </div>
 
-<!-- ── LOG VISIT ── -->
+<!-- ══ LOG VISIT ══ -->
+
 <div id="sec-log-visit" class="sec">
-  <div class="ph"><div class="pt-title">Log visit</div><div class="pt-sub">Choose what you're recording today</div></div>
+  <div class="ph"><div class="pt-title">Log visit</div><div class="pt-sub">Record patient data — saves directly to your Google Sheet</div></div>
   <div class="body-scroll">
-    <div class="card" style="margin-bottom:18px">
-      <div class="card-title">Visit info</div>
-      <div class="fg">
-        <div class="f"><label>Patient ID *</label><input id="v-ptid" placeholder="e.g. 12087" style="font-family:'DM Mono',monospace;font-size:16px;font-weight:500"/></div>
-        <div class="f"><label>Visit date *</label><input id="v-date" type="date"/></div>
-        <div class="f"><label>Provider</label><input id="v-provider" placeholder="DR-A"/></div>
-        <div class="f"><label>Visit type</label><select id="v-type"><option>Follow-up</option><option>New Patient</option><option>Urgent</option><option>Telehealth</option></select></div>
-      </div>
-    </div>
 
-    <div class="log-tabs">
-      <button class="log-tab on" onclick="switchLogTab('bp',this)">
-        <div class="log-tab-icon"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
-        <div><div class="log-tab-title">Log BP</div><div class="log-tab-sub">Blood pressure reading</div></div>
-      </button>
-      <button class="log-tab" onclick="switchLogTab('a1c',this)">
-        <div class="log-tab-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12h8M12 8v8"/></svg></div>
-        <div><div class="log-tab-title">Log A1C</div><div class="log-tab-sub">HbA1c &amp; glucose</div></div>
-      </button>
-      <button class="log-tab" onclick="switchLogTab('labs',this)">
-        <div class="log-tab-icon"><svg viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2v-4M9 21H5a2 2 0 0 1-2-2v-4m0 0h18"/></svg></div>
-        <div><div class="log-tab-title">Other tests</div><div class="log-tab-sub">Labs, imaging, screens</div></div>
-      </button>
-      <button class="log-tab" onclick="switchLogTab('meds',this)">
-        <div class="log-tab-icon"><svg viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></div>
-        <div><div class="log-tab-title">Medications</div><div class="log-tab-sub">New or changed meds</div></div>
-      </button>
+```
+<div class="card" style="margin-bottom:18px">
+  <div class="card-title">Visit info</div>
+  <div class="fg">
+    <div class="f">
+      <label>Patient ID *</label>
+      <input id="v-ptid" placeholder="e.g. 12087" style="font-family:'DM Mono',monospace;font-size:18px;font-weight:500"/>
     </div>
-
-    <div class="log-panel on" id="panel-bp">
-      <div class="card">
-        <div class="card-title">Blood pressure</div>
-        <div class="fg3" style="margin-bottom:14px">
-          <div class="f"><label>Systolic *</label><input id="v-sys" type="number" placeholder="120" style="font-size:26px;font-weight:300;padding:14px"/></div>
-          <div class="f"><label>Diastolic *</label><input id="v-dia" type="number" placeholder="80" style="font-size:26px;font-weight:300;padding:14px"/></div>
-          <div class="f"><label>Heart rate</label><input id="v-hr" type="number" placeholder="72"/></div>
-        </div>
-        <div class="fg3">
-          <div class="f"><label>Weight (lbs)</label><input id="v-wt" type="number" placeholder="165"/></div>
-          <div class="f"><label>O2 sat (%)</label><input id="v-o2" type="number" placeholder="98"/></div>
-          <div class="f"><label>Pain (0–10)</label><input id="v-pain" type="number" min="0" max="10" placeholder="0"/></div>
-        </div>
-        <div class="btn-row"><button class="btn btn-primary" onclick="submitBP()">Save BP</button><button class="btn" onclick="clearBP()">Clear</button></div>
-      </div>
-    </div>
-
-    <div class="log-panel" id="panel-a1c">
-      <div class="card">
-        <div class="card-title">A1C / HbA1c</div>
-        <div class="fg" style="margin-bottom:14px">
-          <div class="f"><label>HbA1c (%) *</label><input id="v-a1c" type="number" step="0.1" placeholder="7.2" style="font-size:32px;font-weight:300;padding:16px"/></div>
-          <div class="f"><label>Fasting glucose (mg/dL)</label><input id="v-glucose" type="number" placeholder="104" style="font-size:32px;font-weight:300;padding:16px"/></div>
-        </div>
-        <div class="fg">
-          <div class="f"><label>Goal status</label><select id="v-a1c-goal"><option value="At Goal">At Goal</option><option value="Above Goal">Above Goal</option></select></div>
-          <div class="f"><label>Notes</label><input id="v-a1c-notes" placeholder="Baseline, trending down…"/></div>
-        </div>
-        <div class="btn-row"><button class="btn btn-primary" onclick="submitA1C()">Save A1C</button><button class="btn" onclick="clearA1C()">Clear</button></div>
-      </div>
-    </div>
-
-    <div class="log-panel" id="panel-labs">
-      <div class="card">
-        <div class="card-title">Other test results</div>
-        <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr 1fr 1fr;gap:10px;padding:0 2px;margin-bottom:8px">
-          <span style="font-size:10px;color:var(--ink3);font-weight:500;text-transform:uppercase;letter-spacing:.06em">Test name</span>
-          <span style="font-size:10px;color:var(--ink3);font-weight:500;text-transform:uppercase;letter-spacing:.06em">Result</span>
-          <span style="font-size:10px;color:var(--ink3);font-weight:500;text-transform:uppercase;letter-spacing:.06em">Unit</span>
-          <span style="font-size:10px;color:var(--ink3);font-weight:500;text-transform:uppercase;letter-spacing:.06em">Category</span>
-          <span style="font-size:10px;color:var(--ink3);font-weight:500;text-transform:uppercase;letter-spacing:.06em">Ref low</span>
-          <span style="font-size:10px;color:var(--ink3);font-weight:500;text-transform:uppercase;letter-spacing:.06em">Ref high</span>
-        </div>
-        <div id="lab-rows"></div>
-        <button class="btn btn-sm" onclick="addLabRow()" style="margin-top:6px">+ Add test</button>
-        <div class="btn-row"><button class="btn btn-primary" onclick="submitLabs()">Save tests</button></div>
-      </div>
-    </div>
-
-    <div class="log-panel" id="panel-meds">
-      <div class="card">
-        <div class="card-title">Medications — new or changed</div>
-        <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr 1fr 1.5fr;gap:10px;padding:0 2px;margin-bottom:8px">
-          <span style="font-size:10px;color:var(--ink3);font-weight:500;text-transform:uppercase;letter-spacing:.06em">Medication</span>
-          <span style="font-size:10px;color:var(--ink3);font-weight:500;text-transform:uppercase;letter-spacing:.06em">Dose</span>
-          <span style="font-size:10px;color:var(--ink3);font-weight:500;text-transform:uppercase;letter-spacing:.06em">Unit</span>
-          <span style="font-size:10px;color:var(--ink3);font-weight:500;text-transform:uppercase;letter-spacing:.06em">Frequency</span>
-          <span style="font-size:10px;color:var(--ink3);font-weight:500;text-transform:uppercase;letter-spacing:.06em">Route</span>
-          <span style="font-size:10px;color:var(--ink3);font-weight:500;text-transform:uppercase;letter-spacing:.06em">Drug class</span>
-        </div>
-        <div id="med-rows"></div>
-        <button class="btn btn-sm" onclick="addMedRow()" style="margin-top:6px">+ Add medication</button>
-        <div class="btn-row"><button class="btn btn-primary" onclick="submitMeds()">Save medications</button></div>
-      </div>
+    <div class="f">
+      <label>Visit date *</label>
+      <input id="v-date" type="date"/>
     </div>
   </div>
 </div>
 
-<!-- ── SETTINGS ── -->
+<div class="log-tabs">
+  <button class="log-tab on" onclick="switchLogTab('bp',this)">
+    <div class="log-tab-icon"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+    <div><div class="log-tab-title">Log BP</div><div class="log-tab-sub">Blood pressure reading</div></div>
+  </button>
+  <button class="log-tab" onclick="switchLogTab('a1c',this)">
+    <div class="log-tab-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12h8M12 8v8"/></svg></div>
+    <div><div class="log-tab-title">Log A1C</div><div class="log-tab-sub">HbA1c &amp; glucose</div></div>
+  </button>
+  <button class="log-tab" onclick="switchLogTab('labs',this)">
+    <div class="log-tab-icon"><svg viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2v-4M9 21H5a2 2 0 0 1-2-2v-4m0 0h18"/></svg></div>
+    <div><div class="log-tab-title">Other labs</div><div class="log-tab-sub">Labs, imaging, screens</div></div>
+  </button>
+  <button class="log-tab" onclick="switchLogTab('meds',this)">
+    <div class="log-tab-icon"><svg viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></div>
+    <div><div class="log-tab-title">Medications</div><div class="log-tab-sub">New or changed meds</div></div>
+  </button>
+</div>
+
+<div class="log-panel on" id="panel-bp">
+  <div class="card">
+    <div class="card-title">Blood pressure</div>
+    <div class="fg fg3" style="margin-bottom:14px">
+      <div class="f"><label>Systolic *</label><input id="v-sys" type="number" placeholder="120" style="font-size:26px;font-weight:300;padding:14px"/></div>
+      <div class="f"><label>Diastolic *</label><input id="v-dia" type="number" placeholder="80" style="font-size:26px;font-weight:300;padding:14px"/></div>
+      <div class="f"><label>Heart rate</label><input id="v-hr" type="number" placeholder="72"/></div>
+    </div>
+    <div class="fg fg3">
+      <div class="f"><label>Weight (lbs)</label><input id="v-wt" type="number" placeholder="165"/></div>
+      <div class="f"><label>O2 sat (%)</label><input id="v-o2" type="number" placeholder="98"/></div>
+      <div class="f"><label>Pain (0–10)</label><input id="v-pain" type="number" min="0" max="10" placeholder="0"/></div>
+    </div>
+    <div class="btn-row"><button class="btn btn-primary" onclick="submitBP()">Save BP</button><button class="btn" onclick="clearBP()">Clear</button></div>
+  </div>
+</div>
+
+<div class="log-panel" id="panel-a1c">
+  <div class="card">
+    <div class="card-title">A1C / HbA1c</div>
+    <div class="fg" style="margin-bottom:14px">
+      <div class="f"><label>HbA1c (%) *</label><input id="v-a1c" type="number" step="0.1" placeholder="7.2" style="font-size:32px;font-weight:300;padding:16px"/></div>
+      <div class="f"><label>Fasting glucose (mg/dL)</label><input id="v-glucose" type="number" placeholder="104" style="font-size:32px;font-weight:300;padding:16px"/></div>
+    </div>
+    <div class="fg">
+      <div class="f"><label>Goal status</label><select id="v-a1c-goal"><option value="At Goal">At Goal</option><option value="Above Goal">Above Goal</option></select></div>
+      <div class="f"><label>Notes</label><input id="v-a1c-notes" placeholder="Baseline, trending down…"/></div>
+    </div>
+    <div class="btn-row"><button class="btn btn-primary" onclick="submitA1C()">Save A1C</button><button class="btn" onclick="clearA1C()">Clear</button></div>
+  </div>
+</div>
+
+<div class="log-panel" id="panel-labs">
+  <div class="card">
+    <div class="card-title">Other test results</div>
+    <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr 1fr 1fr;gap:8px;padding:0 2px;margin-bottom:6px">
+      <span style="font-size:10px;color:var(--ink3);font-weight:500;text-transform:uppercase;letter-spacing:.06em">Test name</span>
+      <span style="font-size:10px;color:var(--ink3);font-weight:500;text-transform:uppercase;letter-spacing:.06em">Result</span>
+      <span style="font-size:10px;color:var(--ink3);font-weight:500;text-transform:uppercase;letter-spacing:.06em">Unit</span>
+      <span style="font-size:10px;color:var(--ink3);font-weight:500;text-transform:uppercase;letter-spacing:.06em">Category</span>
+      <span style="font-size:10px;color:var(--ink3);font-weight:500;text-transform:uppercase;letter-spacing:.06em">Ref low</span>
+      <span style="font-size:10px;color:var(--ink3);font-weight:500;text-transform:uppercase;letter-spacing:.06em">Ref high</span>
+    </div>
+    <div id="lab-rows"></div>
+    <button class="btn btn-sm" onclick="addLabRow()" style="margin-top:6px">+ Add test</button>
+    <div class="btn-row"><button class="btn btn-primary" onclick="submitLabs()">Save labs</button></div>
+  </div>
+</div>
+
+<div class="log-panel" id="panel-meds">
+  <div class="card">
+    <div class="card-title">Medications — new or changed</div>
+    <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr 1fr 1.5fr;gap:8px;padding:0 2px;margin-bottom:6px">
+      <span style="font-size:10px;color:var(--ink3);font-weight:500;text-transform:uppercase;letter-spacing:.06em">Medication</span>
+      <span style="font-size:10px;color:var(--ink3);font-weight:500;text-transform:uppercase;letter-spacing:.06em">Dose</span>
+      <span style="font-size:10px;color:var(--ink3);font-weight:500;text-transform:uppercase;letter-spacing:.06em">Unit</span>
+      <span style="font-size:10px;color:var(--ink3);font-weight:500;text-transform:uppercase;letter-spacing:.06em">Frequency</span>
+      <span style="font-size:10px;color:var(--ink3);font-weight:500;text-transform:uppercase;letter-spacing:.06em">Route</span>
+      <span style="font-size:10px;color:var(--ink3);font-weight:500;text-transform:uppercase;letter-spacing:.06em">Drug class</span>
+    </div>
+    <div id="med-rows"></div>
+    <button class="btn btn-sm" onclick="addMedRow()" style="margin-top:6px">+ Add medication</button>
+    <div class="btn-row"><button class="btn btn-primary" onclick="submitMeds()">Save medications</button></div>
+  </div>
+</div>
+```
+
+  </div>
+</div>
+
+<!-- ══ SETTINGS ══ -->
+
 <div id="sec-settings" class="sec">
   <div class="ph"><div class="pt-title">Settings</div><div class="pt-sub">Google Sheets connection</div></div>
   <div class="body-scroll">
-    <div class="card">
-      <div class="card-title">Connection</div>
-      <div class="alert warn">To write data back to Google Sheets, add your OAuth2 Client ID. Reading works without it.</div>
-      <div style="display:flex;flex-direction:column;gap:14px">
-        <div class="f"><label>Spreadsheet ID</label><input id="cfg-sid" value="1DNEHBjPYQIcxwWCYdjty7M6Dp2-zdLmjkSpcVLG0wNw" style="font-family:'DM Mono',monospace;font-size:13px"/></div>
-        <div class="f"><label>API Key</label><input id="cfg-key" value="AIzaSyCv9F_LlqtyLP8m-Xtv7GBRxSi6jSa_20k" style="font-family:'DM Mono',monospace;font-size:13px"/></div>
-        <div class="f"><label>OAuth2 Client ID (write)</label><input id="cfg-client" placeholder="xxxxx.apps.googleusercontent.com" style="font-family:'DM Mono',monospace;font-size:13px"/></div>
-      </div>
-      <div class="btn-row"><button class="btn btn-primary" onclick="saveSettings()">Save &amp; reconnect</button></div>
-    </div>
-    <div class="card">
-      <div class="card-title">Sheet names (exact, case-sensitive)</div>
-      <div style="display:flex;flex-direction:column;gap:12px">
-        <div class="f"><label>Diabetes sheet name</label><input id="cfg-dm-sheet" value="Diabetes Monitoring" style="font-family:'DM Mono',monospace;font-size:13px"/></div>
-        <div class="f"><label>HTN sheet name</label><input id="cfg-htn-sheet" value="HTN Monitoring" style="font-family:'DM Mono',monospace;font-size:13px"/></div>
-      </div>
-      <div class="btn-row"><button class="btn btn-primary" onclick="saveSettings()">Save &amp; reconnect</button></div>
-    </div>
+
+```
+<div class="alert warn">
+  <strong>Setup:</strong> Create a new Google Spreadsheet with three sheets named exactly:
+  <code style="background:rgba(0,0,0,.07);padding:1px 5px;border-radius:4px">BP Visits</code>,
+  <code style="background:rgba(0,0,0,.07);padding:1px 5px;border-radius:4px">A1C Visits</code>, and
+  <code style="background:rgba(0,0,0,.07);padding:1px 5px;border-radius:4px">Labs &amp; Meds</code>.
+  Paste the Spreadsheet ID below. Headers will be written automatically on first save.
+</div>
+
+<div class="card">
+  <div class="card-title">Connection</div>
+  <div style="display:flex;flex-direction:column;gap:14px">
+    <div class="f"><label>Spreadsheet ID</label><input id="cfg-sid" placeholder="Paste your Google Spreadsheet ID here" style="font-family:'DM Mono',monospace;font-size:13px"/></div>
+    <div class="f"><label>API Key (for reading)</label><input id="cfg-key" placeholder="AIza…" style="font-family:'DM Mono',monospace;font-size:13px"/></div>
+    <div class="f"><label>OAuth2 Client ID (for writing) *</label><input id="cfg-client" placeholder="xxxxx.apps.googleusercontent.com" style="font-family:'DM Mono',monospace;font-size:13px"/></div>
+  </div>
+  <div class="btn-row"><button class="btn btn-primary" onclick="saveSettings()">Save &amp; connect</button></div>
+</div>
+
+<div class="card">
+  <div class="card-title">Sheet column reference</div>
+  <p style="font-size:13px;color:var(--ink2);margin-bottom:12px">Headers are written automatically the first time you save to each sheet.</p>
+  <table class="tbl">
+    <thead><tr><th>Sheet</th><th>Columns</th></tr></thead>
+    <tbody>
+      <tr><td style="font-weight:500;white-space:nowrap">BP Visits</td><td style="font-size:12px;color:var(--ink2)">Date · Patient ID · Systolic · Diastolic · Heart Rate · Weight (lbs) · O2 Sat (%) · Pain Score · BP Reading · Classification · Controlled · Crisis</td></tr>
+      <tr><td style="font-weight:500;white-space:nowrap">A1C Visits</td><td style="font-size:12px;color:var(--ink2)">Date · Patient ID · HbA1c (%) · Fasting Glucose (mg/dL) · Goal Status · Notes</td></tr>
+      <tr><td style="font-weight:500;white-space:nowrap">Labs &amp; Meds</td><td style="font-size:12px;color:var(--ink2)">Date · Patient ID · Record Type · Name · Value/Dose · Unit · Category/Frequency · Route · Ref Low · Ref High · Flag</td></tr>
+    </tbody>
+  </table>
+</div>
+```
+
   </div>
 </div>
 
@@ -459,27 +484,36 @@ html,body{height:100%;font-family:'DM Sans',sans-serif;background:var(--bg);colo
 <div class="toast" id="toast"></div>
 
 <script>
-// ── CONFIG ──────────────────────────────────────────────
-let SHEET_ID   = '1DNEHBjPYQIcxwWCYdjty7M6Dp2-zdLmjkSpcVLG0wNw';
-let API_KEY    = 'AIzaSyCv9F_LlqtyLP8m-Xtv7GBRxSi6jSa_20k';
-let CLIENT_ID  = '';
-let DM_SHEET   = 'Diabetes Monitoring';
-let HTN_SHEET  = 'HTN Monitoring';
-const SCOPES   = 'https://www.googleapis.com/auth/spreadsheets';
-const DISC     = 'https://sheets.googleapis.com/$discovery/rest?version=v4';
+// ── CONFIG ────────────────────────────────────────────────
+let SHEET_ID  = '';
+let API_KEY   = '';
+let CLIENT_ID = '';
+const SCOPES  = 'https://www.googleapis.com/auth/spreadsheets';
+const DISC    = 'https://sheets.googleapis.com/$discovery/rest?version=v4';
 
-// ── STATE ────────────────────────────────────────────────
-let DM  = [];   // diabetes rows
-let HTN = [];   // htn rows
-let selDM  = null;
-let selHTN = null;
-let selSched = null;
+const SHEET_BP   = 'BP Visits';
+const SHEET_A1C  = 'A1C Visits';
+const SHEET_LABS = 'Labs & Meds';
+
+const HEADERS = {
+  [SHEET_BP]:   ['Date','Patient ID','Systolic','Diastolic','Heart Rate','Weight (lbs)','O2 Sat (%)','Pain Score','BP Reading','Classification','Controlled','Crisis'],
+  [SHEET_A1C]:  ['Date','Patient ID','HbA1c (%)','Fasting Glucose (mg/dL)','Goal Status','Notes'],
+  [SHEET_LABS]: ['Date','Patient ID','Record Type','Name','Value / Dose','Unit','Category / Frequency','Route','Ref Low','Ref High','Flag'],
+};
+
+// ── STATE ─────────────────────────────────────────────────
+let DM  = [];
+let HTN = [];
+let selDM = null, selHTN = null, selSched = null;
+let activeDayISO = null;
 let charts = {};
 let isSignedIn = false, tokenClient = null;
+let headersWritten = {};
 
-// ── GAPI ────────────────────────────────────────────────
+// ── GAPI ──────────────────────────────────────────────────
 function gapiLoaded(){
   gapi.load('client', async ()=>{
+    if(!API_KEY) return;
     await gapi.client.init({apiKey:API_KEY, discoveryDocs:[DISC]});
     loadAll();
   });
@@ -493,255 +527,261 @@ function initTC(){
   });
 }
 function handleAuth(){
-  if(!CLIENT_ID){ toast('Add OAuth2 Client ID in Settings','err'); showTab('settings',document.querySelectorAll('.ni')[6]); return; }
+  if(!CLIENT_ID){ toast('Add your OAuth2 Client ID in Settings first','err'); showTab('settings',document.querySelectorAll('.ni')[6]); return; }
   if(isSignedIn){ google.accounts.oauth2.revoke(gapi.client.getToken().access_token,()=>{ gapi.client.setToken(''); isSignedIn=false; updateAuthUI(false); }); }
   else { if(!tokenClient) initTC(); tokenClient.requestAccessToken({prompt:'consent'}); }
 }
 function updateAuthUI(on){
   const b=document.getElementById('auth-btn'),d=document.getElementById('sync-dot'),l=document.getElementById('sync-lbl');
-  if(on){b.textContent='Sign out';b.classList.add('connected');d.classList.add('on');l.textContent='Write access';}
+  if(on){b.textContent='Sign out';b.classList.add('connected');d.classList.add('on');l.textContent='Write enabled';}
   else{b.textContent='Sign in to write data';b.classList.remove('connected');d.classList.remove('on');l.textContent='Read-only';}
 }
 
-// ── FETCH ────────────────────────────────────────────────
+// ── FETCH ─────────────────────────────────────────────────
 async function fetchSheet(tab, range){
+  if(!SHEET_ID||!API_KEY) return [];
   const url=`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${encodeURIComponent(tab+'!'+range)}?key=${API_KEY}`;
   const res=await fetch(url); const d=await res.json();
   if(d.error) throw new Error(d.error.message+' (sheet: '+tab+')');
   const rows=d.values||[]; if(!rows.length) return [];
-  // Row 0 = headers (no merged title row in this sheet)
   const h=rows[0];
-  return rows.slice(1).filter(r=>r.some(c=>c.trim())).map(r=>{
-    const o={}; h.forEach((k,i)=>o[k.trim()]=r[i]||''); return o;
+  return rows.slice(1).filter(r=>r.some(c=>(c||'').trim())).map(r=>{
+    const o={}; h.forEach((k,i)=>o[(k||'').trim()]=(r[i]||'')); return o;
   });
 }
 
 async function loadAll(){
-  document.getElementById('sched-loading').style.display='flex';
-  document.getElementById('sched-main').style.display='none';
-  document.getElementById('sched-error').innerHTML='';
+  if(!SHEET_ID||!API_KEY) return;
   try{
     [DM, HTN] = await Promise.all([
-      fetchSheet(DM_SHEET,'A1:F500'),
-      fetchSheet(HTN_SHEET,'A1:J500'),
+      fetchSheet(SHEET_A1C,'A1:F2000'),
+      fetchSheet(SHEET_BP,'A1:L2000'),
     ]);
-    document.getElementById('sched-loading').style.display='none';
-    document.getElementById('sched-main').style.display='flex';
-
-    // Summary subtitles
-    document.getElementById('dm-sub').textContent = DM.length+' patient records';
+    document.getElementById('dm-sub').textContent  = DM.length+' patient records';
     document.getElementById('htn-sub').textContent = HTN.length+' patient records';
-
     renderSchedule();
     renderDiabetesList();
     renderHTNList();
     renderOutcomes();
-  } catch(e){
-    document.getElementById('sched-loading').style.display='none';
-    document.getElementById('sched-error').innerHTML=`<div class="alert" style="background:var(--red-lt);color:var(--red);border:1px solid #f7c1c1;margin-top:16px">${e.message}<br><small>Check Settings — make sure sheet names match exactly.</small></div>`;
-  }
+  } catch(e){ toast('Load error: '+e.message,'err'); }
 }
 
-// ── COLUMN HELPERS ───────────────────────────────────────
-// DM columns: cln enc date | patientsno | med problem desc | lab value | At goal? | Patient ID
-function dmDate(r){ return r['cln enc date']||r['Cln Enc Date']||r['CLN ENC DATE']||''; }
-function dmPtId(r){ return r['Patient ID']||r['patient id']||r['patientid']||r['PatientID']||''; }
-function dmDx(r){ return r['med problem desc']||r['Med Problem Desc']||''; }
-function dmA1C(r){ return r['lab value']||r['Lab Value']||''; }
-function dmGoal(r){ return r['At goal?']||r['at goal?']||r['At Goal?']||''; }
-
-// HTN columns: cln enc date | patientsno | med problem desc | patientid | Enc BP | SYSTOLIC | DISATOLIC | CLASSIFICATION | CONTROLLED? | CRISIS?
-function htnDate(r){ return r['cln enc date']||r['Cln Enc Date']||''; }
-function htnPtId(r){ return r['patientid']||r['Patient ID']||r['PatientID']||''; }
-function htnDx(r){ return r['med problem desc']||r['Med Problem Desc']||''; }
-function htnBP(r){ return r['Enc BP']||r['enc bp']||''; }
-function htnSys(r){ return parseFloat(r['SYSTOLIC']||r['Systolic']||0)||0; }
-function htnDia(r){ return parseFloat(r['DISATOLIC']||r['Diastolic']||r['DIASTOLIC']||0)||0; }
-function htnClass(r){ return r['CLASSIFICATION']||r['Classification']||''; }
-function htnControlled(r){ return (r['CONTROLLED?']||r['Controlled?']||'').toLowerCase(); }
-function htnCrisis(r){ return (r['CRISIS?']||r['Crisis?']||'').toLowerCase(); }
-
-// ── SCHEDULE ─────────────────────────────────────────────
-function getClinicDays(){
-  const days=[]; const now=new Date();
-  const start=new Date(now); start.setDate(now.getDate()-56);
-  const end=new Date(now);   end.setDate(now.getDate()+28);
-  for(let d=new Date(start);d<=end;d.setDate(d.getDate()+1)){
-    const dow=d.getDay();
-    if(dow===2||dow===4) days.push(new Date(d));
-  }
-  return days.reverse();
-}
-function isoDate(d){ return d.toISOString().slice(0,10); }
+// ── DATE HELPERS ──────────────────────────────────────────
 function todayISO(){ return new Date().toISOString().slice(0,10); }
-
+function isoDate(d){ return d.toISOString().slice(0,10); }
 function parseSheetDate(str){
-  // handles M/D/YYYY and YYYY-MM-DD
   if(!str) return '';
   if(str.includes('-')) return str.slice(0,10);
-  const parts=str.split('/');
-  if(parts.length===3){
-    const [m,d,y]=parts;
-    return y+'-'+m.padStart(2,'0')+'-'+d.padStart(2,'0');
-  }
+  const p=str.split('/');
+  if(p.length===3){ const [m,dy,y]=p; return y+'-'+m.padStart(2,'0')+'-'+dy.padStart(2,'0'); }
   return str;
 }
 
-function renderSchedule(){
-  const days=getClinicDays().slice(0,10);
-  const todayStr=todayISO();
+// ── SCHEDULE ──────────────────────────────────────────────
+function getClinicDays(){
+  const days=[], now=new Date();
+  const start=new Date(now); start.setDate(now.getDate()-56);
+  const end=new Date(now);   end.setDate(now.getDate()+28);
+  for(let d=new Date(start);d<=end;d.setDate(d.getDate()+1)){
+    if(d.getDay()===2||d.getDay()===4) days.push(new Date(d));
+  }
+  return days.reverse();
+}
 
-  // Build date -> [{ptId, type, row}] from both sheets
-  const byDate={};
+// Column accessors — new flat sheets
+function bpDate(r){ return r['Date']||''; }
+function bpPtId(r){ return r['Patient ID']||''; }
+function bpReading(r){ return r['BP Reading']||''; }
+function bpSys(r){ return parseFloat(r['Systolic']||0)||0; }
+function bpDia(r){ return parseFloat(r['Diastolic']||0)||0; }
+function bpClass(r){ return r['Classification']||''; }
+function bpControlled(r){ return (r['Controlled']||'').toLowerCase(); }
+function bpCrisis(r){ return (r['Crisis']||'').toLowerCase(); }
+function a1cDate(r){ return r['Date']||''; }
+function a1cPtId(r){ return r['Patient ID']||''; }
+function a1cVal(r){ return r['HbA1c (%)']||''; }
+function a1cGoal(r){ return r['Goal Status']||''; }
+
+function buildByDate(){
+  const bd={};
   DM.forEach(r=>{
-    const iso=parseSheetDate(dmDate(r)); if(!iso) return;
-    if(!byDate[iso]) byDate[iso]=[];
-    const pid=dmPtId(r); if(!pid) return;
-    if(!byDate[iso].find(x=>x.ptId===pid&&x.type==='dm'))
-      byDate[iso].push({ptId:pid,type:'dm',row:r});
+    const iso=parseSheetDate(a1cDate(r)); if(!iso) return;
+    const pid=a1cPtId(r); if(!pid) return;
+    if(!bd[iso]) bd[iso]=[];
+    if(!bd[iso].find(x=>x.ptId===pid&&x.type==='dm')) bd[iso].push({ptId:pid,type:'dm',row:r});
   });
   HTN.forEach(r=>{
-    const iso=parseSheetDate(htnDate(r)); if(!iso) return;
-    if(!byDate[iso]) byDate[iso]=[];
-    const pid=htnPtId(r); if(!pid) return;
-    if(!byDate[iso].find(x=>x.ptId===pid&&x.type==='htn'))
-      byDate[iso].push({ptId:pid,type:'htn',row:r});
+    const iso=parseSheetDate(bpDate(r)); if(!iso) return;
+    const pid=bpPtId(r); if(!pid) return;
+    if(!bd[iso]) bd[iso]=[];
+    if(!bd[iso].find(x=>x.ptId===pid&&x.type==='htn')) bd[iso].push({ptId:pid,type:'htn',row:r});
   });
+  return bd;
+}
 
-  document.getElementById('schedule-days').innerHTML = days.map((day,i)=>{
+function renderSchedule(){
+  const days=getClinicDays();
+  const todayStr=todayISO();
+  const bd=buildByDate();
+
+  let lastWeek='', html='';
+  days.forEach((day,i)=>{
     const iso=isoDate(day);
-    const isToday=iso===todayStr, isPast=iso<todayStr, isFuture=iso>todayStr;
-    const pts=byDate[iso]||[];
-    // dedupe by ptId
+    const isToday=iso===todayStr, isPast=iso<todayStr;
+    const pts=bd[iso]||[];
     const seen=new Set(); const uniq=pts.filter(x=>{ if(seen.has(x.ptId)) return false; seen.add(x.ptId); return true; });
-    const dotCls=isToday?'today':isPast?'past':'future';
-    const countTxt=uniq.length>0?`<span class="bdg ${isPast?'bok':'bnu'}" style="font-size:11px">${uniq.length} pt${uniq.length!==1?'s':''}</span>`:`<span style="font-size:12px;color:var(--ink3)">${isFuture?'Upcoming':'No visits'}</span>`;
+    const isActive=activeDayISO===iso;
 
-    const ptsHTML=uniq.length>0?uniq.map(x=>{
-      const isSel=selSched&&selSched.ptId===x.ptId&&selSched.type===x.type;
-      const badge=x.type==='htn'
-        ?(htnCrisis(x.row).includes('y')||htnCrisis(x.row)==='true'?'<span class="bdg bcr" style="font-size:10px">CRISIS</span>':htnControlled(x.row).includes('uncontrolled')||htnControlled(x.row)==='false'?'<span class="bdg bwn" style="font-size:10px">Uncontrolled</span>':'<span class="bdg bok" style="font-size:10px">Controlled</span>')
-        :(dmGoal(x.row).toLowerCase().includes('above')?'<span class="bdg bwn" style="font-size:10px">Above goal</span>':'<span class="bdg bok" style="font-size:10px">At goal</span>');
-      const typeTag=`<span style="font-size:10px;padding:2px 6px;border-radius:4px;background:${x.type==='htn'?'var(--blue-lt)':'var(--purple-lt)'};color:${x.type==='htn'?'var(--blue)':'var(--purple)'};font-weight:500">${x.type==='htn'?'HTN':'DM'}</span>`;
-      return `<div class="pt-row${isSel?' sel':''}" onclick="selectSched('${x.ptId}','${x.type}',${i})">
-        <div class="av">${x.ptId.toString().slice(-4)}</div>
-        <div style="flex:1;min-width:0"><div class="pid">${x.ptId}</div><div class="pdx">${x.type==='htn'?htnClass(x.row)||htnDx(x.row):dmDx(x.row)}</div></div>
-        <div style="display:flex;gap:6px;align-items:center">${typeTag}${badge}</div>
-      </div>`;
-    }).join(''):`<div class="day-empty">${isFuture?'No patients scheduled yet':'No visits recorded'}</div>`;
+    // week label
+    const ws=new Date(day); ws.setDate(day.getDate()-day.getDay()+1);
+    const wl='Week of '+ws.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+    if(wl!==lastWeek){ html+=`<div class="dp-lbl">${wl}</div>`; lastWeek=wl; }
 
-    return `<div class="clinic-day">
-      <div class="day-header" onclick="toggleDay('day-${i}','chev-${i}')">
-        <div class="day-dot ${dotCls}"></div>
-        <div><span class="day-name">${day.toLocaleDateString('en-US',{weekday:'long'})}</span><span class="day-date"> ${day.toLocaleDateString('en-US',{month:'numeric',day:'numeric',year:'2-digit'})}</span></div>
-        ${isToday?'<span class="day-today-tag">Today</span>':''}
-        <div style="margin-left:auto;display:flex;align-items:center;gap:10px">${countTxt}<span id="chev-${i}" style="color:var(--ink3);font-size:12px">${i===0?'▲':'▼'}</span></div>
+    const cColor=uniq.length>0?(isPast?'var(--teal-dk)':'var(--blue)'):'var(--ink3)';
+    const cBg   =uniq.length>0?(isPast?'var(--teal-lt)':'var(--blue-lt)'):'var(--surface2)';
+
+    html+=`<button class="day-btn${isActive?' active':''}${isToday?' is-today':''}" onclick="selectDay('${iso}')">
+      <div class="db-row1">
+        <span class="db-dow">${day.toLocaleDateString('en-US',{weekday:'short'})}</span>
+        ${isToday?'<span class="db-today">Today</span>':''}
       </div>
-      <div class="day-body${i!==0?' collapsed':''}" id="day-${i}">${ptsHTML}</div>
+      <div class="db-date">${day.toLocaleDateString('en-US',{month:'numeric',day:'numeric',year:'2-digit'})}</div>
+      <div class="db-count" style="color:${cColor};background:${cBg}">
+        ${uniq.length>0?uniq.length+' pt'+(uniq.length!==1?'s':''):'No visits'}
+      </div>
+    </button>`;
+  });
+  document.getElementById('day-picker').innerHTML=html;
+
+  if(activeDayISO) renderSchedListForDay(activeDayISO, bd);
+}
+
+function selectDay(iso){
+  activeDayISO=iso; selSched=null;
+  document.getElementById('sched-detail').innerHTML='<div class="empty" style="padding-top:4rem">Select a patient to view their record</div>';
+  document.getElementById('sched-search').value='';
+  renderSchedule();
+}
+
+function renderSchedList(){
+  if(!activeDayISO) return;
+  renderSchedListForDay(activeDayISO, buildByDate());
+}
+
+function renderSchedListForDay(iso, bd){
+  const day=new Date(iso+'T12:00:00');
+  const q=(document.getElementById('sched-search').value||'').toLowerCase();
+
+  document.getElementById('plp-title').textContent=
+    day.toLocaleDateString('en-US',{weekday:'long',month:'short',day:'numeric'});
+
+  const seen=new Set();
+  let uniq=(bd[iso]||[]).filter(x=>{ if(seen.has(x.ptId)) return false; seen.add(x.ptId); return true; });
+  if(q) uniq=uniq.filter(x=>x.ptId.toString().toLowerCase().includes(q));
+  document.getElementById('plp-count').textContent=uniq.length+' patient'+(uniq.length!==1?'s':'');
+
+  if(!uniq.length){
+    document.getElementById('sched-list').innerHTML='<div class="empty">No patients recorded for this day</div>';
+    return;
+  }
+
+  document.getElementById('sched-list').innerHTML=uniq.map(x=>{
+    const isSel=selSched&&selSched.ptId===x.ptId&&selSched.iso===iso;
+    const isCrisis=x.type==='htn'&&(bpCrisis(x.row).includes('y')||bpCrisis(x.row)==='true');
+    const isCtrl=x.type==='htn'&&bpControlled(x.row).includes('controlled')&&!bpControlled(x.row).includes('uncontrolled');
+    const isAtGoal=x.type==='dm'&&a1cGoal(x.row).toLowerCase().includes('at goal');
+    const typeBdg=x.type==='htn'?`<span class="bdg bteal">HTN</span>`:`<span class="bdg bpurple">DM</span>`;
+    const statusBdg=x.type==='htn'
+      ?(isCrisis?'<span class="bdg bcr">CRISIS</span>':isCtrl?'<span class="bdg bok">Controlled</span>':'<span class="bdg bwn">Uncontrolled</span>')
+      :(isAtGoal?'<span class="bdg bok">At goal</span>':'<span class="bdg bwn">Above goal</span>');
+    return `<div class="pt-row${isSel?' sel':''}" onclick="selectSchedPt('${x.ptId}','${x.type}','${iso}')">
+      <div class="av">${x.ptId.toString().slice(-4)}</div>
+      <div style="flex:1;min-width:0">
+        <div class="pid">${x.ptId}</div>
+        <div class="pdx">${x.type==='htn'?bpClass(x.row)||'—':a1cGoal(x.row)||'—'}</div>
+      </div>
+      <div class="pt-badges">${typeBdg}${statusBdg}</div>
     </div>`;
   }).join('');
 }
 
-function toggleDay(id,chevId){
-  const b=document.getElementById(id); b.classList.toggle('collapsed');
-  document.getElementById(chevId).textContent=b.classList.contains('collapsed')?'▼':'▲';
-}
-
-function selectSched(ptId,type,dayIdx){
-  selSched={ptId,type};
-  renderSchedule();
-  if(type==='dm'){ const rows=DM.filter(r=>dmPtId(r)===ptId); renderDMDetail(ptId,rows,'sched-detail'); }
-  else { const rows=HTN.filter(r=>htnPtId(r)===ptId); renderHTNDetail(ptId,rows,'sched-detail'); }
+function selectSchedPt(ptId, type, iso){
+  selSched={ptId,type,iso};
+  renderSchedListForDay(iso, buildByDate());
+  if(type==='dm') renderDMDetail(ptId, DM.filter(r=>a1cPtId(r)===ptId), 'sched-detail');
+  else            renderHTNDetail(ptId, HTN.filter(r=>bpPtId(r)===ptId), 'sched-detail');
 }
 
 // ── DIABETES LIST ─────────────────────────────────────────
 function renderDiabetesList(){
   const q=(document.getElementById('dm-search').value||'').toLowerCase();
   const f=document.getElementById('dm-filter').value;
-  // group by patient, get latest row
   const ptMap={};
-  DM.forEach(r=>{
-    const pid=dmPtId(r); if(!pid) return;
-    if(!ptMap[pid]||parseSheetDate(dmDate(r))>parseSheetDate(dmDate(ptMap[pid]))) ptMap[pid]=r;
-  });
+  DM.forEach(r=>{ const pid=a1cPtId(r); if(!pid) return; if(!ptMap[pid]||parseSheetDate(a1cDate(r))>parseSheetDate(a1cDate(ptMap[pid]))) ptMap[pid]=r; });
   let pts=Object.values(ptMap);
-  if(q) pts=pts.filter(r=>dmPtId(r).toString().toLowerCase().includes(q)||dmDx(r).toLowerCase().includes(q));
-  if(f==='above') pts=pts.filter(r=>dmGoal(r).toLowerCase().includes('above'));
-  if(f==='at') pts=pts.filter(r=>dmGoal(r).toLowerCase().includes('at goal'));
+  if(q) pts=pts.filter(r=>a1cPtId(r).toString().toLowerCase().includes(q));
+  if(f==='above') pts=pts.filter(r=>a1cGoal(r).toLowerCase().includes('above'));
+  if(f==='at')    pts=pts.filter(r=>a1cGoal(r).toLowerCase().includes('at goal'));
   document.getElementById('dm-count').textContent=pts.length+' patients';
   document.getElementById('dm-list').innerHTML=pts.length?pts.map(r=>{
-    const pid=dmPtId(r); const isAt=dmGoal(r).toLowerCase().includes('at goal');
-    const isSel=selDM===pid;
-    return `<div class="pt-row${isSel?' sel':''}" onclick="clickDM('${pid}')">
+    const pid=a1cPtId(r); const isAt=a1cGoal(r).toLowerCase().includes('at goal');
+    return `<div class="pt-row${selDM===pid?' sel':''}" onclick="clickDM('${pid}')">
       <div class="av">${pid.toString().slice(-4)}</div>
-      <div style="flex:1;min-width:0"><div class="pid">${pid}</div><div class="pdx">${dmDx(r)}</div></div>
-      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:3px">
-        <span class="bdg ${isAt?'bok':'bwn'}" style="font-size:10px">${isAt?'At goal':'Above goal'}</span>
-        <span style="font-size:10px;color:var(--ink3);font-family:'DM Mono',monospace">${dmA1C(r)?'A1C: '+dmA1C(r):''}</span>
+      <div style="flex:1;min-width:0"><div class="pid">${pid}</div><div class="pdx">${a1cGoal(r)||'—'}</div></div>
+      <div class="pt-badges">
+        <span class="bdg ${isAt?'bok':'bwn'}">${isAt?'At goal':'Above goal'}</span>
+        <span style="font-size:10px;color:var(--ink3);font-family:'DM Mono',monospace">${a1cVal(r)?'A1C: '+a1cVal(r)+'%':''}</span>
       </div>
     </div>`;
   }).join(''):'<div class="empty">No patients match</div>';
 }
+function clickDM(pid){ selDM=pid; renderDiabetesList(); renderDMDetail(pid,DM.filter(r=>a1cPtId(r)===pid),'dm-detail'); }
 
-function clickDM(pid){
-  selDM=pid;
-  renderDiabetesList();
-  renderDMDetail(pid,DM.filter(r=>dmPtId(r)===pid),'dm-detail');
-}
-
-function renderDMDetail(pid,rows,containerId){
-  Object.values(charts).forEach(c=>{try{c.destroy()}catch(e){}});charts={};
-  const sorted=rows.sort((a,b)=>parseSheetDate(dmDate(a)).localeCompare(parseSheetDate(dmDate(b))));
+function renderDMDetail(pid, rows, containerId){
+  destroyCharts();
+  const sorted=rows.sort((a,b)=>parseSheetDate(a1cDate(a)).localeCompare(parseSheetDate(a1cDate(b))));
   const latest=sorted[sorted.length-1];
-  const first=sorted[0];
-  const a1cVals=sorted.filter(r=>dmA1C(r)).map(r=>({date:parseSheetDate(dmDate(r)),val:parseFloat(dmA1C(r))}));
-  const latestA1C=a1cVals.length?a1cVals[a1cVals.length-1].val:null;
+  const a1cVals=sorted.filter(r=>a1cVal(r)).map(r=>({date:parseSheetDate(a1cDate(r)),val:parseFloat(a1cVal(r))}));
+  const latA1C=a1cVals.length?a1cVals[a1cVals.length-1].val:null;
   const firstA1C=a1cVals.length?a1cVals[0].val:null;
-  const delta=(latestA1C&&firstA1C&&latestA1C!==firstA1C)?(firstA1C-latestA1C).toFixed(1):null;
-  const isAtGoal=latest&&dmGoal(latest).toLowerCase().includes('at goal');
-  const a1cCls=latestA1C?(latestA1C<7?'g':latestA1C<8?'w':'b'):'';
+  const delta=(latA1C&&firstA1C&&latA1C!==firstA1C)?(firstA1C-latA1C).toFixed(1):null;
+  const isAtGoal=latest&&a1cGoal(latest).toLowerCase().includes('at goal');
+  const a1cCls=latA1C?(latA1C<7?'g':latA1C<8?'w':'b'):'';
 
   document.getElementById(containerId).innerHTML=`
     <div class="dh">
       <div class="dav">${pid.toString().slice(-4)}</div>
-      <div style="flex:1">
-        <div class="did">Patient ${pid}</div>
-        <div class="dsub">${latest?dmDx(latest):''}</div>
-      </div>
+      <div style="flex:1"><div class="did">Patient ${pid}</div><div class="dsub">Diabetes monitoring</div></div>
       <span class="bdg ${isAtGoal?'bok':'bwn'}">${isAtGoal?'At goal':'Above goal'}</span>
     </div>
     <div class="metrics">
-      <div class="met"><div class="ml">Latest A1C</div><div class="mv ${a1cCls}">${latestA1C?latestA1C.toFixed(1)+'%':'—'}</div><div class="ms">${delta?'▼ '+Math.abs(delta)+'% from first visit':'Baseline'}</div></div>
-      <div class="met"><div class="ml">Visits recorded</div><div class="mv">${sorted.length}</div><div class="ms">Last: ${latest?parseSheetDate(dmDate(latest)):'—'}</div></div>
+      <div class="met"><div class="ml">Latest A1C</div><div class="mv ${a1cCls}">${latA1C?latA1C.toFixed(1)+'%':'—'}</div><div class="ms">${delta?'▼ '+Math.abs(delta)+'% from first':'Baseline'}</div></div>
+      <div class="met"><div class="ml">Visits recorded</div><div class="mv">${sorted.length}</div><div class="ms">Last: ${latest?parseSheetDate(a1cDate(latest)):'—'}</div></div>
       <div class="met"><div class="ml">Goal status</div><div class="mv ${isAtGoal?'g':'w'}" style="font-size:18px">${isAtGoal?'At goal':'Above goal'}</div><div class="ms">Most recent visit</div></div>
     </div>
     <div class="card">
       <div class="card-title">A1C trend</div>
-      <div class="leg"><span><span class="ld" style="background:#A85208"></span>HbA1c %</span></div>
-      <div class="cw"><canvas id="a1c-${containerId}" role="img" aria-label="A1C trend">A1C trend</canvas></div>
+      <div class="cw"><canvas id="a1c-${containerId}"></canvas></div>
     </div>
     <div class="card">
       <div class="card-title">Visit history</div>
       <div style="overflow-x:auto"><table class="tbl">
-        <thead><tr><th>Date</th><th>Diagnosis</th><th>A1C</th><th>Goal status</th></tr></thead>
+        <thead><tr><th>Date</th><th>A1C (%)</th><th>Fasting glucose</th><th>Goal status</th><th>Notes</th></tr></thead>
         <tbody>${sorted.map(r=>`<tr>
-          <td style="font-family:'DM Mono',monospace;font-size:12px">${parseSheetDate(dmDate(r))}</td>
-          <td>${dmDx(r)}</td>
-          <td style="font-family:'DM Mono',monospace;font-weight:500">${dmA1C(r)||'—'}</td>
-          <td><span class="bdg ${dmGoal(r).toLowerCase().includes('at goal')?'bok':'bwn'}" style="font-size:10px">${dmGoal(r)||'—'}</span></td>
+          <td style="font-family:'DM Mono',monospace;font-size:12px">${parseSheetDate(a1cDate(r))}</td>
+          <td style="font-family:'DM Mono',monospace;font-weight:500">${a1cVal(r)||'—'}</td>
+          <td style="font-family:'DM Mono',monospace">${r['Fasting Glucose (mg/dL)']||'—'}</td>
+          <td><span class="bdg ${a1cGoal(r).toLowerCase().includes('at goal')?'bok':'bwn'}" style="font-size:10px">${a1cGoal(r)||'—'}</span></td>
+          <td style="font-size:12px;color:var(--ink2)">${r['Notes']||''}</td>
         </tr>`).join('')}</tbody>
       </table></div>
     </div>`;
 
-  if(a1cVals.length){
-    charts['a1c']=new Chart(document.getElementById('a1c-'+containerId),{
-      type:'line',
-      data:{labels:a1cVals.map(v=>v.date.slice(5)),datasets:[{label:'A1C',data:a1cVals.map(v=>v.val),borderColor:'#A85208',backgroundColor:'#A8520818',tension:.4,pointRadius:4,fill:true}]},
-      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
-        scales:{y:{min:4,max:14,ticks:{font:{size:10},color:'#A4A19A'},grid:{color:'rgba(0,0,0,0.04)'}},
-          x:{ticks:{font:{size:10},color:'#A4A19A',autoSkip:false,maxRotation:40},grid:{display:false}}}}
-    });
-  }
+  if(a1cVals.length) charts['a1c']=new Chart(document.getElementById('a1c-'+containerId),{
+    type:'line',
+    data:{labels:a1cVals.map(v=>v.date.slice(5)),datasets:[{label:'A1C',data:a1cVals.map(v=>v.val),borderColor:'#A85208',backgroundColor:'#A8520818',tension:.4,pointRadius:4,fill:true}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{min:4,max:14,ticks:{font:{size:10},color:'#A4A19A'},grid:{color:'rgba(0,0,0,0.04)'}},x:{ticks:{font:{size:10},color:'#A4A19A',autoSkip:true,maxRotation:40},grid:{display:false}}}}
+  });
 }
 
 // ── HTN LIST ──────────────────────────────────────────────
@@ -749,137 +789,113 @@ function renderHTNList(){
   const q=(document.getElementById('htn-search').value||'').toLowerCase();
   const f=document.getElementById('htn-filter').value;
   const ptMap={};
-  HTN.forEach(r=>{
-    const pid=htnPtId(r); if(!pid) return;
-    if(!ptMap[pid]||parseSheetDate(htnDate(r))>parseSheetDate(htnDate(ptMap[pid]))) ptMap[pid]=r;
-  });
+  HTN.forEach(r=>{ const pid=bpPtId(r); if(!pid) return; if(!ptMap[pid]||parseSheetDate(bpDate(r))>parseSheetDate(bpDate(ptMap[pid]))) ptMap[pid]=r; });
   let pts=Object.values(ptMap);
-  if(q) pts=pts.filter(r=>htnPtId(r).toString().toLowerCase().includes(q)||htnClass(r).toLowerCase().includes(q)||htnDx(r).toLowerCase().includes(q));
-  if(f==='uncontrolled') pts=pts.filter(r=>htnControlled(r).includes('uncontrolled')||htnControlled(r)==='false');
-  if(f==='controlled') pts=pts.filter(r=>htnControlled(r).includes('controlled')&&!htnControlled(r).includes('uncontrolled'));
-  if(f==='crisis') pts=pts.filter(r=>htnCrisis(r).includes('y')||htnCrisis(r)==='true');
+  if(q) pts=pts.filter(r=>bpPtId(r).toString().toLowerCase().includes(q)||bpClass(r).toLowerCase().includes(q));
+  if(f==='uncontrolled') pts=pts.filter(r=>bpControlled(r).includes('uncontrolled')||bpControlled(r)==='false');
+  if(f==='controlled')   pts=pts.filter(r=>bpControlled(r).includes('controlled')&&!bpControlled(r).includes('uncontrolled'));
+  if(f==='crisis')       pts=pts.filter(r=>bpCrisis(r).includes('y')||bpCrisis(r)==='true');
   document.getElementById('htn-count').textContent=pts.length+' patients';
   document.getElementById('htn-list').innerHTML=pts.length?pts.map(r=>{
-    const pid=htnPtId(r);
-    const isCrisis=htnCrisis(r).includes('y')||htnCrisis(r)==='true';
-    const isCtrl=htnControlled(r).includes('controlled')&&!htnControlled(r).includes('uncontrolled');
-    const isSel=selHTN===pid;
-    return `<div class="pt-row${isSel?' sel':''}" onclick="clickHTN('${pid}')">
+    const pid=bpPtId(r);
+    const isCrisis=bpCrisis(r).includes('y')||bpCrisis(r)==='true';
+    const isCtrl=bpControlled(r).includes('controlled')&&!bpControlled(r).includes('uncontrolled');
+    return `<div class="pt-row${selHTN===pid?' sel':''}" onclick="clickHTN('${pid}')">
       <div class="av">${pid.toString().slice(-4)}</div>
-      <div style="flex:1;min-width:0"><div class="pid">${pid}</div><div class="pdx">${htnClass(r)||htnDx(r)}</div></div>
-      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:3px">
-        ${isCrisis?'<span class="bdg bcr" style="font-size:10px">CRISIS</span>':isCtrl?'<span class="bdg bok" style="font-size:10px">Controlled</span>':'<span class="bdg bwn" style="font-size:10px">Uncontrolled</span>'}
-        <span style="font-size:10px;color:var(--ink3);font-family:'DM Mono',monospace">${htnBP(r)||''}</span>
+      <div style="flex:1;min-width:0"><div class="pid">${pid}</div><div class="pdx">${bpClass(r)||'—'}</div></div>
+      <div class="pt-badges">
+        ${isCrisis?'<span class="bdg bcr">CRISIS</span>':isCtrl?'<span class="bdg bok">Controlled</span>':'<span class="bdg bwn">Uncontrolled</span>'}
+        <span style="font-size:10px;color:var(--ink3);font-family:'DM Mono',monospace">${bpReading(r)||''}</span>
       </div>
     </div>`;
   }).join(''):'<div class="empty">No patients match</div>';
 }
+function clickHTN(pid){ selHTN=pid; renderHTNList(); renderHTNDetail(pid,HTN.filter(r=>bpPtId(r)===pid),'htn-detail'); }
 
-function clickHTN(pid){
-  selHTN=pid;
-  renderHTNList();
-  renderHTNDetail(pid,HTN.filter(r=>htnPtId(r)===pid),'htn-detail');
-}
-
-function renderHTNDetail(pid,rows,containerId){
-  Object.values(charts).forEach(c=>{try{c.destroy()}catch(e){}});charts={};
-  const sorted=rows.sort((a,b)=>parseSheetDate(htnDate(a)).localeCompare(parseSheetDate(htnDate(b))));
+function renderHTNDetail(pid, rows, containerId){
+  destroyCharts();
+  const sorted=rows.sort((a,b)=>parseSheetDate(bpDate(a)).localeCompare(parseSheetDate(bpDate(b))));
   const latest=sorted[sorted.length-1];
-  const sysVals=sorted.filter(r=>htnSys(r)).map(r=>({date:parseSheetDate(htnDate(r)),sys:htnSys(r),dia:htnDia(r)}));
-  const latestSys=sysVals.length?sysVals[sysVals.length-1].sys:null;
+  const sysVals=sorted.filter(r=>bpSys(r)).map(r=>({date:parseSheetDate(bpDate(r)),sys:bpSys(r),dia:bpDia(r)}));
+  const latSys=sysVals.length?sysVals[sysVals.length-1].sys:null;
   const firstSys=sysVals.length?sysVals[0].sys:null;
-  const delta=(latestSys&&firstSys&&latestSys!==firstSys)?Math.round(firstSys-latestSys):null;
-  const isCrisis=latest&&(htnCrisis(latest).includes('y')||htnCrisis(latest)==='true');
-  const isCtrl=latest&&htnControlled(latest).includes('controlled')&&!htnControlled(latest).includes('uncontrolled');
-  const bpCls=latestSys?(latestSys<130?'g':latestSys<140?'w':'b'):'';
+  const delta=(latSys&&firstSys&&latSys!==firstSys)?Math.round(firstSys-latSys):null;
+  const isCrisis=latest&&(bpCrisis(latest).includes('y')||bpCrisis(latest)==='true');
+  const isCtrl=latest&&bpControlled(latest).includes('controlled')&&!bpControlled(latest).includes('uncontrolled');
+  const bpCls=latSys?(latSys<130?'g':latSys<140?'w':'b'):'';
 
   document.getElementById(containerId).innerHTML=`
     <div class="dh">
       <div class="dav">${pid.toString().slice(-4)}</div>
-      <div style="flex:1">
-        <div class="did">Patient ${pid}</div>
-        <div class="dsub">${latest?htnClass(latest)||htnDx(latest):''}</div>
-      </div>
+      <div style="flex:1"><div class="did">Patient ${pid}</div><div class="dsub">Hypertension monitoring</div></div>
       ${isCrisis?'<span class="bdg bcr">BP Crisis</span>':isCtrl?'<span class="bdg bok">Controlled</span>':'<span class="bdg bwn">Uncontrolled</span>'}
     </div>
     <div class="metrics">
-      <div class="met"><div class="ml">Latest BP</div><div class="mv ${bpCls}">${latest?htnBP(latest)||latestSys+'/'+htnDia(latest):'—'}</div><div class="ms">${delta!==null?(delta>0?'▼ '+delta+' mmHg from first visit':'▲ '+Math.abs(delta)+' mmHg'):'Baseline'}</div></div>
-      <div class="met"><div class="ml">Classification</div><div class="mv" style="font-size:16px;font-weight:400">${latest?htnClass(latest):'—'}</div><div class="ms">Latest visit</div></div>
-      <div class="met"><div class="ml">Visits recorded</div><div class="mv">${sorted.length}</div><div class="ms">Last: ${latest?parseSheetDate(htnDate(latest)):'—'}</div></div>
+      <div class="met"><div class="ml">Latest BP</div><div class="mv ${bpCls}">${latest?bpReading(latest)||latSys+'/'+bpDia(latest):'—'}</div><div class="ms">${delta!==null?(delta>0?'▼ '+delta+' mmHg':'▲ '+Math.abs(delta)+' mmHg'):'Baseline'}</div></div>
+      <div class="met"><div class="ml">Classification</div><div class="mv" style="font-size:16px;font-weight:400">${latest?bpClass(latest):'—'}</div><div class="ms">Latest visit</div></div>
+      <div class="met"><div class="ml">Visits recorded</div><div class="mv">${sorted.length}</div><div class="ms">Last: ${latest?parseSheetDate(bpDate(latest)):'—'}</div></div>
     </div>
     <div class="card">
       <div class="card-title">Blood pressure trend</div>
       <div class="leg"><span><span class="ld" style="background:#1A46C8"></span>Systolic</span><span><span class="ld" style="background:#0A6B4E"></span>Diastolic</span></div>
-      <div class="cw"><canvas id="bp-${containerId}" role="img" aria-label="BP trend">BP trend</canvas></div>
+      <div class="cw"><canvas id="bp-${containerId}"></canvas></div>
     </div>
     <div class="card">
       <div class="card-title">Visit history</div>
       <div style="overflow-x:auto"><table class="tbl">
-        <thead><tr><th>Date</th><th>BP</th><th>Systolic</th><th>Diastolic</th><th>Classification</th><th>Controlled</th><th>Crisis</th></tr></thead>
+        <thead><tr><th>Date</th><th>BP</th><th>Sys</th><th>Dia</th><th>HR</th><th>Classification</th><th>Controlled</th><th>Crisis</th></tr></thead>
         <tbody>${sorted.map(r=>`<tr>
-          <td style="font-family:'DM Mono',monospace;font-size:12px">${parseSheetDate(htnDate(r))}</td>
-          <td style="font-family:'DM Mono',monospace;font-weight:500">${htnBP(r)||'—'}</td>
-          <td style="font-family:'DM Mono',monospace">${htnSys(r)||'—'}</td>
-          <td style="font-family:'DM Mono',monospace">${htnDia(r)||'—'}</td>
-          <td>${htnClass(r)||'—'}</td>
-          <td><span class="bdg ${htnControlled(r).includes('uncontrolled')||htnControlled(r)==='false'?'bwn':'bok'}" style="font-size:10px">${r['CONTROLLED?']||r['Controlled?']||'—'}</span></td>
-          <td>${(htnCrisis(r).includes('y')||htnCrisis(r)==='true')?'<span class="bdg bcr" style="font-size:10px">YES</span>':'<span style="font-size:12px;color:var(--ink3)">No</span>'}</td>
+          <td style="font-family:'DM Mono',monospace;font-size:12px">${parseSheetDate(bpDate(r))}</td>
+          <td style="font-family:'DM Mono',monospace;font-weight:500">${bpReading(r)||'—'}</td>
+          <td style="font-family:'DM Mono',monospace">${bpSys(r)||'—'}</td>
+          <td style="font-family:'DM Mono',monospace">${bpDia(r)||'—'}</td>
+          <td style="font-family:'DM Mono',monospace">${r['Heart Rate']||'—'}</td>
+          <td>${bpClass(r)||'—'}</td>
+          <td><span class="bdg ${bpControlled(r).includes('uncontrolled')||bpControlled(r)==='false'?'bwn':'bok'}" style="font-size:10px">${r['Controlled']||'—'}</span></td>
+          <td>${(bpCrisis(r).includes('y')||bpCrisis(r)==='true')?'<span class="bdg bcr" style="font-size:10px">YES</span>':'<span style="font-size:12px;color:var(--ink3)">No</span>'}</td>
         </tr>`).join('')}</tbody>
       </table></div>
     </div>`;
 
-  if(sysVals.length){
-    charts['bp']=new Chart(document.getElementById('bp-'+containerId),{
-      type:'line',
-      data:{labels:sysVals.map(v=>v.date.slice(5)),datasets:[
-        {label:'Systolic',data:sysVals.map(v=>v.sys),borderColor:'#1A46C8',backgroundColor:'#1A46C810',tension:.4,pointRadius:4,fill:false},
-        {label:'Diastolic',data:sysVals.map(v=>v.dia),borderColor:'#0A6B4E',backgroundColor:'#0A6B4E10',tension:.4,pointRadius:4,fill:false,borderDash:[5,3]}
-      ]},
-      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
-        scales:{y:{min:50,max:200,ticks:{font:{size:10},color:'#A4A19A'},grid:{color:'rgba(0,0,0,0.04)'}},
-          x:{ticks:{font:{size:10},color:'#A4A19A',autoSkip:false,maxRotation:40},grid:{display:false}}}}
-    });
-  }
+  if(sysVals.length) charts['bp']=new Chart(document.getElementById('bp-'+containerId),{
+    type:'line',
+    data:{labels:sysVals.map(v=>v.date.slice(5)),datasets:[
+      {label:'Systolic',data:sysVals.map(v=>v.sys),borderColor:'#1A46C8',backgroundColor:'#1A46C810',tension:.4,pointRadius:4,fill:false},
+      {label:'Diastolic',data:sysVals.map(v=>v.dia),borderColor:'#0A6B4E',backgroundColor:'#0A6B4E10',tension:.4,pointRadius:4,fill:false,borderDash:[5,3]}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{min:50,max:200,ticks:{font:{size:10},color:'#A4A19A'},grid:{color:'rgba(0,0,0,0.04)'}},x:{ticks:{font:{size:10},color:'#A4A19A',autoSkip:true,maxRotation:40},grid:{display:false}}}}
+  });
 }
 
-// ── OUTCOMES ─────────────────────────────────────────────
-let outChart=null;
+function destroyCharts(){ Object.values(charts).forEach(c=>{try{c.destroy()}catch(e){}}); charts={}; }
+
+// ── OUTCOMES ──────────────────────────────────────────────
 function renderOutcomes(){
-  // DM: % at goal
+  if(!DM.length&&!HTN.length){ document.getElementById('out-content').innerHTML='<div class="empty">Connect your spreadsheet to see outcomes</div>'; return; }
   const ptMapDM={};
-  DM.forEach(r=>{ const pid=dmPtId(r); if(!pid) return; if(!ptMapDM[pid]||parseSheetDate(dmDate(r))>parseSheetDate(dmDate(ptMapDM[pid]))) ptMapDM[pid]=r; });
-  const dmPts=Object.values(ptMapDM);
-  const dmAtGoal=dmPts.filter(r=>dmGoal(r).toLowerCase().includes('at goal')).length;
-  const dmTotal=dmPts.length;
-
-  // A1C improvement: patients with ≥1% drop
+  DM.forEach(r=>{ const pid=a1cPtId(r); if(!pid) return; if(!ptMapDM[pid]||parseSheetDate(a1cDate(r))>parseSheetDate(a1cDate(ptMapDM[pid]))) ptMapDM[pid]=r; });
+  const dmPts=Object.values(ptMapDM), dmTotal=dmPts.length;
+  const dmAtGoal=dmPts.filter(r=>a1cGoal(r).toLowerCase().includes('at goal')).length;
   const a1cImp=Object.keys(ptMapDM).filter(pid=>{
-    const rows=DM.filter(r=>dmPtId(r)===pid&&dmA1C(r)).sort((a,b)=>parseSheetDate(dmDate(a)).localeCompare(parseSheetDate(dmDate(b))));
-    if(rows.length<2) return false;
-    return parseFloat(dmA1C(rows[0]))-parseFloat(dmA1C(rows[rows.length-1]))>=1;
+    const rows=DM.filter(r=>a1cPtId(r)===pid&&a1cVal(r)).sort((a,b)=>parseSheetDate(a1cDate(a)).localeCompare(parseSheetDate(a1cDate(b))));
+    return rows.length>=2&&parseFloat(a1cVal(rows[0]))-parseFloat(a1cVal(rows[rows.length-1]))>=1;
   }).length;
 
-  // HTN: % controlled
   const ptMapHTN={};
-  HTN.forEach(r=>{ const pid=htnPtId(r); if(!pid) return; if(!ptMapHTN[pid]||parseSheetDate(htnDate(r))>parseSheetDate(htnDate(ptMapHTN[pid]))) ptMapHTN[pid]=r; });
-  const htnPts=Object.values(ptMapHTN);
-  const htnCtrl=htnPts.filter(r=>htnControlled(r).includes('controlled')&&!htnControlled(r).includes('uncontrolled')).length;
-  const htnCrisisCount=htnPts.filter(r=>htnCrisis(r).includes('y')||htnCrisis(r)==='true').length;
-  const htnTotal=htnPts.length;
-
-  // BP improvement: ≥10mmHg systolic drop
+  HTN.forEach(r=>{ const pid=bpPtId(r); if(!pid) return; if(!ptMapHTN[pid]||parseSheetDate(bpDate(r))>parseSheetDate(bpDate(ptMapHTN[pid]))) ptMapHTN[pid]=r; });
+  const htnPts=Object.values(ptMapHTN), htnTotal=htnPts.length;
+  const htnCtrl=htnPts.filter(r=>bpControlled(r).includes('controlled')&&!bpControlled(r).includes('uncontrolled')).length;
+  const htnCrisisCount=htnPts.filter(r=>bpCrisis(r).includes('y')||bpCrisis(r)==='true').length;
   const bpImp=Object.keys(ptMapHTN).filter(pid=>{
-    const rows=HTN.filter(r=>htnPtId(r)===pid&&htnSys(r)).sort((a,b)=>parseSheetDate(htnDate(a)).localeCompare(parseSheetDate(htnDate(b))));
-    if(rows.length<2) return false;
-    return htnSys(rows[0])-htnSys(rows[rows.length-1])>=10;
+    const rows=HTN.filter(r=>bpPtId(r)===pid&&bpSys(r)).sort((a,b)=>parseSheetDate(bpDate(a)).localeCompare(parseSheetDate(bpDate(b))));
+    return rows.length>=2&&bpSys(rows[0])-bpSys(rows[rows.length-1])>=10;
   }).length;
 
-  if(outChart){ try{outChart.destroy()}catch(e){} }
   document.getElementById('out-content').innerHTML=`
     <div style="margin-bottom:20px">
       <div class="card-title" style="margin-bottom:12px">Diabetes outcomes</div>
       <div class="metrics" style="margin-bottom:0">
-        <div class="met"><div class="ml">At goal (latest visit)</div><div class="mv g">${dmTotal?Math.round(dmAtGoal/dmTotal*100):0}%</div><div class="ms">${dmAtGoal} of ${dmTotal} patients</div></div>
+        <div class="met"><div class="ml">At goal (latest)</div><div class="mv g">${dmTotal?Math.round(dmAtGoal/dmTotal*100):0}%</div><div class="ms">${dmAtGoal} of ${dmTotal} patients</div></div>
         <div class="met"><div class="ml">A1C improved ≥1%</div><div class="mv g">${dmTotal?Math.round(a1cImp/dmTotal*100):0}%</div><div class="ms">${a1cImp} of ${dmTotal} patients</div></div>
         <div class="met"><div class="ml">Total DM patients</div><div class="mv">${dmTotal}</div><div class="ms">in database</div></div>
       </div>
@@ -895,14 +911,14 @@ function renderOutcomes(){
     </div>
     <div class="two">
       <div class="card"><div class="card-title">Diabetes goal status</div>
-        <div style="position:relative;height:170px"><canvas id="dm-pie" role="img" aria-label="DM goal status">DM outcomes</canvas></div>
+        <div style="position:relative;height:170px"><canvas id="dm-pie"></canvas></div>
         <div style="display:flex;gap:14px;justify-content:center;margin-top:10px;font-size:12px;color:var(--ink3)">
           <span style="display:flex;align-items:center;gap:5px"><span class="ld" style="background:#0A6B4E"></span>At goal ${dmAtGoal}</span>
-          <span style="display:flex;align-items:center;gap:5px"><span class="ld" style="background:#A85208"></span>Above goal ${dmTotal-dmAtGoal}</span>
+          <span style="display:flex;align-items:center;gap:5px"><span class="ld" style="background:#A85208"></span>Above ${dmTotal-dmAtGoal}</span>
         </div>
       </div>
       <div class="card"><div class="card-title">HTN control status</div>
-        <div style="position:relative;height:170px"><canvas id="htn-pie" role="img" aria-label="HTN control status">HTN outcomes</canvas></div>
+        <div style="position:relative;height:170px"><canvas id="htn-pie"></canvas></div>
         <div style="display:flex;gap:14px;justify-content:center;margin-top:10px;font-size:12px;color:var(--ink3)">
           <span style="display:flex;align-items:center;gap:5px"><span class="ld" style="background:#0A6B4E"></span>Controlled ${htnCtrl}</span>
           <span style="display:flex;align-items:center;gap:5px"><span class="ld" style="background:#A85208"></span>Uncontrolled ${htnTotal-htnCtrl}</span>
@@ -920,65 +936,73 @@ function renderOutcomes(){
   new Chart(document.getElementById('htn-pie'),{type:'doughnut',data:{labels:['Controlled','Uncontrolled'],datasets:[{data:[htnCtrl,htnTotal-htnCtrl],backgroundColor:['#0A6B4E','#A85208'],borderWidth:0}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}}}});
 }
 
-// ── LOG VISIT WRITE ───────────────────────────────────────
-async function appendRow(sheet,values){
+// ── WRITE ─────────────────────────────────────────────────
+async function appendRow(sheetName, values){
   if(!isSignedIn){ toast('Sign in with Google to save data','err'); return false; }
+  if(!SHEET_ID)  { toast('Add your Spreadsheet ID in Settings','err'); return false; }
   try{
-    await gapi.client.sheets.spreadsheets.values.append({
-      spreadsheetId:SHEET_ID, range:sheet+'!A1',
-      valueInputOption:'USER_ENTERED', insertDataOption:'INSERT_ROWS',
-      resource:{values:[values]}
-    });
+    if(!headersWritten[sheetName]){
+      const check=await gapi.client.sheets.spreadsheets.values.get({spreadsheetId:SHEET_ID,range:sheetName+'!A1:A1'});
+      if(!(check.result.values||[])[0]?.[0]){
+        await gapi.client.sheets.spreadsheets.values.update({spreadsheetId:SHEET_ID,range:sheetName+'!A1',valueInputOption:'RAW',resource:{values:[HEADERS[sheetName]]}});
+      }
+      headersWritten[sheetName]=true;
+    }
+    await gapi.client.sheets.spreadsheets.values.append({spreadsheetId:SHEET_ID,range:sheetName+'!A1',valueInputOption:'USER_ENTERED',insertDataOption:'INSERT_ROWS',resource:{values:[values]}});
     return true;
-  }catch(e){ toast('Save error: '+e.message,'err'); return false; }
+  } catch(e){ toast('Save error: '+e.message,'err'); return false; }
 }
 
 async function submitBP(){
   const pid=document.getElementById('v-ptid').value.trim(), dt=document.getElementById('v-date').value;
   const sys=document.getElementById('v-sys').value, dia=document.getElementById('v-dia').value;
-  if(!pid||!dt||!sys||!dia){ toast('Patient ID, date, systolic and diastolic required','err'); return; }
-  const bp=sys+'/'+dia;
-  const sysDec=parseInt(sys);
-  const cls=sysDec>=180?'Hypertensive Crisis':sysDec>=160?'Stage 2 Hypertension':sysDec>=140?'Stage 2 Hypertension':sysDec>=130?'Stage 1 Hypertension':sysDec>=120?'Elevated':'Normal';
-  const ctrl=sysDec<130?'Controlled':'Uncontrolled';
-  const crisis=sysDec>=180?'Yes':'No';
-  const pno=document.getElementById('v-ptid').value.trim();
-  const ok=await appendRow(HTN_SHEET,[dt,pno,'','',pid,bp,sys,dia,cls,ctrl,crisis]);
-  if(ok){ toast('BP saved!'); clearBP(); loadAll(); }
+  if(!pid||!dt||!sys||!dia){ toast('Patient ID, date, systolic and diastolic are required','err'); return; }
+  const s=parseInt(sys);
+  const cls=s>=180?'Hypertensive Crisis':s>=140?'Stage 2 Hypertension':s>=130?'Stage 1 Hypertension':s>=120?'Elevated':'Normal';
+  const ctrl=s<130?'Controlled':'Uncontrolled', crisis=s>=180?'Yes':'No';
+  const ok=await appendRow(SHEET_BP,[dt,pid,sys,dia,document.getElementById('v-hr').value,document.getElementById('v-wt').value,document.getElementById('v-o2').value,document.getElementById('v-pain').value,sys+'/'+dia,cls,ctrl,crisis]);
+  if(ok){ toast('BP saved ✓'); clearBP(); loadAll(); }
 }
 
 async function submitA1C(){
-  const pid=document.getElementById('v-ptid').value.trim(), dt=document.getElementById('v-date').value;
-  const a1c=document.getElementById('v-a1c').value;
-  if(!pid||!dt||!a1c){ toast('Patient ID, date, and A1C required','err'); return; }
-  const goal=document.getElementById('v-a1c-goal').value;
-  const pno=document.getElementById('v-ptid').value.trim();
-  const ok=await appendRow(DM_SHEET,[dt,pno,'',pid,a1c,goal,pid]);
-  if(ok){ toast('A1C saved!'); clearA1C(); loadAll(); }
+  const pid=document.getElementById('v-ptid').value.trim(), dt=document.getElementById('v-date').value, a1c=document.getElementById('v-a1c').value;
+  if(!pid||!dt||!a1c){ toast('Patient ID, date, and A1C are required','err'); return; }
+  const ok=await appendRow(SHEET_A1C,[dt,pid,a1c,document.getElementById('v-glucose').value,document.getElementById('v-a1c-goal').value,document.getElementById('v-a1c-notes').value]);
+  if(ok){ toast('A1C saved ✓'); clearA1C(); loadAll(); }
 }
 
 async function submitLabs(){
   const pid=document.getElementById('v-ptid').value.trim(), dt=document.getElementById('v-date').value;
-  if(!pid||!dt){ toast('Patient ID and date required','err'); return; }
+  if(!pid||!dt){ toast('Patient ID and date are required','err'); return; }
   let saved=0;
   for(const el of document.querySelectorAll('.lab-row-item')){
     const name=el.querySelector('.lr-name').value.trim(), val=el.querySelector('.lr-val').value.trim();
     if(!name||!val) continue;
     const lo=el.querySelector('.lr-low').value, hi=el.querySelector('.lr-high').value;
     const flag=(lo&&hi)?(parseFloat(val)<parseFloat(lo)||parseFloat(val)>parseFloat(hi)?'ABNORMAL':'Normal'):'';
-    const ok=await appendRow(DM_SHEET,[dt,'','',pid,val,flag,pid]);
+    const ok=await appendRow(SHEET_LABS,[dt,pid,'Lab',name,val,el.querySelector('.lr-unit').value,el.querySelector('.lr-cat').value,'',lo,hi,flag]);
     if(ok) saved++;
   }
-  if(saved){ toast(saved+' result(s) saved!'); document.getElementById('lab-rows').innerHTML=''; addLabRow(); loadAll(); }
+  if(saved){ toast(saved+' lab result(s) saved ✓'); document.getElementById('lab-rows').innerHTML=''; addLabRow(); loadAll(); }
   else toast('No valid rows to save','err');
 }
 
 async function submitMeds(){
-  toast('Medication logging — connect a medications sheet to enable writing','err');
+  const pid=document.getElementById('v-ptid').value.trim(), dt=document.getElementById('v-date').value;
+  if(!pid||!dt){ toast('Patient ID and date are required','err'); return; }
+  let saved=0;
+  for(const el of document.querySelectorAll('.med-row-item')){
+    const name=el.querySelector('.mr-name').value.trim();
+    if(!name) continue;
+    const ok=await appendRow(SHEET_LABS,[dt,pid,'Medication',name,el.querySelector('.mr-dose').value,el.querySelector('.mr-unit').value,el.querySelector('.mr-freq').value,el.querySelector('.mr-route').value,'','','']);
+    if(ok) saved++;
+  }
+  if(saved){ toast(saved+' medication(s) saved ✓'); document.getElementById('med-rows').innerHTML=''; addMedRow(); loadAll(); }
+  else toast('No valid rows to save','err');
 }
 
-function clearBP(){ ['v-sys','v-dia','v-hr','v-wt','v-o2','v-pain'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';}); }
-function clearA1C(){ ['v-a1c','v-glucose','v-a1c-notes'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';}); }
+function clearBP(){ ['v-sys','v-dia','v-hr','v-wt','v-o2','v-pain'].forEach(id=>{ const e=document.getElementById(id); if(e) e.value=''; }); }
+function clearA1C(){ ['v-a1c','v-glucose','v-a1c-notes'].forEach(id=>{ const e=document.getElementById(id); if(e) e.value=''; }); }
 
 function addLabRow(){
   const d=document.createElement('div'); d.className='lab-row-item';
@@ -1007,11 +1031,9 @@ function addMedRow(){
 function switchLogTab(id,btn){
   document.querySelectorAll('.log-tab').forEach(b=>b.classList.remove('on'));
   document.querySelectorAll('.log-panel').forEach(p=>p.classList.remove('on'));
-  btn.classList.add('on');
-  document.getElementById('panel-'+id).classList.add('on');
+  btn.classList.add('on'); document.getElementById('panel-'+id).classList.add('on');
 }
 
-// ── NAV ───────────────────────────────────────────────────
 function showTab(id,btn){
   document.querySelectorAll('.sec').forEach(s=>s.classList.remove('on'));
   document.querySelectorAll('.ni').forEach(b=>b.classList.remove('on'));
@@ -1020,13 +1042,13 @@ function showTab(id,btn){
 }
 
 function saveSettings(){
-  SHEET_ID=document.getElementById('cfg-sid').value.trim();
-  API_KEY=document.getElementById('cfg-key').value.trim();
-  CLIENT_ID=document.getElementById('cfg-client').value.trim();
-  DM_SHEET=document.getElementById('cfg-dm-sheet').value.trim();
-  HTN_SHEET=document.getElementById('cfg-htn-sheet').value.trim();
+  SHEET_ID  =document.getElementById('cfg-sid').value.trim();
+  API_KEY   =document.getElementById('cfg-key').value.trim();
+  CLIENT_ID =document.getElementById('cfg-client').value.trim();
+  headersWritten={};
   if(CLIENT_ID) initTC();
-  toast('Saved — reloading…'); loadAll();
+  toast('Settings saved — connecting…');
+  if(SHEET_ID&&API_KEY) loadAll();
 }
 
 function toast(msg,type='ok'){
@@ -1038,9 +1060,12 @@ function toast(msg,type='ok'){
 // ── BOOT ─────────────────────────────────────────────────
 document.getElementById('v-date').value=todayISO();
 addLabRow(); addMedRow();
+renderSchedule();
 </script>
 
 <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
+
 <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
+
 </body>
 </html>
